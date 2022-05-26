@@ -1,0 +1,31 @@
+#home-feature-row {
+    background-image: url(/images/stars-hollow-hero.png);
+    background-repeat: no-repeat;
+    background-position: bottom;
+    background-attachment: fixed;
+    padding: 0 0 4rem 0;
+}
+#home-feature-row .card {
+    width: 40rem;
+    border-right: 1rem solid var(--red);
+}
+#featured-products-header {
+    justify-content: space-between;
+}
+#featured-products-header h2 {
+    font-size: 3rem;
+}
+
+@media  screen and (max-width: 680px) {
+    #home-feature-row {
+        background-image: url(/images/stars-hollow-hero-mobile.png);
+        width: 100vw;
+    }
+}
+
+@media  screen and (min-width: 1200px) {
+    #home-feature-row {
+        background-image: url(/images/stars-hollow-hero-x_wide.png);
+        width: 100vw;
+    }
+}
