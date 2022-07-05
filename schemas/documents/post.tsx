@@ -1,9 +1,9 @@
 import { BookIcon } from '@sanity/icons'
-import { validateSlug } from '../../../utils/validateSlug'
+import { validateSlug } from '../../utils/validateSlug'
 
 export default {
-  name: 'article.editorial',
-  title: 'Article (editorial)',
+  name: 'post',
+  title: 'Post',
   type: 'document',
   icon: BookIcon,
   fields: [
@@ -27,6 +27,13 @@ export default {
       name: 'body',
       title: 'Body',
       type: 'body'
+    },
+    // Room
+    {
+      name: 'room',
+      title: 'Room',
+      type: 'reference',
+      to: [{type: 'room'}]
     },
     // SEO
     {

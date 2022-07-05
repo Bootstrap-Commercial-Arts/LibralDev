@@ -15,14 +15,27 @@
 #featured-products-header {
     justify-content: space-between;
 }
-#featured-products-header h2 {
-    font-size: 3rem;
+#house-rows :nth-child(2n) {
+    flex-direction: row-reverse;
+}
+.house-row {
+    margin-top: -8rem;
+}
+.house-row:first-child {
+    margin-top: 0;
 }
 
 @media  screen and (max-width: 680px) {
     #home-feature-row {
         background-image: url(/images/stars-hollow-hero-mobile.png);
         width: 100vw;
+    }
+    #cards {
+        grid-template-columns: 1fr 1fr;
+    }
+    .house-row {
+        flex-direction: column !important;
+        margin-top: 0;
     }
 }
 

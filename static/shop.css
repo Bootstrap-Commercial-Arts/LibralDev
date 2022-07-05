@@ -1,0 +1,11 @@
+#shop-feature-row {
+    background-image: url(/images/shop-page-hero.png);
+    background-repeat: no-repeat;
+    background-position: bottom;
+    background-attachment: fixed;
+    padding: 0 0 4rem 0;
+}
+#shop-feature-row .card {
+    width: 40rem;
+    border-right: 1rem solid var(--red);
+}

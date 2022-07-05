@@ -1,17 +1,18 @@
-import { InfoOutlineIcon } from '@sanity/icons'
-import { validateSlug } from '../../../utils/validateSlug'
+import { BookIcon } from '@sanity/icons'
+import { validateSlug } from '../../utils/validateSlug'
 
 export default {
-  name: 'article.info',
-  title: 'Article (info)',
+  name: 'room',
+  title: 'Room',
   type: 'document',
-  icon: InfoOutlineIcon,
+  icon: BookIcon,
   fields: [
     // Title
     {
       name: 'title',
       title: 'Title',
       type: 'string',
+      description: 'Title displayed in browser tab / search engine results',
       validation: Rule => Rule.required()
     },
     // Slug
@@ -27,6 +28,14 @@ export default {
       title: 'Body',
       type: 'body'
     },
+    // Image
+    {
+        name: 'image',
+        title: 'Image',
+        type: 'image',
+        options: { hotspot: true },
+        validation: Rule => Rule.required()
+      },
     // SEO
     {
       name: 'seo',

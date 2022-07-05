@@ -14,7 +14,7 @@ var path = require('path');
     });
 
 //static assets    
-app.use(express.static('static'))
+app.use(express.static('static'));
 
 
 // Start server

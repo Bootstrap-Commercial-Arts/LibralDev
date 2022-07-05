@@ -1,7 +1,12 @@
 /* Global Styles */
 :root {
-    --blue: #245E7A;
+    /*--blue: #245E7A;
     --red: #9E3E2C;
+    --darkgray: #333333;
+    --lightgray: #e6e6e6;*/
+    --lightblue: #99c9c8;
+    --blue: #568d94;
+    --red: #e04e2d;
     --darkgray: #333333;
     --lightgray: #e6e6e6;
   }
@@ -73,7 +78,7 @@
 }
 html {
     background-image: url(/images/background.png);
-    background-size: contain;
+    background-size: 100vw;
     background-repeat: no-repeat;
     background-position: top;
     min-height: 100vh;
@@ -85,23 +90,58 @@ h1, h2, h3, h4, h5, h6 {
     font-weight: 900;
     color: var(--darkgray);
 }
+h1 {font-size: 4rem}
+h2 {font-size: 3rem;}
+h3 {font-size: 2.5rem;}
+h4 {font-size: 2rem;}
+h5 {font-size: 2rem; font-weight: 400;}
+h6 {font-size: 1.5rem;}
+
 p, a, input, ::placeholder {
     font-family: montserrat;
     font-size: 1.5rem;
-    color: var(--darkgray)
+    color: var(--darkgray);
+    font-weight: 100;
 }
 a {
     text-decoration: none;
+    color: var(--blue);
+}
+a:hover, button:hover {
+    filter: brightness(.9);
+}
+button {
+    width: 100%;
+    cursor: pointer;
+    border: none;
+    padding: 1rem;
+    font-size: 1.25rem;
+}
+.column img {
+    max-width: 100%;
 }
 
 /* Utility Styles */
+a img {
+    image-rendering: crisp-edges;
+    image-rendering: -webkit-optimize-contrast;
+}
 .bold {
-    font-family: montserrat;
     font-weight: 400;
 }
 .bolder {
-    font-family: montserrat;
     font-weight: 900;
+}
+.italic {
+    font-style: italic;
+}
+.bold-italic {
+    font-weight: 400;
+    font-style: italic;
+}
+.bolder-italic {
+    font-weight: 900;
+    font-style: italic;
 }
 .caps {
     text-transform: uppercase;
@@ -116,11 +156,76 @@ a {
 .shadow {
     filter: drop-shadow(0 .25rem .25rem rgba(0, 0, 0, .5));
 }
+.box-shadow {
+    box-shadow: 0 0.25rem 0.75rem rgb(0 0 0 / 40%);
+}
 .flex {
     display: flex;
     align-items: center;
+    justify-content: center;
 }
-
+.red-button{
+    color: white;
+    display: block;
+    padding: .5rem;
+    background-color: var(--red);
+    text-align: center;
+    font-weight: 400;
+    text-transform: uppercase;
+    margin-top: 1rem;
+}
+.blue-button{
+    color: white;
+    display: block;
+    padding: .5rem;
+    background-color: var(--blue);
+    text-align: center;
+    font-weight: 400;
+    text-transform: uppercase;
+    margin-top: 1rem;
+}
+.gray-button{
+    color: white;
+    display: block;
+    padding: .5rem;
+    background-color: var(--darkgray);
+    text-align: center;
+    font-weight: 400;
+    text-transform: uppercase;
+    margin-top: 1rem;
+}
+.blue-underline {
+    border-bottom: .25rem solid var(--blue);
+    padding-bottom: 1rem;
+    margin-bottom: 1rem;
+}
+.red-underline {
+    border-bottom: .25rem solid var(--red);
+    padding-bottom: 1rem;
+    margin-bottom: 1rem;
+}
+.gray-underline {
+    border-bottom: .25rem solid var(--darkgray);
+    padding-bottom: 1rem;
+    margin-bottom: 1rem;
+}
+.pills {
+    display: flex;
+    flex-wrap: wrap;
+}
+.pill {
+    border: 1px solid var(--darkgray);
+    padding: .125rem .5rem;
+    margin: .25rem .25rem .75rem .25rem ;
+    font-size: 1rem !important;
+    text-transform: uppercase;
+    color: var(--darkgray);
+    align-self: flex-start;
+    background-color: white;
+}
+.pill b {
+    font-weight: 400;
+}
 /* Component Styles */
 .striped-button {
     background-color: #ffffff;
@@ -128,13 +233,18 @@ a {
     border-top: .35rem solid var(--red);
     border-bottom: .35rem solid var(--blue);
     filter: drop-shadow(0 .25rem .25rem rgba(0, 0, 0, .5));
+    color: var(--darkgray);
 }
 .striped-button img {
     width: 3rem;
     margin-right: .5rem;
 }
-.blue-top {
-    border-top: .35rem solid var(--blue);
+.light-blue-stripes {
+    border-top: .35rem solid var(--lightblue);
+    border-bottom: .35rem solid var(--lightblue);
+}
+.card p ~ p {
+    margin-top: 2rem;
 }
 .card {
     background-color: rgba(255, 255, 255, .8);
@@ -153,6 +263,31 @@ a {
 }
 .card h1 {
     font-size: 3rem;
+}
+.product-card {
+    max-width: 20rem;
+    background-color: white;
+    display: flex;
+    padding: 1rem;
+    flex-direction: column;
+    justify-content: space-between;
+}
+.product-card img {
+    width: 100%
+}
+.product-card h4 {
+    font-size: 1.5rem;
+}
+.product-card h6 {
+    font-weight: 100;
+    margin-bottom: .5rem;
+}
+.product-card p {
+    margin-top: .5rem
+
+}
+.product-card a {
+    font-size: 1.25rem;
 }
 
 /* Header Styles */
@@ -173,7 +308,7 @@ a {
     align-items: center;
 }
 #logo img {
-    width:60rem;
+    width:50rem;
     margin: 3rem 0;
 }
 #global-nav {
@@ -182,6 +317,14 @@ a {
     justify-content: space-between;
     padding:2rem;
 }
+.sub-nav {
+    background-color: var(--lightgray);
+    padding: 1rem 0;    
+}
+.slick-slide img {
+    width: 94%;
+}
+
 
 /* Row Styles */
 .red-row {

@@ -98,6 +98,7 @@ export default {
               title: 'Lou Says Text',
               type: 'url'
             }
+            
           ]
         }
       ],
@@ -108,6 +109,13 @@ export default {
       name: 'body',
       title: 'Body',
       type: 'body'
+    },
+    //Common Description
+    {
+      title: 'Common Description & Size Chart',
+      name: 'commonDescription',
+      type: 'reference',
+        to: {type: 'commonDescription'}
     },
     //Lou Says Text
     {
@@ -120,6 +128,26 @@ export default {
       name: 'louLink',
       title: 'Lou Says Link',
       type: 'url'
+    },
+    //Primary Set
+    {
+      title: 'Primary Set or Collection',
+      name: 'primary',
+      type: 'reference',
+        to: [{type: 'set'},
+              {type: 'collection'}]
+
+    },
+    //Related Products
+    {
+      title: 'Related Products',
+      name: 'relatedProducts',
+      type: 'array',
+      of: [{
+        type: 'reference',
+          to: [{type: 'product'}]
+      }],
+      validation: Rule => Rule.required().min(2).max(5).unique()
     },
     // Shopify product
     {

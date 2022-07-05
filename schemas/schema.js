@@ -10,12 +10,13 @@ import annotationLinkInternal from './annotations/linkInternal'
 import annotationProduct from './annotations/product'
 
 // Document types
-import articleEditorial from './documents/article/editorial'
-import articleInfo from './documents/article/info'
+import post from './documents/post'
+import room from './documents/room'
 import collection from './documents/collection'
 import set from './documents/set'
 import product from './documents/product'
 import productVariant from './documents/productVariant'
+import commonDescription from './documents/commonDescription'
 
 // Singleton document types
 import home from './singletons/home'
@@ -35,6 +36,7 @@ import placeholderString from './objects/placeholderString'
 import productOption from './objects/productOption'
 import productWithVariant from './objects/productWithVariant'
 import setObject from './objects/setObject'
+import collectionObject from './objects/collectionObject'
 import proxyString from './objects/proxyString'
 import seoProduct from './objects/seo/product'
 import seoSingleton from './objects/seo/singleton'
@@ -55,12 +57,13 @@ export default createSchema({
     annotationLinkInternal,
     annotationProduct,
     // Document types
-    articleEditorial,
-    articleInfo,
+    post,
+    room,
     collection,
     set,
     product,
     productVariant,
+    commonDescription,
     // Singleton document types
     home,
     settings,
@@ -82,6 +85,7 @@ export default createSchema({
     seoStandard,
     shopifyProduct,
     shopifyProductVariant,
-    setObject
+    setObject,
+    collectionObject
   ])
 })
