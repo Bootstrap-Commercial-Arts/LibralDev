@@ -6,7 +6,7 @@ let sanityPromise;
 
 
 // Shopify API Call
-function shopifyApiCall(query) {
+function shopifyApiCall(payload) {
     return fetch('https://libral-arts.myshopify.com/api/2022-07/graphql.json',
       {
         method: 'POST',
@@ -14,7 +14,7 @@ function shopifyApiCall(query) {
           'Content-Type': 'application/graphql',
           'X-Shopify-Storefront-Access-Token': 'f0d7ab9fde67d917211193ed62ebe101'
         },
-        "body": query
+        body: payload
       })
       .then(response => response.json())
       .then(response => shopifyPromise = response);

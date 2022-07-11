@@ -39,8 +39,6 @@ let shopifyProductData = function(res) {
     // Product Description
     var description = document.getElementById('p-description');
     description.innerHTML = response.data.product.descriptionHtml;
-
-    console.log(imgArr)
     addModalImages(imgArr)
   });
 }
@@ -139,141 +137,79 @@ function findItem(value1, value2, value3) {
     return sanityPromise.result[0].variants.filter(variant => Object.values(variant.store).includes(value1) && Object.values(variant.store).includes(value2) && Object.values(variant.store).includes(value3))} 
 }
 
-
 function addToCart(event){
   // Match selected options to variant ID
   event.preventDefault();
   const formData = new FormData(productOptions);
-  let quantity;
+  quantity = new Number;
   for (const [key, value] of formData.entries()) {
-    //console.log(`${key}: ${value}`);
     if(key != 'quantity') {
       selectedOptions.push(value);}
     else if(key == 'quantity') {
-      quantity = value
+      quantity = parseInt(value)
     }
   }
   let selectedVariant = findItem(selectedOptions[0], selectedOptions[1], selectedOptions[2])
-  let selectedVariantId = selectedVariant[0].store.productId;
+  let selectedVariantId = 'gid://shopify/ProductVariant/' + selectedVariant[0].store.productId;
+  //console.log(selectedVariantId);
+  //console.log(typeof(quantity));
  
-  console.log('variantId: ' + selectedVariantId);
-  console.log('quantity: ' + quantity);
   
 
   // Send data to Shopify
   let cartId = sessionStorage.getItem('cartId');
-  if(cartId == 'undefined'){
-    console.log('cart undefined');
-    const query = 
-    `mutation {
-      cartCreate(
-        input: {
-          lines: [
-            {
-              quantity: ${quantity}
-              merchandiseId: "gid://shopify/ProductVariant/${selectedVariantId}"
-            }
-          ]
-        }
-      ) {
-        cart {
-          id
-          createdAt
-          updatedAt
-          lines(first: 10) {
-            edges {
-              node {
+  if(cartId == 'undefined'){    
+    const query = `
+      mutation cartCreate($input: CartInput) {
+        cartCreate(input: $input) {
+          cart {
+            id
+            lines(first: 10) {
+              nodes {
                 id
+                quantity
                 merchandise {
                   ... on ProductVariant {
                     id
+                    title
                   }
                 }
               }
             }
           }
-          attributes {
-            key
-            value
-          }
-          cost {
-            totalAmount {
-              amount
-              currencyCode
-            }
-            subtotalAmount {
-              amount
-              currencyCode
-            }
-            totalTaxAmount {
-              amount
-              currencyCode
-            }
-            totalDutyAmount {
-              amount
-              currencyCode
-            }
-          }
         }
       }
-    }`;
-    shopifyApiCall(query).then(response => { 
-      console.log(response)
-      sessionStorage.setItem('cartId', response.data.cartId);
-    });
-  } else {
-    console.log('cartId: ' + cartId)
-    query = `mutation {
-      cartLinesAdd(
-        cartId: ${cartId}
-        lines: [
-          {
-            quantity: ${quantity}
-            merchandiseId: "gid://shopify/ProductVariant/${selectedVariantId}"
-          }
-        ]
-      )
-      cart { 
-        id
-        createdAt
-        updatedAt
-        lines(first: 100) {
-          edges {
-            node {
-              id
-              merchandise {
-                ... on ProductVariant {
-                  id
-                }
-              }
-            }
-          }
-        }
-        attributes {
-          key
-          value
-        }
-        cost {
-          totalAmount {
-            amount
-            currencyCode
-          }
-          subtotalAmount {
-            amount
-            currencyCode
-          }
-          totalTaxAmount {
-            amount
-            currencyCode
-          }
-          totalDutyAmount {
-            amount
-            currencyCode
-          }
-        }
-      }
-    }`
+    `;
+
+const payload = {
+  query: query,
+  variables: {
+    input: {
+      lines: [{ merchandiseId: selectedVariantId, quantity: quantity }]
+    }
   }
 };
+
+    handleCart(payload);
+  } else {
+    console.log('cartId: ' + cartId)
+  }
+};
+
+//Altered Fetch function for addToCart
+async function handleCart(payload) {
+  const data = await fetch(
+    "https://libral-arts.myshopify.com/api/2022-07/graphql.json",
+    {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        "X-Shopify-Storefront-Access-Token": "f0d7ab9fde67d917211193ed62ebe101"
+      },
+      body: JSON.stringify(payload)
+    }
+  ).then((res) => res.json());
+  console.log(data);
+}
 
 optionsForm.addEventListener('submit', addToCart);
