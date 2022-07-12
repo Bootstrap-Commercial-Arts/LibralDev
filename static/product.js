@@ -158,7 +158,7 @@ function addToCart(event){
 
   // Send data to Shopify
   let cartId = sessionStorage.getItem('cartId');
-  if(cartId == 'undefined'){    
+      
     const query = `
       mutation cartCreate($input: CartInput) {
         cartCreate(input: $input) {
@@ -191,9 +191,7 @@ const payload = {
 };
 
     handleCart(payload);
-  } else {
-    console.log('cartId: ' + cartId)
-  }
+  
 };
 
 //Altered Fetch function for addToCart
