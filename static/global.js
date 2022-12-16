@@ -1,9 +1,9 @@
 const setAndProductProjection = `_type == 'set' => {_id, _type, 'image': image.asset->url, title, 'slug': slug.current}, _type == 'product' => {_id, _type, louLink, louText, primary->, 'shopifyId': store.id, 'image': store.previewImageUrl, 'slug': store.slug.current, 'title': store.title, store }`;
-const paramsString = new URLSearchParams(window.location.search);
-const params = Object.fromEntries(paramsString);
+
 let shopifyPromise;
 let sanityPromise;
-
+let libralCart;
+if(sessionStorage.libralCart){libralCart = JSON.parse(sessionStorage.libralCart)};
 
 // Shopify API Call
 function shopifyApiCall(payload) {
@@ -74,8 +74,35 @@ let productAndSetCard = function(result) {
     cards.append(productCard);
 }
 
+// Cart Icon Quantity display
+function cartIconQty() {
+  if(libralCart) {
+    if(document.getElementById("cart-icon-quantity")){
+      var cartQty = document.getElementById("cart-icon-quantity")
+      cartQty.innerHTML = libralCart.lines.edges.length;
+    } else {
+      var cartIcon = document.getElementById('cart-icon');
+      var cartQty = document.createElement('p');
+      cartQty.setAttribute("id", "cart-icon-quantity");
+      cartQty.innerHTML = libralCart.lines.edges.length;
+      cartIcon.append(cartQty);
+    }
+    
+  }
+}
+//cartIconQty();
 
-//Find & Replace Last Instance of Character
+// Search icon
+const searchForm = document.forms.searchBar
+function searchBarSubmit(event){
+  event.preventDefault();
+  const formData = new FormData(searchForm);
+  window.location.href = '/search.html?s=' + formData.get('search')
+
+}
+searchForm.addEventListener('submit', searchBarSubmit);
+
+// Find & Replace Last Instance of Character -- utility function
 function replaceLast(find, replace, string) {
   var lastIndex = string.lastIndexOf(find);
   

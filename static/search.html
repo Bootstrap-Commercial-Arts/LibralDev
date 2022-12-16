@@ -1,0 +1,64 @@
+<!doctype html>
+
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" type="text/css" href="https://honest-utilities.netlify.app/honest.css">
+  <link rel="stylesheet" type="text/css" href="/global.css">
+  <link rel="stylesheet" type="text/css" href="/search.css">
+
+  <title>Libral Arts Search</title>
+</head>
+<body>
+    <div id="main">
+        <header>
+            <div id="header-icons">
+              <a href="cart.html" id="cart-icon" class="shadow">
+                <img src="/images/cart.png" alt="Cart Icon">
+              </a>
+              <img src="/images/search.png" alt="Search Icon" id="search-icon" class="shadow">
+            </div>
+            <div id="search-modal" class="shadow" style="display: none;">
+              <form id="search-bar" name="searchBar">
+                <h3>Looking for something?</h3>
+                <p>Search for products, sets, collections, or House Geek content here.</p>
+                <input id="sb-search-input" placeholder="Enter your search term..." type="search" name="search" id="search">
+                <button id="sb-search-submit" type="submit" alt="search">Search</button>
+              </form></div>
+            <div id="logo">
+              <a href="/" class="shadow">
+                <img src="images/logo.png">
+              </a>
+            </div>
+            <div id="global-nav">
+              <a href="/index.html#house-geek" id="house-geek-button" class="striped-button flex">
+                <img src="/images/cart-dark.png">
+                <div class="right-text">
+                  <p class="bolder caps">Explore the rotating</p><p class="alternates">rooms of HOUSE GEEK</p>
+                </div>
+              </a>
+              <a href="store.html" id="store-button" class="striped-button flex">
+                <img src="/images/home-dark.png">
+                <div class="right-text">
+                  <p class="bolder caps">Browse our souvenirs</p><p class="alternates">fun shirts and swag</p>
+                </div>
+              </a>
+            </div>
+        </header>
+        <div id="results" class="shadow">
+            <form id="static-search-bar" name="staticSearchBar">
+                <h2>Search</h2>
+                <input id="search-input" placeholder="Enter your search term..." type="search" value="" name="search">
+                <button id="search-submit" type="submit" alt="search">Search</button>
+              </form>
+        </div>
+    </div>
+    <script type="text/javascript" src="https://honest-utilities.netlify.app/honest.js"></script>
+    <script type="text/javascript" src="global.js"></script>  
+    <script type="text/javascript" src="search.js"></script>
+    <script>
+        displayToggle('search-icon', 'search-modal', {funcStyle: 'easyHide'});
+    </script>
+  </body>
+  </html>

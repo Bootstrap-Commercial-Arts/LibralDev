@@ -10,21 +10,28 @@
   <link rel="stylesheet" type="text/css" href="/carousel/slick.css">
   <link rel="stylesheet" type="text/css" href="/carousel/slick-theme.css">
 
-  <title>Libral Arts</title>
+  <title>Libral Arts Product</title>
 </head>
 <body>
   <div id="main">
     <header>
         <div id="header-icons">
-          <a href="#" id="cart-icon" class="shadow">
+          <a href="cart.html" id="cart-icon" class="shadow">
             <img src="/images/cart.png" alt="Cart Icon">
           </a>
-          <a href="#" id="search-icon" class="shadow">
-            <img src="/images/search.png" alt="Search Icon">
-          </a>
+          <img src="/images/search.png" alt="Search Icon" id="search-icon" class="shadow">
         </div>
+        <div id="search-modal" class="shadow" style="display: none;">
+          <form id="search-bar" name="searchBar">
+            <h3>Looking for something?</h3>
+            <p>Search for products, sets, collections, or House Geek content here.</p>
+            <input id="sb-search-input" placeholder="Enter your search term..." type="search" value="" name="search" id="search">
+            <button id="sb-search-submit" type="submit" alt="search">Search</button>
+          </form></div>
         <div id="logo">
-          <img src="images/logo.png" class="shadow">
+          <a href="/" class="shadow">
+            <img src="images/logo.png">
+          </a>
         </div>
         <div id="global-nav">
           <a href="/index.html#house-geek" id="house-geek-button" class="striped-button flex">
@@ -136,6 +143,7 @@
     </div>
     <script type="text/javascript" src="global.js"></script>  
     <script type="text/javascript" src="product.js"></script>
+    <script type="text/javascript" src="https://honest-utilities.netlify.app/honest.js"></script>
     <script type="text/javascript" src="https://code.jquery.com/jquery-1.11.0.min.js"></script>
 	<script type="text/javascript" src="https://code.jquery.com/jquery-migrate-1.2.1.min.js"></script>
 	<script type="text/javascript" src="/carousel/slick.min.js"></script>
@@ -171,6 +179,7 @@
             });
         });
         sanityProductData();
+        displayToggle('search-icon', 'search-modal', {funcStyle: 'easyHide'});
     </script>
     <div id="modal-wrap" style="display: none">
       <div id="modal-content">

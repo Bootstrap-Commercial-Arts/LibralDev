@@ -1,3 +1,4 @@
+let cartLine;
 
 let sanityProductData = function() {
     let query = encodeURIComponent(`[store.slug.current == "${params.id}"] {_id, _type, louLink, louText, primary->, 'shopifyId': store.id, 'image': store.previewImageUrl, 'slug': store.slug.current, 'title': store.title, store, commonDescription->, 'variants': store.variants[]->, 'options': store.options}`);
@@ -129,7 +130,9 @@ const optionsForm = document.forms.productOptions;
 let selectedOptions = [];
 
 function findItem(value1, value2, value3) {
-  if(selectedOptions.length == 1){
+  if(selectedOptions.length == 0){
+    return sanityPromise.result[0].variants
+  } else if(selectedOptions.length == 1){
     return sanityPromise.result[0].variants.filter(variant => Object.values(variant.store).includes(value1))
   } else if(selectedOptions.length == 2){
     return sanityPromise.result[0].variants.filter(variant => Object.values(variant.store).includes(value1) && Object.values(variant.store).includes(value2))
@@ -138,7 +141,7 @@ function findItem(value1, value2, value3) {
 }
 
 function addToCart(event){
-  // Match selected options to variant ID
+// Match selected options to variant ID
   event.preventDefault();
   const formData = new FormData(productOptions);
   quantity = new Number;
@@ -150,21 +153,18 @@ function addToCart(event){
     }
   }
   let selectedVariant = findItem(selectedOptions[0], selectedOptions[1], selectedOptions[2])
-  let selectedVariantId = 'gid://shopify/ProductVariant/' + selectedVariant[0].store.productId;
-  //console.log(selectedVariantId);
-  //console.log(typeof(quantity));
- 
+  console.log(selectedVariant)
+  let selectedVariantId = 'gid://shopify/ProductVariant/' + selectedVariant[0].store.id;
   
-
-  // Send data to Shopify
-  let cartId = sessionStorage.getItem('cartId');
-      
+  //Create new cart & add line
+  if(!libralCart) {
+     console.log('new cart') 
     const query = `
       mutation cartCreate($input: CartInput) {
         cartCreate(input: $input) {
           cart {
             id
-            lines(first: 10) {
+            lines(first: 100) {
               nodes {
                 id
                 quantity
@@ -181,21 +181,123 @@ function addToCart(event){
       }
     `;
 
-const payload = {
-  query: query,
-  variables: {
-    input: {
-      lines: [{ merchandiseId: selectedVariantId, quantity: quantity }]
+    const payload = {
+      query: query,
+      variables: {
+        input: {
+          lines: [{ merchandiseId: selectedVariantId, quantity: quantity }]
+        }
+      }
+    };
+
+        handleCart(payload, 'data.data.cartCreate.cart');
+  
+  // If Cart already exists      
+  } else {
+   function generateCartLine() {
+      libralCart.lines.edges.forEach(line => {
+        if(line.node.merchandise.id == selectedVariantId) {
+          cartLine = line
+        }
+      });
+    }
+    generateCartLine();
+    
+    // Add line to cart
+    if(!cartLine) {
+      console.log('add item to existing cart');
+      const query = `
+      mutation cartLinesAdd($cartId: ID!, $lines: [CartLineInput!]!) {
+        cartLinesAdd(cartId: $cartId, lines: $lines) {
+          cart {
+            id
+            lines(first: 100) {
+              edges {
+                node {
+                  id
+                  quantity
+                  merchandise {
+                    ... on ProductVariant {
+                      id
+                    }
+                  }
+                }
+              }
+            }
+          }
+          userErrors {
+            field
+            message
+          }
+        }
+      }
+      `;
+
+      const payload = {
+        query: query,
+        variables: { cartId: libralCart.id, lines: [{merchandiseId: selectedVariantId, quantity: quantity}]}
+      };
+      handleCart(payload, 'data.data.cartLinesAdd.cart');
+    
+    // Update existing line  
+    } else {
+      console.log('previous quantity: ' + cartLine.node.quantity)
+      console.log('adding quantity: ' + quantity)
+      quantity += cartLine.node.quantity;
+      console.log('new quantity ' + quantity);
+      const query = `	mutation cartLinesUpdate($cartId: ID!, $lines: [CartLineUpdateInput!]!) {
+        cartLinesUpdate(cartId: $cartId, lines: $lines) {
+        cart {
+          id
+          lines(first: 10) {
+            edges {
+              node {
+                id
+                quantity
+                merchandise {
+                  ... on ProductVariant {
+                    id
+                  }
+                }
+              }
+            }
+          }
+          cost {
+            totalAmount {
+              amount
+              currencyCode
+            }
+            subtotalAmount {
+              amount
+              currencyCode
+            }
+            totalTaxAmount {
+              amount
+              currencyCode
+            }
+            totalDutyAmount {
+              amount
+              currencyCode
+            }
+          }
+        }
+      }
+    }
+    `;
+    //console.log(`cartId ${libralCart.id}, id: ${cartLine.id}, merchandiseId: ${selectedVariantId}, quantity: ${quantity}`)
+    const payload = {
+      query: query,
+      variables: {
+        cartId: libralCart.id, lines: [{ id: cartLine.node.id, merchandiseId: selectedVariantId, quantity: quantity }]
+        }
+    };
+      handleCart(payload, 'data.data.cartLinesUpdate.cart');
     }
   }
 };
 
-    handleCart(payload);
-  
-};
-
-//Altered Fetch function for addToCart
-async function handleCart(payload) {
+// Altered Fetch function for addToCart
+async function handleCart(payload, saveData) {
   const data = await fetch(
     "https://libral-arts.myshopify.com/api/2022-07/graphql.json",
     {
@@ -207,7 +309,12 @@ async function handleCart(payload) {
       body: JSON.stringify(payload)
     }
   ).then((res) => res.json());
-  console.log(data);
+  // After fetch functions
+  sessionStorage.setItem('libralCart', JSON.stringify(eval(saveData)));
+  libralCart = JSON.parse(sessionStorage.libralCart)
+  cartIconQty();
+  console.log(data)
+  console.log(eval(saveData))
 }
 
 optionsForm.addEventListener('submit', addToCart);

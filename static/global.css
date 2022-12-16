@@ -97,7 +97,7 @@ h4 {font-size: 2rem;}
 h5 {font-size: 2rem; font-weight: 400;}
 h6 {font-size: 1.5rem;}
 
-p, a, input, select, label, ::placeholder {
+p, a, input, select, label, button, ::placeholder {
     font-family: montserrat;
     font-size: 1.5rem;
     color: var(--darkgray);
@@ -173,6 +173,7 @@ a img {
     font-weight: 400;
     text-transform: uppercase;
     margin-top: 1rem;
+    cursor: pointer;
 }
 .blue-button{
     color: white;
@@ -183,6 +184,7 @@ a img {
     font-weight: 400;
     text-transform: uppercase;
     margin-top: 1rem;
+    cursor: pointer;
 }
 .gray-button{
     color: white;
@@ -193,6 +195,7 @@ a img {
     font-weight: 400;
     text-transform: uppercase;
     margin-top: 1rem;
+    cursor: pointer;
 }
 .blue-underline {
     border-bottom: .25rem solid var(--blue);
@@ -300,7 +303,7 @@ a img {
 #header-icons img {
     margin:1rem;
     width: 3rem;
-    height:auto;
+    height:3rem;
 }
 #logo {
     display: flex;
@@ -325,6 +328,66 @@ a img {
     width: 94%;
 }
 
+#cart-icon-quantity {
+    position: relative;
+    top: -40%;
+    left: 70%;
+    background-color: white;
+    border-radius: 50%;
+    width: 2rem;
+    height: 2rem;
+    font-size: 1rem;
+    border: solid 1.5px var(--blue);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-weight: 400;
+}
+
+#search-icon {
+    cursor: pointer;
+}
+
+#search-icon:hover {
+    filter: brightness(.9);
+}
+#search-bar {
+    text-align: center;
+    padding: 5rem;
+}
+
+#sb-search-input {
+	border: 1px solid var(--darkgray);
+	background: #fff;
+	width: 25rem;
+	height: 3rem;
+	margin: 0;
+	padding: 1rem;
+}
+
+#sb-search-submit {
+    margin: 1rem 1rem 1rem 0;
+    width: 6rem;
+    height: 3rem;
+    color: white;
+    background-color: var(--darkgray);
+    font-size: 1rem;
+}
+
+#search-modal {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    width: 50vw;
+    background-color: white;
+    border: 1px solid var(--darkgray);
+    z-index: 100;
+    transform: translate(-50%, -50%);
+}
+
+#search-bar p {
+    margin:2rem;
+}
 
 /* Row Styles */
 .red-row {
