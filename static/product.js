@@ -298,23 +298,29 @@ function addToCart(event){
 
 // Altered Fetch function for addToCart
 async function handleCart(payload, saveData) {
-  const data = await fetch(
-    "https://libral-arts.myshopify.com/api/2022-07/graphql.json",
-    {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-        "X-Shopify-Storefront-Access-Token": "f0d7ab9fde67d917211193ed62ebe101"
-      },
-      body: JSON.stringify(payload)
-    }
-  ).then((res) => res.json());
-  // After fetch functions
-  sessionStorage.setItem('libralCart', JSON.stringify(eval(saveData)));
-  libralCart = JSON.parse(sessionStorage.libralCart)
-  cartIconQty();
-  console.log(data)
-  console.log(eval(saveData))
+  // Error handling - As little or as much code can go in the try block as you want. I'm putting the entire code block in there as an example. Anything that throws an error in the try block will be caught in the catch block.
+  try {
+    const data = await fetch(
+      "https://libral-arts.myshopify.com/api/2022-07/graphql.json",
+      {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          "X-Shopify-Storefront-Access-Token": "f0d7ab9fde67d917211193ed62ebe101"
+        },
+        body: JSON.stringify(payload)
+      }
+    ).then((res) => res.json());
+    // After fetch functions
+    sessionStorage.setItem('libralCart', JSON.stringify(eval(saveData)));
+    libralCart = JSON.parse(sessionStorage.libralCart)
+    cartIconQty();
+    console.log(data)
+    console.log(eval(saveData))
+  } catch (error) {
+    // Logging the error to the console. You can do as little or as much error handling as is needed here.
+    console.log(`An error occurred in handleCart() - ${error}`);
+  }
 }
 
 optionsForm.addEventListener('submit', addToCart);
