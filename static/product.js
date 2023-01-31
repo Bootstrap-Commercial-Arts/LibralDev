@@ -137,14 +137,31 @@ function findItem(value1, value2, value3) {
   } else if(selectedOptions.length == 2){
     return sanityPromise.result[0].variants.filter(variant => Object.values(variant.store).includes(value1) && Object.values(variant.store).includes(value2))
   } else if(selectedOptions.length == 3){
-    return sanityPromise.result[0].variants.filter(variant => Object.values(variant.store).includes(value1) && Object.values(variant.store).includes(value2) && Object.values(variant.store).includes(value3))} 
+    return sanityPromise.result[0].variants.filter(variant => Object.values(variant.store).includes(value1) && Object.values(variant.store).includes(value2) && Object.values(variant.store).includes(value3))}
+  // switch(arguments.length) {
+  //   case 0:
+  //     return sanityPromise.result[0].variants;
+  //     break;
+  //   case 1:
+  //     // do something
+  //     break;
+  //   case 2:
+  //     // do something
+  //     break;
+  //   case 3:
+  //     // do something
+  //     break;
+  //   default:
+  //     // do something
+  // }
 }
 
 function addToCart(event){
 // Match selected options to variant ID
   event.preventDefault();
+  const productOptions = document.forms.productOptions;
   const formData = new FormData(productOptions);
-  quantity = new Number;
+  let quantity = new Number;
   for (const [key, value] of formData.entries()) {
     if(key != 'quantity') {
       selectedOptions.push(value);}
@@ -158,7 +175,7 @@ function addToCart(event){
   
   //Create new cart & add line
   if(!libralCart) {
-     console.log('new cart') 
+    console.log('new cart') 
     const query = `
       mutation cartCreate($input: CartInput) {
         cartCreate(input: $input) {
@@ -311,6 +328,7 @@ async function handleCart(payload, saveData) {
         body: JSON.stringify(payload)
       }
     ).then((res) => res.json());
+    // const jsonData = await data.json();
     // After fetch functions
     sessionStorage.setItem('libralCart', JSON.stringify(eval(saveData)));
     libralCart = JSON.parse(sessionStorage.libralCart)
