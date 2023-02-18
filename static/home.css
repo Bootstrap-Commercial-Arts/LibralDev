@@ -1,9 +1,9 @@
 #home-feature-row {
-    background-image: url(/images/stars-hollow-hero.png);
+    background-image: url(/images/home-hero.png);
     background-repeat: no-repeat;
-    background-position: bottom;
+    background-position: bottom center;
     background-attachment: fixed;
-    padding: 0 0 4rem 0;
+    padding: 0 0 20rem 0;
 }
 #home-feature-row .card {
     width: 40rem;
@@ -12,8 +12,41 @@
 #cards {
     grid-template-columns: 1fr 1fr 1fr 1fr;
 }
+#home-feature-row .card {
+    margin-left: 0;
+}
+#fp-wrapper {
+    background-color: var(--paleblue);
+    background:linear-gradient(var(--paleblue), var(--paleblue) 90%, #ffffff)
+}
+
 #featured-products-header {
-    justify-content: space-between;
+    padding: 0;
+    margin: -13rem 0 -2rem 0;
+}
+#featured-products-header img {
+    width: 100vw;
+}
+#featured-products-row-2 {
+    background-image: url(/images/fp-hero-2.jpg);
+    background-repeat: no-repeat;  
+    min-height: 90rem;
+}
+#fp-text {
+    width: 37rem;
+    position: relative;
+    left: 32rem;
+    top: 52rem;
+}
+#house-geek {
+    background-image: url(/images/hg-ground.png);
+    background-repeat: no-repeat;
+    background-position: bottom;
+    padding-bottom: 9rem;
+    margin-top: -20rem;
+}
+#house-geek p{
+    margin-bottom: 3rem;
 }
 #house-rows :nth-child(2n) {
     flex-direction: row-reverse;
@@ -27,8 +60,14 @@
 
 @media  screen and (max-width: 680px) {
     #home-feature-row {
-        background-image: url(/images/stars-hollow-hero-mobile.png);
+        background-image: url(/images/home-hero-sm.png);
         width: 100vw;
+        min-height: 100vh;
+        background-size: cover;
+    }
+    #featured-products-row-2 {
+        background-image: url(/images/fp-hero-2-sm.jpg);
+        background-size: cover;
     }
     #cards {
         grid-template-columns: 1fr 1fr;
@@ -41,7 +80,11 @@
 
 @media  screen and (min-width: 1200px) {
     #home-feature-row {
-        background-image: url(/images/stars-hollow-hero-x_wide.png);
+        background-image: url(/images/home-hero-xl.png);
         width: 100vw;
     }
+    #featured-products-row-2 {
+        background-image: url(/images/fp-hero-2-xl.jpg);
+        background-size: contain;
+    }      
 }

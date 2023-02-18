@@ -126,7 +126,7 @@ function closeModal() {
 }
 
 // Add product to cart
-const optionsForm = document.forms.productOptions;
+const productOptions = document.forms.productOptions;
 let selectedOptions = [];
 
 function findItem(value1, value2, value3) {
@@ -137,29 +137,14 @@ function findItem(value1, value2, value3) {
   } else if(selectedOptions.length == 2){
     return sanityPromise.result[0].variants.filter(variant => Object.values(variant.store).includes(value1) && Object.values(variant.store).includes(value2))
   } else if(selectedOptions.length == 3){
-    return sanityPromise.result[0].variants.filter(variant => Object.values(variant.store).includes(value1) && Object.values(variant.store).includes(value2) && Object.values(variant.store).includes(value3))}
-  // switch(arguments.length) {
-  //   case 0:
-  //     return sanityPromise.result[0].variants;
-  //     break;
-  //   case 1:
-  //     // do something
-  //     break;
-  //   case 2:
-  //     // do something
-  //     break;
-  //   case 3:
-  //     // do something
-  //     break;
-  //   default:
-  //     // do something
-  // }
+    return sanityPromise.result[0].variants.filter(variant => Object.values(variant.store).includes(value1) && Object.values(variant.store).includes(value2) && Object.values(variant.store).includes(value3))
+  }
 }
 
 function addToCart(event){
 // Match selected options to variant ID
   event.preventDefault();
-  const productOptions = document.forms.productOptions;
+  // const productOptions = document.forms.productOptions;
   const formData = new FormData(productOptions);
   let quantity = new Number;
   for (const [key, value] of formData.entries()) {
@@ -212,8 +197,8 @@ function addToCart(event){
   // If Cart already exists      
   } else {
    function generateCartLine() {
-      libralCart.lines.edges.forEach(line => {
-        if(line.node.merchandise.id == selectedVariantId) {
+      libralCart.lines.nodes.forEach(line => {
+        if(line.merchandise.id == selectedVariantId) {
           cartLine = line
         }
       });
@@ -258,6 +243,7 @@ function addToCart(event){
     
     // Update existing line  
     } else {
+      console.log(cartLine)
       console.log('previous quantity: ' + cartLine.node.quantity)
       console.log('adding quantity: ' + quantity)
       quantity += cartLine.node.quantity;
@@ -341,4 +327,4 @@ async function handleCart(payload, saveData) {
   }
 }
 
-optionsForm.addEventListener('submit', addToCart);
+productOptions.addEventListener('submit', addToCart);

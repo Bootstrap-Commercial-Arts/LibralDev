@@ -52,7 +52,6 @@
             <img class="icon" src="/images/relax.png">
             <h1>COME IN AND STAY FOR A WHILE!</h1>
           </div>
-          <p>LibRAL Arts is an online environment intended to be a familiar space to come in and spend some time.  We are marketers by day, on a mission to use our powers for good–exposing manipulative tactics that have been hijacked from our industry and misused for political gain. The habit today is to skim through sites, only glancing at content before moving on when our goldfish-sized attention spans expire. On this site, content is formatted for leisurely browsing to encourage a different speed of information ingestion–one that encourages meaningful thought.</p>
           <p class="bold-italic">Welcome to LibRAl Arts: an escape from the internet without leaving the comfort of the internet.</p>
         </div>
         <div class="card">
@@ -63,24 +62,34 @@
           <p>LibRAl Arts was created to be a social media alternative, with new rotating content spaces designed to entertain you, while challenging you to think. We invite you to hang out in "House Geek", a rabbit hole of exploration, innovation, and information–and stop by our store, which is full of souvenirs, to remind you of your visit.</p>
         </div>
       </div>
-      <div class="red-row xl-row">
-        <div class="inset-row flex" id="featured-products-header">
-          <h2>Featured Products</h2>
-          <a href="shop.html" class="light-blue-stripes striped-button flex">
-            <img src="/images/cart-dark.png">
-            <p class="bolder caps">Browse Our Store</p>
-          </a>
-        </div>
+      <div class="xl-row" id="featured-products-header">
+        <picture>
+          <source media="(min-width: 1200px)" srcset="/images/fp-hero-xl.png">
+          <source media="(min-width: 680px)" srcset="/images/fp-hero.png">
+          <img src="/images/fp-hero-sm.png" alt="Featured Products">
+        </picture>
       </div>
-      <div class="xl-row light-gray-row">
-        <div id="featured-products"></div>
+      <div id="fp-wrapper">
+        <div class="xl-row">
+          <div id="featured-products"></div>
+        </div>
+        <div class="xl-row" id="featured-products-row-2">
+          <div class="column" id="fp-text">
+            <p>Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. Ut wisi enim ad minim veniam, quis nostrud exerci tation ullamcorper suscipit lobortis nisl ut aliquip ex ea commodo consequat.</p>
+            <a href="shop.html" class="striped-button flex">
+              <img src="/images/cart-dark.png">
+              <p class="bolder caps">Browse Our Store</p>
+            </a>
+          </div>
+        </div>
       </div>
       <div class="flex-row flex" id="house-geek">
-        <div class="column" style="flex:2">
+        <div class="column">
+          <img src="/images/house-geek.png">
+        </div>
+        <div class="column">
           <h2 style="padding-bottom:1rem;">WELCOME TO HOUSE GEEK!</h2>
           <p>Welcome to "House Geek", a land of expression, ideas, struggle, and comedy! Enjoy our rotating spaces set in "House Geek's" rooms, each with their own atmosphere and themed content. The rooms with the most recent posts are featured in "House Geek", but the full collection of rooms awaits those with curious eyes and minds. <a href="#">Learn more about its history here</a>.</p>
-        </div>
-        <div class="column flex">
           <a href="#" class="striped-button alternates" style="text-align:center">HOUSE GEEK archives</a>
         </div>
       </div>

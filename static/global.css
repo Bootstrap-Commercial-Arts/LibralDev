@@ -1,9 +1,6 @@
 /* Global Styles */
 :root {
-    /*--blue: #245E7A;
-    --red: #9E3E2C;
-    --darkgray: #333333;
-    --lightgray: #e6e6e6;*/
+    --paleblue: #e0efee;
     --lightblue: #99c9c8;
     --blue: #568d94;
     --red: #e04e2d;
@@ -397,6 +394,11 @@ a img {
 .light-gray-row {
     background-color: var(--lightgray);
 }
+
+
+
+
+
 
 @media screen and (max-width: 680px) {
     #global-nav p {
