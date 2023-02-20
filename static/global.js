@@ -32,14 +32,18 @@ function sanityApiCall(query) {
 
 // Product and Set Card Creation
 
-let productAndSetCard = function(result) {
-    var productCard = document.createElement("div");
-    productCard.setAttribute("class", "card product-card");
+let productAndSetCard = function(result, destination) {
+    var card = document.createElement("a");
+    card.setAttribute("class", `card ${result._type}-card`);
 
     //Create Image
     var cardImage = document.createElement("img");
     cardImage.src = result.image;
-    productCard.append(cardImage);
+    card.append(cardImage);
+
+  //Create card text div
+    var cardDiv = document.createElement("div");
+    card.append(cardDiv);
 
     //Create Primary Set or Collection Label
     if(result.primary) {
@@ -49,29 +53,25 @@ let productAndSetCard = function(result) {
         cardPrimary.setAttribute("class", "pill")
         cardPrimary.innerHTML = styledPrimary;
         cardPrimary.href = `/${result.primary._type}.html?id=${result.primary.slug.current}`
-        productCard.append(cardPrimary);
+        cardDiv.append(cardPrimary);
     }
 
     //Create Title
     var cardTitle = document.createElement("h4");
     cardTitle.innerHTML = result.title;
-    productCard.append(cardTitle);
+    cardDiv.append(cardTitle);
 
     //Create Minimum Price
     if(result._type == 'product') {
         var cardPrimary = document.createElement("p");
         cardPrimary.innerHTML = '$' + result.store.priceRange.minVariantPrice.toFixed(2);
-        productCard.append(cardPrimary);
+        cardDiv.append(cardPrimary);
     }
 
-    //Create Button
-    var cardButton = document.createElement("a");
-    cardButton.setAttribute("class", "blue-button")
-    cardButton.innerHTML = "Select Options";
-    cardButton.href = `/${result._type}.html?id=${result.slug}`;
-    productCard.append(cardButton); 
+    //Create link
+    card.href = `/${result._type}.html?id=${result.slug}`;
 
-    cards.append(productCard);
+    destination.append(card);
 }
 
 // Cart Icon Quantity display

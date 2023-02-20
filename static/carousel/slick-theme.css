@@ -57,7 +57,7 @@
 .slick-next:focus:before
 {
     opacity: 1;
-    filter: brightness(.2);
+    filter: brightness(.7);
 }
 .slick-prev.slick-disabled:before,
 .slick-next.slick-disabled:before
