@@ -1,3 +1,46 @@
+// Product and Set Card Creation
+
+let productAndSetCard = function(result, destination) {
+    var card = document.createElement("a");
+    card.setAttribute("class", `card ${result._type}-card`);
+
+    //Create Image
+    var cardImage = document.createElement("img");
+    cardImage.src = result.image;
+    card.append(cardImage);
+
+  //Create card text div
+    var cardDiv = document.createElement("div");
+    card.append(cardDiv);
+
+    //Create Primary Set or Collection Label
+    if(result.primary) {
+        var cardPrimary = document.createElement("a");
+        var styledPrimary = result.primary.title.replace("\"", "<b>\"");
+        styledPrimary = replaceLast("\"", "\"</b>", styledPrimary)
+        cardPrimary.setAttribute("class", "pill")
+        cardPrimary.innerHTML = styledPrimary;
+        cardPrimary.href = `/${result.primary._type}.html?id=${result.primary.slug.current}`
+        cardDiv.append(cardPrimary);
+    }
+
+    //Create Title
+    var cardTitle = document.createElement("h4");
+    cardTitle.innerHTML = result.title;
+    cardDiv.append(cardTitle);
+
+    //Create Minimum Price
+    if(result._type == 'product') {
+        var cardPrimary = document.createElement("p");
+        cardPrimary.innerHTML = '$' + result.store.priceRange.minVariantPrice.toFixed(2);
+        cardDiv.append(cardPrimary);
+    }
+
+    //Create link
+    card.href = `/${result._type}.html?id=${result.slug}`;
+
+    destination.append(card);
+}
 
 
 //Get Featured Products for the homepage

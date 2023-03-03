@@ -1,0 +1,62 @@
+#store-feature-row {
+    background-image: url(/images/store-hero.png);
+    background-repeat: no-repeat;
+    padding: 38rem 0 4rem 0;
+    background-size: contain;    
+}
+
+#store-feature-row .card {
+    max-width: 60rem;
+    border-right: 1rem solid var(--red);
+    margin-left: 0;
+    box-shadow: -3px 5px 5px rgba(0, 0, 0, 0.3);
+}
+
+.red-row {
+    background-color: var(--red);
+}
+
+.blue-row {
+    background-color: var(--blue);
+}
+
+.red-row p, .blue-row p, .red-row h2, .blue-row h2 {
+    color: #ffffff;
+}
+
+.collection-row:nth-of-type(even) > .inset-row {
+    flex-direction: row;
+}
+.collection-row:nth-of-type(odd) > .inset-row {
+    flex-direction: row-reverse;
+}
+.collection-row .column:nth-of-type(2) {
+    flex: 2;
+}
+.collection-row {
+    padding: 4rem 0;
+}
+
+.collection-row p {
+    padding: 1rem 0;
+}
+
+.collection-row .bold-italic {
+    padding-bottom: 2rem;
+}
+
+
+
+
+@media screen and (max-width: 680px) {
+    #store-feature-row {
+        background-image: url(/images/store-hero-sm.png);
+        background-size: cover;
+        padding-top: 65rem;
+        margin-top: -10rem;
+    }
+    .inset-row {
+        display: flex;
+        flex-direction: column-reverse !important;
+    }
+}
