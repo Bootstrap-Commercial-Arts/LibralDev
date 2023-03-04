@@ -45,7 +45,9 @@
     padding-bottom: 2rem;
 }
 
-
+.store-card img{
+    max-width: 25rem;
+}
 
 
 @media screen and (max-width: 680px) {

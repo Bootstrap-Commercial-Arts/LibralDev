@@ -1,10 +1,12 @@
 // Store Page Product and Set Card Creation
 let storeSetProductCards = function(result, destinationId) {
     result.products.forEach(product => {
-        let storeCard = document.createElement('div');
+        let storeCard = document.createElement('a');
         storeCard.setAttribute('class', 'store-card');
         storeCard.innerHTML = `
-        <img src="${product.store.previewImageUrl}">
+            <img class="shadow" src="${product.store.previewImageUrl}">
+            <h3>${product.store.title}</h3>
+            
         `
         let destination = document.getElementById(destinationId)
         destination.append(storeCard);

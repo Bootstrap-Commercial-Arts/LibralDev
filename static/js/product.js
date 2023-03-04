@@ -25,7 +25,6 @@ let shopifyProductData = function(res) {
   }`; 
   shopifyApiCall(query)
   .then(response => { 
-    console.log(shopifyPromise)
 
     // Additional Images from Shopify
     var addlImg = document.getElementById('p-addl-img');
@@ -48,7 +47,6 @@ let shopifyProductData = function(res) {
 
 
 function sanityProductPopulate(result) {
-  console.log(sanityPromise);
 
   // Main Product Image
   var mainImage = document.getElementById('main-img');
@@ -141,6 +139,8 @@ function findItem(value1, value2, value3) {
   }
 }
 
+let successMessage;
+
 function addToCart(event){
 // Match selected options to variant ID
   event.preventDefault();
@@ -160,7 +160,8 @@ function addToCart(event){
   
   //Create new cart & add line
   if(!libralCart) {
-    console.log('new cart') 
+    console.log('new cart') ;
+    successMessage = 'Your cart has been started';
     const query = `
       mutation cartCreate($input: CartInput) {
         cartCreate(input: $input) {
@@ -207,7 +208,7 @@ function addToCart(event){
     
     // Add line to cart
     if(!cartLine) {
-      console.log('add item to existing cart');
+      successMessage = 'Item has been added to your cart.';
       const query = `
       mutation cartLinesAdd($cartId: ID!, $lines: [CartLineInput!]!) {
         cartLinesAdd(cartId: $cartId, lines: $lines) {
@@ -243,7 +244,7 @@ function addToCart(event){
     
     // Update existing line  
     } else {
-      console.log(cartLine)
+      successMessage = 'Item quantity has been updated';
       console.log('previous quantity: ' + cartLine.node.quantity)
       console.log('adding quantity: ' + quantity)
       quantity += cartLine.node.quantity;
@@ -321,9 +322,11 @@ async function handleCart(payload, saveData) {
     cartIconQty();
     console.log(data)
     console.log(eval(saveData))
+
+    topBannerStart(success, successMessage);
+
   } catch (error) {
-    // Logging the error to the console. You can do as little or as much error handling as is needed here.
-    console.log(`An error occurred in handleCart() - ${error}`);
+    topBannerStart('error', error);
   }
 }
 

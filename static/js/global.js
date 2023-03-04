@@ -79,3 +79,33 @@ let simpleSetProductCard = function(result, destination) {
   `
   destination.append(simpleCard);
 }
+
+
+// Top Banner Functions
+
+
+let topBannerHide = function(){
+  let main = document.getElementById(main);
+  let topBanner = document.getElementById('top-banner');
+  topBanner.remove();
+}
+
+let topBannerStart = function(state, message) {
+  let main = document.getElementById(main);
+  let topBanner = document.createElement('div');
+    topBanner.setAttribute('id', 'top-banner');
+    topBanner.innerHTML = `
+        <p>${message}</p>
+        
+    `
+    switch(state){
+      case 'success': topBanner.setAttribute('background-color','var(--lightblue)');
+      break;
+      case 'warning': topBanner.setAttribute('background-color','#f2b646');
+      break;
+      case 'error': topBanner.setAttribute('background-color','var(--red)');
+      break;
+    }
+    main.append(topBanner);
+    setTimeout(topBannerHide, 5000);
+}

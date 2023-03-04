@@ -414,7 +414,15 @@ a img {
 }
 
 
-
+/* Top Banner Styles */
+#top-banner {
+    position: absolute;
+    top: 0;
+    left: 10rem;
+    min-height: 2rem;
+    min-width: 30rem;
+    text-align: center;
+}
 
 
 
