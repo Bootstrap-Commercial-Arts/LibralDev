@@ -315,7 +315,6 @@ async function handleCart(payload, saveData) {
         body: JSON.stringify(payload)
       }
     ).then((res) => res.json());
-    // const jsonData = await data.json();
     // After fetch functions
     sessionStorage.setItem('libralCart', JSON.stringify(eval(saveData)));
     libralCart = JSON.parse(sessionStorage.libralCart)

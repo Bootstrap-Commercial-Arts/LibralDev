@@ -1,0 +1,106 @@
+#collection-feature {
+    background-image: url('/images/featured-set-back.png');
+    height: 40rem;
+    width: 100vw;
+    background-size: contain;
+    background-repeat: no-repeat;
+    overflow: hidden;
+}
+
+#posters {
+    width: 50rem;
+    display: flex;
+    margin: 6.5rem 4rem 3rem 18rem;
+}
+
+#posters .poster {
+    width: 14rem;
+    margin: 1rem;
+    text-align: center;
+}
+
+#posters img {
+    width: 100%;
+}
+
+#posters h3 {
+    font-family: montserrat;
+    font-weight: 900;
+    text-transform: uppercase;
+    font-size: 1.75rem;
+}
+
+#collection-feature-front {
+    margin-top: -28.5rem;
+}
+
+#collection-feature .column {
+    position: relative;
+    width: 30rem;
+    margin-left:68rem;
+    margin-top:-34rem;
+}
+
+#collection-feature .column p {
+    font-size: 1.5rem;
+    padding-bottom: 2rem;
+}
+
+#collection-feature .column h2 {
+    font-weight: 400;
+    font-size: 1.75rem;
+}
+
+img {
+    max-width: 100%;
+}
+
+#collection-row {
+    padding: 4rem;
+    background: url("/images/background-overlay.png"), var(--red);
+    background-blend-mode: multiply;
+    background-size: cover;
+    background-position: top center;
+}
+
+#collection-row p {
+    text-align: right;
+    color: #ffffff;
+    padding-top:2rem;
+}
+
+#collection-row img {max-width: 100%;}
+
+
+@media screen and (max-width: 680px) {
+    #collection-feature {
+        background-image: url('/images/featured-set-back-sm.png');
+        height: 65rem;
+    }
+
+    #posters .poster {
+        width: 19.3rem;
+        margin: 1rem;
+        text-align: center;
+    }
+    
+    #posters {
+        width: 100rem;
+        display: flex;
+        margin: 8rem 4rem 3rem -5.5rem;
+    }
+
+    #collection-feature-front {
+        margin-top: -35rem;
+        margin-left: 0.5rem;
+    }
+
+    #collection-feature .column {
+    width: unset;
+    margin: 2rem 0 0 0;
+    }
+
+    #collection-feature .column p {
+        font-size: 2.25rem;
+    }
+}
