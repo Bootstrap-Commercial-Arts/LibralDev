@@ -155,7 +155,7 @@ function addToCart(event){
     }
   }
   let selectedVariant = findItem(selectedOptions[0], selectedOptions[1], selectedOptions[2])
-  console.log(selectedVariant)
+  console.log('selected variant: ', selectedVariant)
   let selectedVariantId = 'gid://shopify/ProductVariant/' + selectedVariant[0].store.id;
   
   //Create new cart & add line
@@ -198,8 +198,10 @@ function addToCart(event){
   // If Cart already exists      
   } else {
    function generateCartLine() {
-      libralCart.lines.nodes.forEach(line => {
-        if(line.merchandise.id == selectedVariantId) {
+    console.log(libralCart)
+      libralCart.lines.edges.forEach(line => {
+        console.log(line)
+        if(line.node.merchandise.id == selectedVariantId) {
           cartLine = line
         }
       });
@@ -245,9 +247,11 @@ function addToCart(event){
     // Update existing line  
     } else {
       successMessage = 'Item quantity has been updated';
-      console.log('previous quantity: ' + cartLine.node.quantity)
+      // console.log(cartLine)
+      // TODO: add check if multiple cart lines exist
+      console.log('previous quantity: ' + cartLine.quantity)
       console.log('adding quantity: ' + quantity)
-      quantity += cartLine.node.quantity;
+      quantity += cartLine.quantity;
       console.log('new quantity ' + quantity);
       const query = `	mutation cartLinesUpdate($cartId: ID!, $lines: [CartLineUpdateInput!]!) {
         cartLinesUpdate(cartId: $cartId, lines: $lines) {
@@ -292,13 +296,14 @@ function addToCart(event){
     const payload = {
       query: query,
       variables: {
-        cartId: libralCart.id, lines: [{ id: cartLine.node.id, merchandiseId: selectedVariantId, quantity: quantity }]
+        cartId: libralCart.id, lines: [{ id: cartLine.id, merchandiseId: selectedVariantId, quantity: quantity }]
         }
     };
       handleCart(payload, 'data.data.cartLinesUpdate.cart');
     }
   }
 };
+console.log(libralCart)
 
 // Altered Fetch function for addToCart
 async function handleCart(payload, saveData) {

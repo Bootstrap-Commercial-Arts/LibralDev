@@ -1,8 +1,9 @@
 //Fill in cart items
 function cartContentsFill() {
     let cartContents = document.getElementById('cart-contents');
+    console.log('libralCart: ', libralCart)
     if(libralCart){
-        libralCart.lines.nodes.forEach(node => {
+        libralCart.lines.edges.forEach(node => {
             console.log(node);
         });
     } else {
