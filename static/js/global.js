@@ -7,7 +7,7 @@ if(sessionStorage.libralCart){libralCart = JSON.parse(sessionStorage.libralCart)
 
 // Shopify API Call
 function shopifyApiCall(payload) {
-    return fetch('https://libral-arts.myshopify.com/api/2022-07/graphql.json',
+    return fetch('https://libral-arts.myshopify.com/api/2023-01/graphql.json',
       {
         method: 'POST',
         headers: {
