@@ -1,6 +1,7 @@
 //Fill in cart items
 function cartContentsFill() {
     let cartContents = document.getElementById('cart-contents');
+    // TODO: when single, should be libralCart.lines.edges
     if(libralCart){
         libralCart.lines.nodes.forEach(node => {
             console.log(node);

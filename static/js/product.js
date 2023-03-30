@@ -198,6 +198,7 @@ function addToCart(event){
   // If Cart already exists      
   } else {
    function generateCartLine() {
+      // TODO: when multiple, should be libralCart.lines.edges
       libralCart.lines.nodes.forEach(line => {
         if(line.merchandise.id == selectedVariantId) {
           cartLine = line
@@ -245,8 +246,10 @@ function addToCart(event){
     // Update existing line  
     } else {
       successMessage = 'Item quantity has been updated';
+      // TODO: when multiple, should be cartLine.quantity
       console.log('previous quantity: ' + cartLine.node.quantity)
       console.log('adding quantity: ' + quantity)
+      // TODO: when multiple, should be cartLine.quantity
       quantity += cartLine.node.quantity;
       console.log('new quantity ' + quantity);
       const query = `	mutation cartLinesUpdate($cartId: ID!, $lines: [CartLineUpdateInput!]!) {
@@ -291,6 +294,7 @@ function addToCart(event){
     //console.log(`cartId ${libralCart.id}, id: ${cartLine.id}, merchandiseId: ${selectedVariantId}, quantity: ${quantity}`)
     const payload = {
       query: query,
+      // TODO: when multiple, should be cartLine.node.id
       variables: {
         cartId: libralCart.id, lines: [{ id: cartLine.node.id, merchandiseId: selectedVariantId, quantity: quantity }]
         }
