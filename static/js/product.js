@@ -123,8 +123,7 @@ function closeModal() {
   modalOverlay.setAttribute('style', 'display:none');
 }
 
-// Add product to cart
-const productOptions = document.forms.productOptions;
+// Add product to cart    <-------------------------------------------------- CART SCRIPT START
 let selectedOptions = [];
 
 function findItem(value1, value2, value3) {
@@ -144,7 +143,8 @@ let successMessage;
 function addToCart(event){
 // Match selected options to variant ID
   event.preventDefault();
-  // const productOptions = document.forms.productOptions;
+  const productOptions = document.forms.productOptions;
+  selectedOptions = [];
   const formData = new FormData(productOptions);
   let quantity = new Number;
   for (const [key, value] of formData.entries()) {
@@ -155,12 +155,11 @@ function addToCart(event){
     }
   }
   let selectedVariant = findItem(selectedOptions[0], selectedOptions[1], selectedOptions[2])
-  console.log(selectedVariant)
   let selectedVariantId = 'gid://shopify/ProductVariant/' + selectedVariant[0].store.id;
   
-  //Create new cart & add line
+
   if(!libralCart) {
-    console.log('new cart') ;
+  // Create new cart & add line
     successMessage = 'Your cart has been started';
     const query = `
       mutation cartCreate($input: CartInput) {
@@ -179,11 +178,28 @@ function addToCart(event){
                 }
               }
             }
+            cost {
+              totalAmount {
+                amount
+                currencyCode
+              }
+              subtotalAmount {
+                amount
+                currencyCode
+              }
+              totalTaxAmount {
+                amount
+                currencyCode
+              }
+              totalDutyAmount {
+                amount
+                currencyCode
+              }
+            }
           }
         }
       }
     `;
-
     const payload = {
       query: query,
       variables: {
@@ -194,18 +210,20 @@ function addToCart(event){
     };
 
         handleCart(payload, 'data.data.cartCreate.cart');
-  
-  // If Cart already exists      
+    
   } else {
-   function generateCartLine() {
-      libralCart.lines.nodes.forEach(line => {
-        if(line.merchandise.id == selectedVariantId) {
-          cartLine = line
+  // If Cart already exists  
+    function generateCartLine() {
+      cartLine = undefined;
+      cartRoot.forEach(line => {
+        if((line.node && line.node.merchandise.id === selectedVariantId) || (line.merchandise && line.merchandise.id === selectedVariantId)) {
+          // console.log(line)
+          cartLine = line;
         }
       });
     }
     generateCartLine();
-    
+    console.log('cart exists')
     // Add line to cart
     if(!cartLine) {
       successMessage = 'Item has been added to your cart.';
@@ -227,6 +245,24 @@ function addToCart(event){
                 }
               }
             }
+            cost {
+              totalAmount {
+                amount
+                currencyCode
+              }
+              subtotalAmount {
+                amount
+                currencyCode
+              }
+              totalTaxAmount {
+                amount
+                currencyCode
+              }
+              totalDutyAmount {
+                amount
+                currencyCode
+              }
+            }
           }
           userErrors {
             field
@@ -235,7 +271,6 @@ function addToCart(event){
         }
       }
       `;
-
       const payload = {
         query: query,
         variables: { cartId: libralCart.id, lines: [{merchandiseId: selectedVariantId, quantity: quantity}]}
@@ -245,65 +280,64 @@ function addToCart(event){
     // Update existing line  
     } else {
       successMessage = 'Item quantity has been updated';
-      console.log('previous quantity: ' + cartLine.node.quantity)
-      console.log('adding quantity: ' + quantity)
-      quantity += cartLine.node.quantity;
-      console.log('new quantity ' + quantity);
       const query = `	mutation cartLinesUpdate($cartId: ID!, $lines: [CartLineUpdateInput!]!) {
         cartLinesUpdate(cartId: $cartId, lines: $lines) {
-        cart {
-          id
-          lines(first: 10) {
-            edges {
-              node {
-                id
-                quantity
-                merchandise {
-                  ... on ProductVariant {
-                    id
+          cart {
+            id
+            lines(first: 100) {
+              edges {
+                node {
+                  id
+                  quantity
+                  merchandise {
+                    ... on ProductVariant {
+                      id
+                    }
                   }
                 }
               }
             }
+            cost {
+              totalAmount {
+                amount
+                currencyCode
+              }
+              subtotalAmount {
+                amount
+                currencyCode
+              }
+              totalTaxAmount {
+                amount
+                currencyCode
+              }
+              totalDutyAmount {
+                amount
+                currencyCode
+              }
+            }
           }
-          cost {
-            totalAmount {
-              amount
-              currencyCode
-            }
-            subtotalAmount {
-              amount
-              currencyCode
-            }
-            totalTaxAmount {
-              amount
-              currencyCode
-            }
-            totalDutyAmount {
-              amount
-              currencyCode
-            }
+          userErrors {
+            field
+            message
           }
         }
       }
     }
     `;
-    //console.log(`cartId ${libralCart.id}, id: ${cartLine.id}, merchandiseId: ${selectedVariantId}, quantity: ${quantity}`)
     const payload = {
       query: query,
       variables: {
-        cartId: libralCart.id, lines: [{ id: cartLine.node.id, merchandiseId: selectedVariantId, quantity: quantity }]
+        cartId: libralCart.id, lines: [{ id: cartRoot.id, merchandiseId: selectedVariantId, quantity: quantity }]
         }
     };
-      handleCart(payload, 'data.data.cartLinesUpdate.cart');
+    handleCart(payload, 'data.data.cartLinesUpdate');
     }
   }
 };
 
 // Altered Fetch function for addToCart
 async function handleCart(payload, saveData) {
-  // Error handling - As little or as much code can go in the try block as you want. I'm putting the entire code block in there as an example. Anything that throws an error in the try block will be caught in the catch block.
-  try {
+    try {
     const data = await fetch(
       "https://libral-arts.myshopify.com/api/2022-07/graphql.json",
       {
@@ -318,15 +352,15 @@ async function handleCart(payload, saveData) {
     // After fetch functions
     sessionStorage.setItem('libralCart', JSON.stringify(eval(saveData)));
     libralCart = JSON.parse(sessionStorage.libralCart)
-    cartIconQty();
     console.log(data)
     console.log(eval(saveData))
-
-    topBannerStart(success, successMessage);
+    topBannerStart('success', successMessage);
 
   } catch (error) {
     topBannerStart('error', error);
   }
+  cartStructureCheck();
+  cartIconQty();
 }
 
 productOptions.addEventListener('submit', addToCart);

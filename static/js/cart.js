@@ -2,7 +2,8 @@
 function cartContentsFill() {
     let cartContents = document.getElementById('cart-contents');
     if(libralCart){
-        libralCart.lines.nodes.forEach(node => {
+        console.log(libralCart)
+        cartRoot.forEach(node => {
             console.log(node);
         });
     } else {

@@ -3,7 +3,26 @@ const setAndProductProjection = `_type == 'set' => {_id, _type, 'image': image.a
 let shopifyPromise;
 let sanityPromise;
 let libralCart;
-if(sessionStorage.libralCart){libralCart = JSON.parse(sessionStorage.libralCart)};
+let cartRoot;
+
+// Cart structure check
+let cartStructureCheck = function(){
+  if(libralCart.lines.edges){
+    cartRoot = libralCart.lines.edges;
+  } else if (libralCart.lines.nodes){
+    cartRoot = libralCart.lines.nodes;
+  } else {
+    topBannerStart('error','There is an error in your cart, please clear your browser\'s cache and try again');
+  }
+};
+
+if(sessionStorage.libralCart){
+  libralCart = JSON.parse(sessionStorage.libralCart);
+  cartStructureCheck();
+};
+
+let main = document.getElementById('main');
+
 
 // Shopify API Call
 function shopifyApiCall(payload) {
@@ -34,12 +53,12 @@ function cartIconQty() {
   if(libralCart) {
     if(document.getElementById("cart-icon-quantity")){
       var cartQty = document.getElementById("cart-icon-quantity")
-      cartQty.innerHTML = libralCart.lines.edges.length;
+      cartQty.innerHTML = cartRoot.length;
     } else {
       var cartIcon = document.getElementById('cart-icon');
       var cartQty = document.createElement('p');
       cartQty.setAttribute("id", "cart-icon-quantity");
-      cartQty.innerHTML = libralCart.lines.edges.length;
+      cartQty.innerHTML = cartRoot.length;
       cartIcon.append(cartQty);
     }
     
@@ -82,30 +101,26 @@ let simpleSetProductCard = function(result, destination) {
 
 
 // Top Banner Functions
-
-
 let topBannerHide = function(){
-  let main = document.getElementById(main);
   let topBanner = document.getElementById('top-banner');
   topBanner.remove();
 }
 
 let topBannerStart = function(state, message) {
-  let main = document.getElementById(main);
   let topBanner = document.createElement('div');
     topBanner.setAttribute('id', 'top-banner');
     topBanner.innerHTML = `
         <p>${message}</p>
-        
-    `
+    `;
+    topBanner.setAttribute('class','shadow')
     switch(state){
-      case 'success': topBanner.setAttribute('background-color','var(--lightblue)');
+      case 'success': topBanner.setAttribute('style','background-color: var(--lightblue);');
       break;
-      case 'warning': topBanner.setAttribute('background-color','#f2b646');
+      case 'warning': topBanner.setAttribute('style','background-color: #f2b646;');
       break;
-      case 'error': topBanner.setAttribute('background-color','var(--red)');
+      case 'error': topBanner.setAttribute('style','background-color: var(--red);');
       break;
     }
     main.append(topBanner);
-    setTimeout(topBannerHide, 5000);
+    setTimeout(topBannerHide, 10000);
 }

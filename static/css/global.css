@@ -416,12 +416,15 @@ a img {
 
 /* Top Banner Styles */
 #top-banner {
-    position: absolute;
+    position: fixed;
     top: 0;
-    left: 10rem;
+    left: 50%;
     min-height: 2rem;
     min-width: 30rem;
     text-align: center;
+    transform: translateX(-50%);
+    padding: 1rem;
+    margin: 2rem;
 }
 
 
