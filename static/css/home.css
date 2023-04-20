@@ -73,6 +73,49 @@
     opacity: 1!important;
 }
 
+.product-card, .set-card {
+    width: 20rem;
+    background-color: white;
+    display: flex;
+    padding: 1rem;
+    flex-direction: column;
+    justify-content: space-between;
+    border: .3rem solid var(--darkgray);
+    border-radius: 2rem;
+    filter: drop-shadow(1rem 1rem 0 var(--darkgray));
+}
+.set-card div, .product-card div {
+    background-color: var(--lightgray);
+    margin: -1rem;
+    padding: 1rem;
+    border-bottom-left-radius: 2rem;
+    border-bottom-right-radius: 2rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    height: 6rem;
+    border-top: .25rem solid var(--red);
+}
+.product-card img {
+    width: 100%;
+    z-index: -1;
+    position: relative;
+}
+.product-card h4 {
+    font-size: 1.5rem;
+}
+.product-card h6 {
+    font-weight: 100;
+    margin-bottom: .5rem;
+}
+.product-card p {
+    color: var(--blue);
+
+}
+.product-card a {
+    font-size: 1.25rem;
+}
+
 @media  screen and (max-width: 680px) {
     #home-feature-row {
         background-image: url(/images/home-hero-sm.png);

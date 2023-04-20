@@ -37,6 +37,25 @@ export default {
       options: { hotspot: true },
       validation: Rule => Rule.required()
     },
+    // Featured Set
+    {
+      title: 'Featured Set',
+      name: 'featuredSet',
+      type: 'setObject',
+      validation: Rule => Rule.required()
+    },
+    {
+      title: 'Theme',
+      name: 'theme',
+      type: 'string',
+      options: {
+        list: [
+          { title: 'Red', value: 'red' },
+          { title: 'Blue', value: 'blue' },
+          { title: 'White', value: 'white' },
+        ],
+      },
+    },
     // Products
     {
       name: 'products',

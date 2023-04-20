@@ -3,8 +3,8 @@ let cartLine;
 let sanityProductData = function() {
     let query = encodeURIComponent(`[store.slug.current == "${params.id}"] {_id, _type, louLink, louText, primary->, 'shopifyId': store.id, 'image': store.previewImageUrl, 'slug': store.slug.current, 'title': store.title, store, commonDescription->, 'variants': store.variants[]->, 'options': store.options}`);
     sanityApiCall(query).then(res => {
-        shopifyProductData(res.result[0]);
-        sanityProductPopulate(res.result[0]);
+        shopifyProductData(sanityPromise);
+        sanityProductPopulate(sanityPromise);
     });
     
 }
@@ -23,9 +23,9 @@ let shopifyProductData = function(res) {
         descriptionHtml
       }
   }`; 
-  shopifyApiCall(query)
+  shopifyApiCall2(query)
   .then(response => { 
-
+    console.log(response)
     // Additional Images from Shopify
     var addlImg = document.getElementById('p-addl-img');
     var imgArr = response.data.product.images.edges;
@@ -173,7 +173,6 @@ function addToCart(event){
                 merchandise {
                   ... on ProductVariant {
                     id
-                    title
                   }
                 }
               }
@@ -352,15 +351,12 @@ async function handleCart(payload, saveData) {
     // After fetch functions
     sessionStorage.setItem('libralCart', JSON.stringify(eval(saveData)));
     libralCart = JSON.parse(sessionStorage.libralCart)
-    console.log(data)
-    console.log(eval(saveData))
     topBannerStart('success', successMessage);
-
+    cartStructureCheck();
+    cartIconQty();
   } catch (error) {
     topBannerStart('error', error);
   }
-  cartStructureCheck();
-  cartIconQty();
 }
 
 productOptions.addEventListener('submit', addToCart);

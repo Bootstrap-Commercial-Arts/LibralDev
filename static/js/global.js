@@ -26,26 +26,62 @@ let main = document.getElementById('main');
 
 // Shopify API Call
 function shopifyApiCall(payload) {
-    return fetch('https://libral-arts.myshopify.com/api/2023-01/graphql.json',
+  return fetch('https://libral-arts.myshopify.com/api/2023-01/graphql.json',
+    {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/graphql',
+        'X-Shopify-Storefront-Access-Token': 'f0d7ab9fde67d917211193ed62ebe101'
+      },
+      body: JSON.stringify(payload)
+    })
+  .then(response => shopifyPromise = response);
+}
+
+// **************************************************************** HEY REMY ****************** This is me trying to fix teh shopify API call so that it works everywhere
+  async function shopifyApiCall2(payload, saveData) {
+    try {
+    const data = await fetch(
+      "https://libral-arts.myshopify.com/api/2023-01/graphql.json",
       {
-        method: 'POST',
+        method: "POST",
         headers: {
-          'Content-Type': 'application/graphql',
-          'X-Shopify-Storefront-Access-Token': 'f0d7ab9fde67d917211193ed62ebe101'
+          "Content-Type": "application/json",
+          "X-Shopify-Storefront-Access-Token": "f0d7ab9fde67d917211193ed62ebe101"
         },
-        body: payload
-      })
-      .then(response => response.json())
-      .then(response => shopifyPromise = response);
+        body: JSON.stringify(payload)
+      }
+    ).then((res) => res.json());
+    // After fetch functions
+    sessionStorage.setItem('libralCart', JSON.stringify(eval(saveData)));
+    libralCart = JSON.parse(sessionStorage.libralCart)
+    topBannerStart('success', successMessage);
+    cartStructureCheck();
+    cartIconQty();
+  } catch (error) {
+    topBannerStart('error', error);
   }
+}
+
+
+
+
+
+
 
 
 // Sanity API Call
-
 function sanityApiCall(query) {
   return fetch(`https://umt44hrc.api.sanity.io/v2022-01-01/data/query/production?query=*${query}`)
   .then(res => res.json())
-  .then(res => sanityPromise = res);
+  .then(res => {
+    console.log(res.result)
+    if (res.result.length == 1){
+      sanityPromise = res.result[0]
+    } else {
+      sanityPromise = res.result
+    }
+  });
 }
 
 // Cart Icon Quantity display
@@ -89,14 +125,49 @@ function replaceLast(find, replace, string) {
   return beginString + replace + endString;
 }
 
-// Simple Product and Set Card Creation
-let simpleSetProductCard = function(result, destination) {
-  let simpleCard = document.createElement('div');
-  simpleCard.setAttribute('class', 'simple-card');
-  simpleCard.innerHTML = `
-    ---DO SOMETHING---
-  `
-  destination.append(simpleCard);
+// Product and Set Card Creation
+let setProductCard = function(result, destinationId) {
+  let storeCard = document.createElement('a');
+  switch(result._type){
+    case 'product': 
+      console.log('product');
+      storeCard.setAttribute('href', `/product.html?id=${result.slug}`)
+      if(result.primary){
+      var styledPrimary = result.title.replace("\"", "<b>\"");
+      styledPrimary = replaceLast("\"", "\"</b>", styledPrimary)
+      storeCard.setAttribute('class', 'product-card');
+      storeCard.innerHTML = `
+          <img class="shadow" src="${result.image}">
+          <a class="pill" href="${result.slug}">${styledPrimary}</a>
+          <h3>${result.title}</h3>
+          <p class="price">$${result.price}</p>
+          <a class="blue-button">Select Options</a>
+      `} else {
+          storeCard.innerHTML = `
+          <img class="shadow" src="${result.image}">
+          <h3>${result.title}</h3>
+          <p class="price">$${result.price}</p>
+          <a class="blue-button">Select Options</a>
+      `}
+    break;
+    case 'set':
+      console.log('set');
+      storeCard.setAttribute('href', `/set.html?id=${result.slug}`)
+      var styledTitle = result.title.replace("\"", "<b>\"");
+      styledTitle = replaceLast("\"", "\"</b>", styledTitle)
+      storeCard.setAttribute('class', 'set-card');
+      storeCard.innerHTML = `
+      <img src="${result.image}">
+      <h3>${styledTitle}</h3>
+      <a class="blue-button">View Products</a>
+      `
+    break;
+    default:
+      console.log(result);
+      break;
+  }
+  destination = document.getElementById(destinationId)
+  destination.append(storeCard);
 }
 
 

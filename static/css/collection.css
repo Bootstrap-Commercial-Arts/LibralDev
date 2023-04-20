@@ -14,7 +14,7 @@
 }
 
 #posters .poster {
-    width: 14rem;
+    width: 14.1rem;
     margin: 1rem;
     text-align: center;
 }
@@ -57,14 +57,20 @@ img {
 
 #collection-row {
     padding: 4rem;
-    background: url("/images/background-overlay.png"), var(--red);
     background-blend-mode: multiply;
     background-size: cover;
     background-position: top center;
 }
 
+#products, #sets {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr;
+    grid-auto-rows: auto;
+    grid-gap: 2rem;
+}
+
 #collection-row p {
-    text-align: right;
+    text-align: center;
     color: #ffffff;
     padding-top:2rem;
 }
@@ -102,5 +108,8 @@ img {
 
     #collection-feature .column p {
         font-size: 2.25rem;
+    }
+    #products, #sets {
+        grid-template-columns: 1fr 1fr;
     }
 }
