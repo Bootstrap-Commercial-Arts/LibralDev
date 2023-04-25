@@ -4,6 +4,44 @@ let shopifyPromise;
 let sanityPromise;
 let libralCart;
 let cartRoot;
+let main = document.getElementById('main');
+ 
+
+
+// Shopify API Call
+async function shopifyApiCall(payload) {
+  try {
+    let response = await fetch(
+      "https://libral-arts.myshopify.com/api/2023-01/graphql.json",
+      {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          "X-Shopify-Storefront-Access-Token": "f0d7ab9fde67d917211193ed62ebe101"
+        },
+        body: JSON.stringify(payload)
+      }
+    )
+    shopifyPromise = await response.json()
+    if(shopifyPromise.data) {shopifyPromise = shopifyPromise.data}
+  } catch (error) {
+    topBannerStart('error', error);
+  }
+}
+
+
+// Sanity API Call
+function sanityApiCall(query) {
+  return fetch(`https://umt44hrc.api.sanity.io/v2022-01-01/data/query/production?query=*${query}`)
+  .then(res => res.json())
+  .then(res => {
+    if (res.result.length == 1){
+      sanityPromise = res.result[0]
+    } else {
+      sanityPromise = res.result
+    }
+  });
+}
 
 // Cart structure check
 let cartStructureCheck = function(){
@@ -20,69 +58,6 @@ if(sessionStorage.libralCart){
   libralCart = JSON.parse(sessionStorage.libralCart);
   cartStructureCheck();
 };
-
-let main = document.getElementById('main');
-
-
-// Shopify API Call
-function shopifyApiCall(payload) {
-  return fetch('https://libral-arts.myshopify.com/api/2023-01/graphql.json',
-    {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/graphql',
-        'X-Shopify-Storefront-Access-Token': 'f0d7ab9fde67d917211193ed62ebe101'
-      },
-      body: JSON.stringify(payload)
-    })
-  .then(response => shopifyPromise = response);
-}
-
-// **************************************************************** HEY REMY ****************** This is me trying to fix teh shopify API call so that it works everywhere
-  async function shopifyApiCall2(payload, saveData) {
-    try {
-    const data = await fetch(
-      "https://libral-arts.myshopify.com/api/2023-01/graphql.json",
-      {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-          "X-Shopify-Storefront-Access-Token": "f0d7ab9fde67d917211193ed62ebe101"
-        },
-        body: JSON.stringify(payload)
-      }
-    ).then((res) => res.json());
-    // After fetch functions
-    sessionStorage.setItem('libralCart', JSON.stringify(eval(saveData)));
-    libralCart = JSON.parse(sessionStorage.libralCart)
-    topBannerStart('success', successMessage);
-    cartStructureCheck();
-    cartIconQty();
-  } catch (error) {
-    topBannerStart('error', error);
-  }
-}
-
-
-
-
-
-
-
-
-// Sanity API Call
-function sanityApiCall(query) {
-  return fetch(`https://umt44hrc.api.sanity.io/v2022-01-01/data/query/production?query=*${query}`)
-  .then(res => res.json())
-  .then(res => {
-    console.log(res.result)
-    if (res.result.length == 1){
-      sanityPromise = res.result[0]
-    } else {
-      sanityPromise = res.result
-    }
-  });
-}
 
 // Cart Icon Quantity display
 function cartIconQty() {

@@ -22,25 +22,28 @@ let shopifyProductData = function(res) {
         }
         descriptionHtml
       }
-  }`; 
-  shopifyApiCall2(query)
-  .then(response => { 
-    console.log(response)
+  }`;
+  const payload = {
+    query: query,
+};
+  shopifyPromise = shopifyApiCall(payload).then( payload => {
     // Additional Images from Shopify
-    var addlImg = document.getElementById('p-addl-img');
-    var imgArr = response.data.product.images.edges;
-    imgArr.slice(1).forEach(element => {
-        let img = document.createElement("img");
-        img.setAttribute('src', element.node.originalSrc);
-        img.setAttribute('class', 'shadow product-image');
-        img.setAttribute('onclick', `lightBox(event)`);
-        addlImg.append(img)
-    });
-    // Product Description
-    var description = document.getElementById('p-description');
-    description.innerHTML = response.data.product.descriptionHtml;
-    addModalImages(imgArr)
+  var addlImg = document.getElementById('p-addl-img');
+  var imgArr = shopifyPromise.product.images.edges;
+  imgArr.slice(1).forEach(element => {
+      let img = document.createElement("img");
+      img.setAttribute('src', element.node.originalSrc);
+      img.setAttribute('class', 'shadow product-image');
+      img.setAttribute('onclick', `lightBox(event)`);
+      addlImg.append(img)
   });
+  // Product Description
+  var description = document.getElementById('p-description');
+  description.innerHTML = shopifyPromise.product.descriptionHtml;
+  addModalImages(imgArr);
+});
+
+  
 }
   
 
@@ -128,13 +131,13 @@ let selectedOptions = [];
 
 function findItem(value1, value2, value3) {
   if(selectedOptions.length == 0){
-    return sanityPromise.result[0].variants
+    return sanityPromise.variants
   } else if(selectedOptions.length == 1){
-    return sanityPromise.result[0].variants.filter(variant => Object.values(variant.store).includes(value1))
+    return sanityPromise.variants.filter(variant => Object.values(variant.store).includes(value1))
   } else if(selectedOptions.length == 2){
-    return sanityPromise.result[0].variants.filter(variant => Object.values(variant.store).includes(value1) && Object.values(variant.store).includes(value2))
+    return sanityPromise.variants.filter(variant => Object.values(variant.store).includes(value1) && Object.values(variant.store).includes(value2))
   } else if(selectedOptions.length == 3){
-    return sanityPromise.result[0].variants.filter(variant => Object.values(variant.store).includes(value1) && Object.values(variant.store).includes(value2) && Object.values(variant.store).includes(value3))
+    return sanityPromise.variants.filter(variant => Object.values(variant.store).includes(value1) && Object.values(variant.store).includes(value2) && Object.values(variant.store).includes(value3))
   }
 }
 
@@ -347,7 +350,7 @@ async function handleCart(payload, saveData) {
         },
         body: JSON.stringify(payload)
       }
-    ).then((res) => res.json());
+    ).then((res) => res.json())
     // After fetch functions
     sessionStorage.setItem('libralCart', JSON.stringify(eval(saveData)));
     libralCart = JSON.parse(sessionStorage.libralCart)
@@ -358,5 +361,4 @@ async function handleCart(payload, saveData) {
     topBannerStart('error', error);
   }
 }
-
 productOptions.addEventListener('submit', addToCart);
