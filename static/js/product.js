@@ -355,7 +355,7 @@ async function handleCart(payload, saveData) {
     sessionStorage.setItem('libralCart', JSON.stringify(eval(saveData)));
     libralCart = JSON.parse(sessionStorage.libralCart)
     topBannerStart('success', successMessage);
-    cartStructureCheck();
+    cartStructureCheck(libralCart);
     cartIconQty();
   } catch (error) {
     topBannerStart('error', error);

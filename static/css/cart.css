@@ -28,3 +28,40 @@
     text-align: center;
     padding: 3rem;
 }
+
+.cart-line {
+    height: 6rem;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+
+.cart-line a {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    width: calc(100% - 3rem);
+    background:linear-gradient(90deg, white, rgba(255,255,255,0));
+}
+.cart-line button {
+    width: 2rem;
+    background-color: unset;
+    opacity: .6;
+}
+.cart-line button:hover{
+    background-color: unset;
+    opacity: 1;
+}
+.remove-button {
+    width: 2rem !important;
+    height: 2rem !important;
+    transform: translateX(-50%);
+}
+.cart-line img {
+    height: 5rem;
+    width: 5rem;;
+    margin: .5rem;
+    flex-basis: min-content;
+}
+.cart-line a div {flex-grow: 1;}

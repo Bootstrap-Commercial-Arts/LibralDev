@@ -5,8 +5,20 @@ let sanityPromise;
 let libralCart;
 let cartRoot;
 let main = document.getElementById('main');
- 
 
+
+// Sanity API Call
+function sanityApiCall(query) {
+  return fetch(`https://umt44hrc.api.sanity.io/v2022-01-01/data/query/production?query=*${query}`)
+  .then(res => res.json())
+  .then(res => {
+    if (res.result.length == 1){
+      sanityPromise = res.result[0]
+    } else {
+      sanityPromise = res.result
+    }
+  });
+}
 
 // Shopify API Call
 async function shopifyApiCall(payload) {
@@ -29,26 +41,12 @@ async function shopifyApiCall(payload) {
   }
 }
 
-
-// Sanity API Call
-function sanityApiCall(query) {
-  return fetch(`https://umt44hrc.api.sanity.io/v2022-01-01/data/query/production?query=*${query}`)
-  .then(res => res.json())
-  .then(res => {
-    if (res.result.length == 1){
-      sanityPromise = res.result[0]
-    } else {
-      sanityPromise = res.result
-    }
-  });
-}
-
 // Cart structure check
-let cartStructureCheck = function(){
-  if(libralCart.lines.edges){
-    cartRoot = libralCart.lines.edges;
-  } else if (libralCart.lines.nodes){
-    cartRoot = libralCart.lines.nodes;
+let cartStructureCheck = function(cartObject){
+  if(cartObject.lines.edges){
+    cartRoot = cartObject.lines.edges;
+  } else if (cartObject.lines.nodes){
+    cartRoot = cartObject.lines.nodes;
   } else {
     topBannerStart('error','There is an error in your cart, please clear your browser\'s cache and try again');
   }
@@ -105,7 +103,6 @@ let setProductCard = function(result, destinationId) {
   let storeCard = document.createElement('a');
   switch(result._type){
     case 'product': 
-      console.log('product');
       storeCard.setAttribute('href', `/product.html?id=${result.slug}`)
       if(result.primary){
       var styledPrimary = result.title.replace("\"", "<b>\"");
@@ -126,7 +123,6 @@ let setProductCard = function(result, destinationId) {
       `}
     break;
     case 'set':
-      console.log('set');
       storeCard.setAttribute('href', `/set.html?id=${result.slug}`)
       var styledTitle = result.title.replace("\"", "<b>\"");
       styledTitle = replaceLast("\"", "\"</b>", styledTitle)

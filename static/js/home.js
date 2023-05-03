@@ -49,7 +49,6 @@ var cards = document.getElementById("featured-products");
 let homeFeaturedProducts = function() {
     let query = encodeURIComponent(`[_id in ["c6a2ffaf-1b00-49f4-9469-98c2085045f0", "shopifyProduct-7534191050939", "shopifyProduct-7534191444155", "shopifyProduct-7559788626107"]] {${setAndProductProjection}}`);
     sanityApiCall(query).then(res => {
-        console.log(res)
         res.forEach((item)=>{
             productAndSetCard(item, cards)
         });

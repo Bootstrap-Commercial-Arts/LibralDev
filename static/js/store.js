@@ -1,7 +1,6 @@
 let storeSliders = function(collectionName, targetDiv) {
     let query = encodeURIComponent(`[_type == 'collection'] {'sets': sets[].set->{title, _type, 'slug': slug.current, 'image': image.asset->.url}}`);
         sanityApiCall(query).then(res => {
-        console.log(sanityPromise.sets)
         for (const set of sanityPromise.sets){ 
             setProductCard(set,targetDiv);
         }
