@@ -54,7 +54,7 @@ let cartStructureCheck = function(cartObject){
 
 if(sessionStorage.libralCart){
   libralCart = JSON.parse(sessionStorage.libralCart);
-  cartStructureCheck();
+  cartStructureCheck(libralCart);
 };
 
 // Cart Icon Quantity display
