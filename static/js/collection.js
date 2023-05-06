@@ -2,7 +2,7 @@ let collectionData = function() {
     let query = encodeURIComponent(`[_type == 'collection' && slug.current == '${params.id}'] {title, description, 'image': image.asset->.url, 'featuredSet': featuredSet.set->{title, 'image': image.asset->.url, description, 'slug': slug.current}, theme, 'slug': slug.current, 'products': products[].product->{'price': store.priceRange.minVariantPrice, 'slug': store.slug.current, 'tags': store.tags, 'title': store.title, _type, 'image': store.previewImageUrl}, 'sets': sets[].set->{title, _type, 'slug': slug.current, 'image': image.asset->.url}}
     `);
     sanityApiCall(query)
-    .then(res => {
+    .then(() => {
         console.log(sanityPromise);
         // Featured Set Data
         let posters = document.getElementsByClassName('poster');

@@ -8,16 +8,18 @@ let main = document.getElementById('main');
 
 
 // Sanity API Call
-function sanityApiCall(query) {
-  return fetch(`https://umt44hrc.api.sanity.io/v2022-01-01/data/query/production?query=*${query}`)
-  .then(res => res.json())
-  .then(res => {
-    if (res.result.length == 1){
-      sanityPromise = res.result[0]
+async function sanityApiCall(query) {
+  try {
+    let response = await fetch(`https://umt44hrc.api.sanity.io/v2022-01-01/data/query/production?query=*${query}`)
+    sanityPromise = await response.json()
+    if (sanityPromise.result.length == 1){
+      sanityPromise = sanityPromise.result[0]
     } else {
-      sanityPromise = res.result
+      sanityPromise = sanityPromise.result
     }
-  });
+  } catch (error) {
+    topBannerStart('error', error);
+  }
 }
 
 // Shopify API Call
@@ -40,6 +42,32 @@ async function shopifyApiCall(payload) {
     topBannerStart('error', error);
   }
 }
+
+// Altered Shopify API call for addToCart
+async function handleCart(payload, saveData) {
+  try {
+  const data = await fetch(
+    "https://libral-arts.myshopify.com/api/2022-07/graphql.json",
+    {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        "X-Shopify-Storefront-Access-Token": "f0d7ab9fde67d917211193ed62ebe101"
+      },
+      body: JSON.stringify(payload)
+    }
+  ).then((res) => res.json())
+  // After fetch functions
+  sessionStorage.setItem('libralCart', JSON.stringify(eval(saveData)));
+  libralCart = JSON.parse(sessionStorage.libralCart)
+  topBannerStart('productSuccess', successMessage);
+  cartStructureCheck(libralCart);
+  cartIconQty();
+} catch (error) {
+  topBannerStart('error', error);
+}
+}
+
 
 // Cart structure check
 let cartStructureCheck = function(cartObject){
@@ -108,6 +136,7 @@ let setProductCard = function(result, destinationId) {
       var styledPrimary = result.title.replace("\"", "<b>\"");
       styledPrimary = replaceLast("\"", "\"</b>", styledPrimary)
       storeCard.setAttribute('class', 'product-card');
+      storeCard.setAttribute('id', result.shopifyId);
       storeCard.innerHTML = `
           <img class="shadow" src="${result.image}">
           <a class="pill" href="${result.slug}">${styledPrimary}</a>
@@ -151,11 +180,17 @@ let topBannerHide = function(){
 let topBannerStart = function(state, message) {
   let topBanner = document.createElement('div');
     topBanner.setAttribute('id', 'top-banner');
+    topBanner.setAttribute('class','shadow')
     topBanner.innerHTML = `
         <p>${message}</p>
     `;
-    topBanner.setAttribute('class','shadow')
     switch(state){
+      case 'productSuccess': 
+        topBanner.setAttribute('style','background-color: var(--lightblue);');
+        topBanner.innerHTML = `
+          <p>${message} | <a href="/cart.html">View cart</a> | <a href="${libralCart.checkoutUrl}">Checkout</a></p>
+        `;
+      break;
       case 'success': topBanner.setAttribute('style','background-color: var(--lightblue);');
       break;
       case 'warning': topBanner.setAttribute('style','background-color: #f2b646;');

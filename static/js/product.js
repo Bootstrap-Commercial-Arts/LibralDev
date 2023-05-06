@@ -1,17 +1,18 @@
 let cartLine;
 
 let sanityProductData = function() {
-    let query = encodeURIComponent(`[store.slug.current == "${params.id}"] {_id, _type, louLink, louText, primary->, 'shopifyId': store.id, 'image': store.previewImageUrl, 'slug': store.slug.current, 'title': store.title, store, commonDescription->, 'variants': store.variants[]->, 'options': store.options}`);
-    sanityApiCall(query).then(res => {
-        shopifyProductData(sanityPromise);
-        sanityProductPopulate(sanityPromise);
+    let query = encodeURIComponent(`[store.slug.current == "${params.id}"] {_id, _type, louLink, louText, primary->, 'shopifyId': store.id, 'image': store.previewImageUrl, 'slug': store.slug.current, 'title': store.title, store, commonDescription->, 'variants': store.variants[]->, 'options': store.options, 'relatedProducts': relatedProducts[]->{_id, _type, primary->, 'shopifyId': store.id, 'image': store.previewImageUrl, 'slug': store.slug.current, 'title': store.title, 'price': store.priceRange.minVariantPrice }}`);
+    sanityApiCall(query).then(() => {
+        shopifyProductData();
+        sanityProductPopulate();
+        if(sanityPromise.relatedProducts){ relatedProductsPopulate()}
     });
     
 }
 
-let shopifyProductData = function(res) {
+let shopifyProductData = function() {
   const query = `{
-      product(id: "gid://shopify/Product/${res.shopifyId}") {
+      product(id: "gid://shopify/Product/${sanityPromise.shopifyId}") {
         images(first: 10) {
           edges {
             node {
@@ -25,51 +26,45 @@ let shopifyProductData = function(res) {
   }`;
   const payload = {
     query: query,
-};
-  shopifyPromise = shopifyApiCall(payload).then( payload => {
-    // Additional Images from Shopify
-  var addlImg = document.getElementById('p-addl-img');
-  var imgArr = shopifyPromise.product.images.edges;
-  imgArr.slice(1).forEach(element => {
-      let img = document.createElement("img");
-      img.setAttribute('src', element.node.originalSrc);
-      img.setAttribute('class', 'shadow product-image');
-      img.setAttribute('onclick', `lightBox(event)`);
-      addlImg.append(img)
+  };
+    shopifyPromise = shopifyApiCall(payload).then( payload => {
+      // Additional Images from Shopify
+    var addlImg = document.getElementById('p-addl-img');
+    var imgArr = shopifyPromise.product.images.edges;
+    imgArr.slice(1).forEach(element => {
+        let img = document.createElement("img");
+        img.setAttribute('src', element.node.originalSrc);
+        img.setAttribute('class', 'shadow product-image');
+        img.setAttribute('onclick', `lightBox(event)`);
+        addlImg.append(img)
+    });
+    // Product Description
+    var description = document.getElementById('p-description');
+    description.innerHTML = shopifyPromise.product.descriptionHtml;
+    addModalImages(imgArr);
   });
-  // Product Description
-  var description = document.getElementById('p-description');
-  description.innerHTML = shopifyPromise.product.descriptionHtml;
-  addModalImages(imgArr);
-});
-
-  
 }
-  
 
-
-
-function sanityProductPopulate(result) {
-
+function sanityProductPopulate() {
   // Main Product Image
   var mainImage = document.getElementById('main-img');
-  mainImage.setAttribute('src', result.image);
-  mainImage.setAttribute('alt', result.title + ' main product photo');
+  mainImage.setAttribute('src', sanityPromise.image);
+  mainImage.setAttribute('alt', sanityPromise.title + ' main product photo');
   mainImage.setAttribute('class', 'product-image');
   mainImage.setAttribute('onclick', `lightBox(event)`)
 
   // Product Title
   var title = document.getElementById('p-title');
-  title.innerHTML = result.title;
+  title.innerHTML = sanityPromise.title;
 
   // Product Price
   var price = document.getElementById('price');
-  price.innerHTML = `$${result.store.priceRange.minVariantPrice.toFixed(2)}`;
+  price.innerHTML = `$${sanityPromise.store.priceRange.minVariantPrice.toFixed(2)}`;
 
   // Product Options
   let productOptions = document.getElementById('product-options')
   
-  result.options.forEach(option => {
+  sanityPromise.options.forEach(option => {
     if(option.values.length > 1) {
       let inputWrapper = document.createElement('div');
       inputWrapper.setAttribute('class', 'input-wrapper');
@@ -90,6 +85,26 @@ function sanityProductPopulate(result) {
       productOptions.prepend(inputWrapper);
     }
   });
+
+  // Lou Says
+  var louSays = document.getElementById('lou-content');
+  louSays.innerHTML = `
+    <h4>Lou Says</h4>
+    <p>${sanityPromise.louText}</p>
+  `;
+  if(sanityPromise.louLink){
+    var louBtn = document.createElement('a')
+    louBtn.href=sanityPromise.louLink
+    louBtn.innerHTML = 'Button'
+    louSays.appendChild(louBtn)
+  }
+}
+
+// Related Products
+function relatedProductsPopulate(){
+  for (const product of sanityPromise.relatedProducts){
+    setProductCard(product, 'related-products')
+  }
 }
 
 
@@ -163,11 +178,12 @@ function addToCart(event){
 
   if(!libralCart) {
   // Create new cart & add line
-    successMessage = 'Your cart has been started';
+    successMessage = `Your cart has been started.`;
     const query = `
       mutation cartCreate($input: CartInput) {
         cartCreate(input: $input) {
           cart {
+            checkoutUrl
             id
             lines(first: 100) {
               nodes {
@@ -219,7 +235,6 @@ function addToCart(event){
       cartLine = undefined;
       cartRoot.forEach(line => {
         if((line.node && line.node.merchandise.id === selectedVariantId) || (line.merchandise && line.merchandise.id === selectedVariantId)) {
-          // console.log(line)
           cartLine = line;
         }
       });
@@ -233,6 +248,7 @@ function addToCart(event){
       mutation cartLinesAdd($cartId: ID!, $lines: [CartLineInput!]!) {
         cartLinesAdd(cartId: $cartId, lines: $lines) {
           cart {
+            checkoutUrl
             id
             lines(first: 100) {
               edges {
@@ -299,6 +315,7 @@ function addToCart(event){
                 }
               }
             }
+            checkoutUrl
             cost {
               totalAmount {
                 amount
@@ -318,47 +335,23 @@ function addToCart(event){
               }
             }
           }
-          userErrors {
-            field
-            message
+            userErrors {
+              field
+              message
+            }
           }
         }
-      }
-    }
-    `;
-    const payload = {
-      query: query,
-      variables: {
-        cartId: libralCart.id, lines: [{ id: cartRoot.id, merchandiseId: selectedVariantId, quantity: quantity }]
-        }
-    };
-    handleCart(payload, 'data.data.cartLinesUpdate');
+      }`;
+      const payload = {
+        query: query,
+        variables: {
+          cartId: libralCart.id, lines: [{ id: cartRoot.id, merchandiseId: selectedVariantId, quantity: quantity }]
+          }
+      };
+      handleCart(payload, 'data.data.cartLinesUpdate');
     }
   }
 };
 
-// Altered Fetch function for addToCart
-async function handleCart(payload, saveData) {
-    try {
-    const data = await fetch(
-      "https://libral-arts.myshopify.com/api/2022-07/graphql.json",
-      {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-          "X-Shopify-Storefront-Access-Token": "f0d7ab9fde67d917211193ed62ebe101"
-        },
-        body: JSON.stringify(payload)
-      }
-    ).then((res) => res.json())
-    // After fetch functions
-    sessionStorage.setItem('libralCart', JSON.stringify(eval(saveData)));
-    libralCart = JSON.parse(sessionStorage.libralCart)
-    topBannerStart('success', successMessage);
-    cartStructureCheck(libralCart);
-    cartIconQty();
-  } catch (error) {
-    topBannerStart('error', error);
-  }
-}
+
 productOptions.addEventListener('submit', addToCart);

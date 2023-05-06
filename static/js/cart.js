@@ -1,4 +1,5 @@
 //Fill in cart items
+
 function cartContentsFill() {
     let cartContents = document.getElementById('cart-contents');
     var subtotalDisplay = document.getElementById('subtotal');
@@ -38,7 +39,25 @@ function cartContentsFill() {
                             }
                         }
                     }
-                    checkoutUrl    
+                    checkoutUrl
+                    cost {
+                        totalAmount {
+                          amount
+                          currencyCode
+                        }
+                        subtotalAmount {
+                          amount
+                          currencyCode
+                        }
+                        totalTaxAmount {
+                          amount
+                          currencyCode
+                        }
+                        totalDutyAmount {
+                          amount
+                          currencyCode
+                        }    
+                    }
                 }      
             }`
             const payload = {
@@ -53,7 +72,7 @@ function cartContentsFill() {
                     let price = Number(line.node.merchandise.price.amount).toFixed(2);
                     lineDiv.setAttribute('class', 'cart-line')
                     lineDiv.innerHTML = `
-                        <a href="/product.html?id=${line.node.merchandise.product.id}">
+                        <a href="#">
                             <img src="${line.node.merchandise.image.url}">
                             <div>
                                 <h5>${line.node.merchandise.product.title}</h5>
@@ -63,7 +82,7 @@ function cartContentsFill() {
                         </a>
                         <div class="stepper">
                             <button>-</button>
-                            <input type="text" value="1">
+                            <input type="text" value="${line.node.quantity}">
                             <button>+</button>
                         </div>
                         <button><img class="remove-button" src="/images/circle-with-cross.svg"></button>
@@ -77,8 +96,7 @@ function cartContentsFill() {
                 stepperSet()
             });
         }
-
-loadCart();
+        loadCart();
     } else {
         let message = document.createElement('p');
         message.innerHTML = "Looks like there's nothing here!";
@@ -90,7 +108,8 @@ loadCart();
 }
 
 
-//Toggle function script
+//Stepper function script
+
 function decrement(e) {
     var value = e.target.parentElement.children[1].value = e.target.parentElement.children[1].value
     if(value > 1) {value--;} else {
@@ -98,13 +117,28 @@ function decrement(e) {
         topBannerStart('error', message)
     }
     e.target.parentElement.children[1].value = value;
+    updater(e);
 
 };
 function increment(e) {
     var value = e.target.parentElement.children[1].value = e.target.parentElement.children[1].value
     value++;
     e.target.parentElement.children[1].value = value;
+    updater(e);
   };
+
+function updater(e) {
+    if (e.target.parentElement.className != 'unsaved stepper'){
+        e.target.parentElement.className = 'unsaved stepper'
+        var updateBtn = document.createElement('a');
+        updateBtn.className = 'update-button';
+        updateBtn.innerHTML = 'Update';
+        e.target.parentElement.append(updateBtn);
+        addEventListener("click", (event) => {
+
+        });
+    }
+}
 
 function stepperSet(){
     var steppers = document.getElementsByClassName("stepper")
