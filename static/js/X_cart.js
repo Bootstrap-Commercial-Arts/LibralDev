@@ -1,9 +1,10 @@
 //Fill in cart items
 
 function cartContentsFill() {
-    let cartContents = document.getElementById('cart-contents');
+    var cartContents = document.getElementById('cart-contents');
     var subtotalDisplay = document.getElementById('subtotal');
     var currencyDisplay = document.getElementById('currency');
+    var shopifyIdArray = []; 
 
     if(libralCart){
         // Fill in subtotal amount and currency
@@ -65,12 +66,11 @@ function cartContentsFill() {
             };
             shopifyApiCall(payload)
             .then(function(){
-                let cartContents = document.getElementById('cart-contents');
                 for (const line of shopifyPromise.cart.lines.edges){ 
-                    console.log(line)
                     let lineDiv = document.createElement('div');
                     let price = Number(line.node.merchandise.price.amount).toFixed(2);
-                    lineDiv.setAttribute('class', 'cart-line')
+                    lineDiv.setAttribute('class', 'cart-line');
+                    lineDiv.setAttribute('id', line.node.merchandise.product.id.substring(22));
                     lineDiv.innerHTML = `
                         <a href="#">
                             <img src="${line.node.merchandise.image.url}">
@@ -88,12 +88,15 @@ function cartContentsFill() {
                         <button><img class="remove-button" src="/images/circle-with-cross.svg"></button>
                     `;
                     cartContents.append(lineDiv);
+                    // Add shopifyId to array for cartLineUrls()
+                    shopifyIdArray.push('shopifyProduct-' + line.node.merchandise.product.id.substring(22));
                 };
                 let checkoutButton = document.getElementById('checkout');
                 checkoutButton.href = shopifyPromise.cart.checkoutUrl;
             })
             .then(function(){
                 stepperSet()
+                cartLineUrls()
             });
         }
         loadCart();
@@ -104,6 +107,18 @@ function cartContentsFill() {
         cartContents.append(message);
         subtotalDisplay.innerHTML = '0.00';
         currencyDisplay.innerHTML = 'USD';
+    }
+
+    // Adding URLs to product page for each cart item
+    function cartLineUrls(){
+        let ids = shopifyIdArray.join('", "')
+        let query = encodeURIComponent(`[_id in ["${ids}"]] {'shopifyId': store.id, 'slug': store.slug.current}`);
+        sanityApiCall(query).then(() => {
+            var lines = document.getElementsByClassName('cart-line');
+            shopifyIdArray.forEach(function(id, i){
+                lines[i].childNodes[1].href = `/product.html?id=${sanityPromise[i].slug}`;
+            });
+        })
     }
 }
 
@@ -118,7 +133,6 @@ function decrement(e) {
     }
     e.target.parentElement.children[1].value = value;
     updater(e);
-
 };
 function increment(e) {
     var value = e.target.parentElement.children[1].value = e.target.parentElement.children[1].value
@@ -126,7 +140,6 @@ function increment(e) {
     e.target.parentElement.children[1].value = value;
     updater(e);
   };
-
 function updater(e) {
     if (e.target.parentElement.className != 'unsaved stepper'){
         e.target.parentElement.className = 'unsaved stepper'
@@ -139,7 +152,6 @@ function updater(e) {
         });
     }
 }
-
 function stepperSet(){
     var steppers = document.getElementsByClassName("stepper")
     for (const stepper of steppers) {

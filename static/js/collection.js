@@ -3,7 +3,6 @@ let collectionData = function() {
     `);
     sanityApiCall(query)
     .then(() => {
-        console.log(sanityPromise);
         // Featured Set Data
         let posters = document.getElementsByClassName('poster');
         for (const poster of posters) {
@@ -24,13 +23,11 @@ let collectionData = function() {
 
         // Sets
         for (const set of sanityPromise.sets){
-            console.log(set);
             setProductCard(set, 'sets')
         }
 
         // Products
         for (const product of sanityPromise.products){
-            console.log(product);
             setProductCard(product, 'products')
         }
     });

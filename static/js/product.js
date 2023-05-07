@@ -5,14 +5,14 @@ let sanityProductData = function() {
     sanityApiCall(query).then(() => {
         shopifyProductData();
         sanityProductPopulate();
-        if(sanityPromise.relatedProducts){ relatedProductsPopulate()}
+        if(sanityPromise[0].relatedProducts){ relatedProductsPopulate()}
     });
     
 }
 
 let shopifyProductData = function() {
   const query = `{
-      product(id: "gid://shopify/Product/${sanityPromise.shopifyId}") {
+      product(id: "gid://shopify/Product/${sanityPromise[0].shopifyId}") {
         images(first: 10) {
           edges {
             node {
@@ -48,23 +48,23 @@ let shopifyProductData = function() {
 function sanityProductPopulate() {
   // Main Product Image
   var mainImage = document.getElementById('main-img');
-  mainImage.setAttribute('src', sanityPromise.image);
-  mainImage.setAttribute('alt', sanityPromise.title + ' main product photo');
+  mainImage.setAttribute('src', sanityPromise[0].image);
+  mainImage.setAttribute('alt', sanityPromise[0].title + ' main product photo');
   mainImage.setAttribute('class', 'product-image');
   mainImage.setAttribute('onclick', `lightBox(event)`)
 
   // Product Title
   var title = document.getElementById('p-title');
-  title.innerHTML = sanityPromise.title;
+  title.innerHTML = sanityPromise[0].title;
 
   // Product Price
   var price = document.getElementById('price');
-  price.innerHTML = `$${sanityPromise.store.priceRange.minVariantPrice.toFixed(2)}`;
+  price.innerHTML = `$${sanityPromise[0].store.priceRange.minVariantPrice.toFixed(2)}`;
 
   // Product Options
   let productOptions = document.getElementById('product-options')
   
-  sanityPromise.options.forEach(option => {
+  sanityPromise[0].options.forEach(option => {
     if(option.values.length > 1) {
       let inputWrapper = document.createElement('div');
       inputWrapper.setAttribute('class', 'input-wrapper');
@@ -90,11 +90,11 @@ function sanityProductPopulate() {
   var louSays = document.getElementById('lou-content');
   louSays.innerHTML = `
     <h4>Lou Says</h4>
-    <p>${sanityPromise.louText}</p>
+    <p>${sanityPromise[0].louText}</p>
   `;
-  if(sanityPromise.louLink){
+  if(sanityPromise[0].louLink){
     var louBtn = document.createElement('a')
-    louBtn.href=sanityPromise.louLink
+    louBtn.href=sanityPromise[0].louLink
     louBtn.innerHTML = 'Button'
     louSays.appendChild(louBtn)
   }
@@ -102,7 +102,7 @@ function sanityProductPopulate() {
 
 // Related Products
 function relatedProductsPopulate(){
-  for (const product of sanityPromise.relatedProducts){
+  for (const product of sanityPromise[0].relatedProducts){
     setProductCard(product, 'related-products')
   }
 }
@@ -140,218 +140,3 @@ function closeModal() {
   modalWrap.setAttribute('style', 'display:none');
   modalOverlay.setAttribute('style', 'display:none');
 }
-
-// Add product to cart    <-------------------------------------------------- CART SCRIPT START
-let selectedOptions = [];
-
-function findItem(value1, value2, value3) {
-  if(selectedOptions.length == 0){
-    return sanityPromise.variants
-  } else if(selectedOptions.length == 1){
-    return sanityPromise.variants.filter(variant => Object.values(variant.store).includes(value1))
-  } else if(selectedOptions.length == 2){
-    return sanityPromise.variants.filter(variant => Object.values(variant.store).includes(value1) && Object.values(variant.store).includes(value2))
-  } else if(selectedOptions.length == 3){
-    return sanityPromise.variants.filter(variant => Object.values(variant.store).includes(value1) && Object.values(variant.store).includes(value2) && Object.values(variant.store).includes(value3))
-  }
-}
-
-let successMessage;
-
-function addToCart(event){
-// Match selected options to variant ID
-  event.preventDefault();
-  const productOptions = document.forms.productOptions;
-  selectedOptions = [];
-  const formData = new FormData(productOptions);
-  let quantity = new Number;
-  for (const [key, value] of formData.entries()) {
-    if(key != 'quantity') {
-      selectedOptions.push(value);}
-    else if(key == 'quantity') {
-      quantity = parseInt(value)
-    }
-  }
-  let selectedVariant = findItem(selectedOptions[0], selectedOptions[1], selectedOptions[2])
-  let selectedVariantId = 'gid://shopify/ProductVariant/' + selectedVariant[0].store.id;
-  
-
-  if(!libralCart) {
-  // Create new cart & add line
-    successMessage = `Your cart has been started.`;
-    const query = `
-      mutation cartCreate($input: CartInput) {
-        cartCreate(input: $input) {
-          cart {
-            checkoutUrl
-            id
-            lines(first: 100) {
-              nodes {
-                id
-                quantity
-                merchandise {
-                  ... on ProductVariant {
-                    id
-                  }
-                }
-              }
-            }
-            cost {
-              totalAmount {
-                amount
-                currencyCode
-              }
-              subtotalAmount {
-                amount
-                currencyCode
-              }
-              totalTaxAmount {
-                amount
-                currencyCode
-              }
-              totalDutyAmount {
-                amount
-                currencyCode
-              }
-            }
-          }
-        }
-      }
-    `;
-    const payload = {
-      query: query,
-      variables: {
-        input: {
-          lines: [{ merchandiseId: selectedVariantId, quantity: quantity }]
-        }
-      }
-    };
-
-        handleCart(payload, 'data.data.cartCreate.cart');
-    
-  } else {
-  // If Cart already exists  
-    function generateCartLine() {
-      cartLine = undefined;
-      cartRoot.forEach(line => {
-        if((line.node && line.node.merchandise.id === selectedVariantId) || (line.merchandise && line.merchandise.id === selectedVariantId)) {
-          cartLine = line;
-        }
-      });
-    }
-    generateCartLine();
-    console.log('cart exists')
-    // Add line to cart
-    if(!cartLine) {
-      successMessage = 'Item has been added to your cart.';
-      const query = `
-      mutation cartLinesAdd($cartId: ID!, $lines: [CartLineInput!]!) {
-        cartLinesAdd(cartId: $cartId, lines: $lines) {
-          cart {
-            checkoutUrl
-            id
-            lines(first: 100) {
-              edges {
-                node {
-                  id
-                  quantity
-                  merchandise {
-                    ... on ProductVariant {
-                      id
-                    }
-                  }
-                }
-              }
-            }
-            cost {
-              totalAmount {
-                amount
-                currencyCode
-              }
-              subtotalAmount {
-                amount
-                currencyCode
-              }
-              totalTaxAmount {
-                amount
-                currencyCode
-              }
-              totalDutyAmount {
-                amount
-                currencyCode
-              }
-            }
-          }
-          userErrors {
-            field
-            message
-          }
-        }
-      }
-      `;
-      const payload = {
-        query: query,
-        variables: { cartId: libralCart.id, lines: [{merchandiseId: selectedVariantId, quantity: quantity}]}
-      };
-      handleCart(payload, 'data.data.cartLinesAdd.cart');
-    
-    // Update existing line  
-    } else {
-      successMessage = 'Item quantity has been updated';
-      const query = `	mutation cartLinesUpdate($cartId: ID!, $lines: [CartLineUpdateInput!]!) {
-        cartLinesUpdate(cartId: $cartId, lines: $lines) {
-          cart {
-            id
-            lines(first: 100) {
-              edges {
-                node {
-                  id
-                  quantity
-                  merchandise {
-                    ... on ProductVariant {
-                      id
-                    }
-                  }
-                }
-              }
-            }
-            checkoutUrl
-            cost {
-              totalAmount {
-                amount
-                currencyCode
-              }
-              subtotalAmount {
-                amount
-                currencyCode
-              }
-              totalTaxAmount {
-                amount
-                currencyCode
-              }
-              totalDutyAmount {
-                amount
-                currencyCode
-              }
-            }
-          }
-            userErrors {
-              field
-              message
-            }
-          }
-        }
-      }`;
-      const payload = {
-        query: query,
-        variables: {
-          cartId: libralCart.id, lines: [{ id: cartRoot.id, merchandiseId: selectedVariantId, quantity: quantity }]
-          }
-      };
-      handleCart(payload, 'data.data.cartLinesUpdate');
-    }
-  }
-};
-
-
-productOptions.addEventListener('submit', addToCart);
