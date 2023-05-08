@@ -66,7 +66,9 @@
       </div>
     </div>
     <div id="modal-overlay" style="display: none"></div>
-    <script type="text/javascript" src="/js/global.js"></script>  
+    <script type="text/javascript" src="/js/shopify.js"></script>  
+    <script type="text/javascript" src="/js/sanity.js"></script>
+    <script type="text/javascript" src="/js/libral.js"></script>
       <script type="text/javascript" src="/js/product.js"></script>
       <script type="text/javascript" src="https://honest-utilities.netlify.app/honest.js"></script>
       <script type="text/javascript" src="https://code.jquery.com/jquery-1.11.0.min.js"></script>
@@ -105,6 +107,7 @@
           });
           sanityProductData();
           displayToggle('search-icon', 'search-modal', {funcStyle: 'easyHide'});
+          productOptions.addEventListener('submit', addToCart);
       </script>
   </body>
 </html>
