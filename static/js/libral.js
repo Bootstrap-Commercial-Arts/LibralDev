@@ -19,6 +19,7 @@ let cartStructureCheck = function(cartObject){
 // libralCart fill
 if(sessionStorage.libralCart){
     libralCart = JSON.parse(sessionStorage.libralCart);
+    if(libralCart.cart){libralCart = libralCart.cart}
     cartStructureCheck(libralCart);
 };
 

@@ -194,11 +194,11 @@ function addToCart(event){
     generateCartLine();
     // Add line to cart
     if(!cartLine) {
-      addCartLine(selectedVariantId, quantity);
+      addCartLine(selectedVariantId, quantity, libralCart.id);
     
     // Update existing line  
     } else {
-      updateCartLine(selectedVariantId, quantity)
+      updateCartLine(selectedVariantId, quantity, libralCart.id, cartRoot.id)
     }
   }
 };

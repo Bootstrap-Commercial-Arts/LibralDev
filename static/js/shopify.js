@@ -49,31 +49,21 @@ async function handleCart(payload, saveData) {
 //Stepper function script
 function decrement(e) {
     var value = e.target.parentElement.children[1].value = e.target.parentElement.children[1].value
-    if(value > 1) {value--;} else {
+    if(value > 1) {
+        value--;
+        e.target.parentElement.children[1].value = value;
+        updateCartLine(e.target.parentElement.title, value, libralCart.id, e.target.parentElement.parentElement.id);
+    } else {
         let message = "This number can't be lower than zero. Please use the 'Remove' button instead."
         topBannerStart('error', message)
-    }
-    e.target.parentElement.children[1].value = value;
-    updater(e);
+    }    
 };
 function increment(e) {
     var value = e.target.parentElement.children[1].value = e.target.parentElement.children[1].value
     value++;
     e.target.parentElement.children[1].value = value;
-    updater(e);
+    updateCartLine(e.target.parentElement.title, value, libralCart.id, e.target.parentElement.parentElement.id);
   };
-function updater(e) {
-    if (e.target.parentElement.className != 'unsaved stepper'){
-        e.target.parentElement.className = 'unsaved stepper'
-        var updateBtn = document.createElement('a');
-        updateBtn.className = 'update-button';
-        updateBtn.innerHTML = 'Update';
-        e.target.parentElement.append(updateBtn);
-        addEventListener("click", (event) => {
-
-        });
-    }
-}
 function stepperSet(){
     var steppers = document.getElementsByClassName("stepper")
     for (const stepper of steppers) {
@@ -84,8 +74,12 @@ function stepperSet(){
       }
 }
 
-
-
+function removeBtnSet(){
+    var removeBtns = document.getElementsByClassName("removeBtn")
+    for (const remover of removeBtns) {
+        remover.addEventListener('click', (e) => {removeCartLine(libralCart.id, e.target.parentElement.parentElement.id)});
+      }
+}
 
 
 
@@ -162,6 +156,7 @@ function cartContentsFill() {
                     let lineDiv = document.createElement('div');
                     let price = Number(line.node.merchandise.price.amount).toFixed(2);
                     lineDiv.setAttribute('class', 'cart-line');
+                    lineDiv.setAttribute('id', line.node.id);
                     lineDiv.setAttribute('title', line.node.merchandise.product.id.substring(22));
                     lineDiv.innerHTML = `
                         <a href="#">
@@ -172,12 +167,12 @@ function cartContentsFill() {
                             </div>
                             <p>${price} ${line.node.merchandise.price.currencyCode}</p>
                         </a>
-                        <div class="stepper">
+                        <div class="stepper" title="${line.node.merchandise.id}">
                             <button>-</button>
-                            <input type="text" value="${line.node.quantity}">
+                            <input readonly type="text" value="${line.node.quantity}">
                             <button>+</button>
                         </div>
-                        <button><img class="remove-button" src="/images/circle-with-cross.svg"></button>
+                        <button class="removeBtn"><img class="remove-button" src="/images/circle-with-cross.svg"></button>
                     `;
                     cartContents.append(lineDiv);
                     // Add shopifyId to array for cartLineUrls()
@@ -189,6 +184,7 @@ function cartContentsFill() {
             .then(function(){
                 stepperSet()
                 cartLineUrls()
+                removeBtnSet();
             });
         }
         loadCart();
@@ -202,25 +198,21 @@ function cartContentsFill() {
     }
 
     // Adding URLs to product page for each cart item
-    function matchSlugToId (){
-        return
-    }
-
     function cartLineUrls(){
-        console.log(shopifyIdArray);
         let ids = shopifyIdArray.join('", "')
         let query = encodeURIComponent(`[_id in ["${ids}"]] {'shopifyId': store.id, 'slug': store.slug.current}`);
         sanityApiCall(query).then(() => {
             var lines = document.getElementsByClassName('cart-line');
             shopifyIdArray.forEach(function(id, i){
                 let match = sanityPromise.filter(item => 'shopifyProduct-' + item.shopifyId == id)
-                console.log(match)
                 lines[i].childNodes[1].href = `/product.html?id=${match[0].slug}`;
             });
         })
     }
 }
 
+
+// Retrieving variantId from selected options
 function findItem(value1, value2, value3) {
     if(selectedOptions.length == 0){
       return sanityPromise[0].variants
@@ -291,7 +283,7 @@ function createCart(selectedVariantId, quantity) {
 }
 
 // Add new product to cart
-function addCartLine(selectedVariantId, quantity){
+function addCartLine(selectedVariantId, quantity, cartId){
     successMessage = 'Item has been added to your cart.';
       const query = `
       mutation cartLinesAdd($cartId: ID!, $lines: [CartLineInput!]!) {
@@ -340,18 +332,18 @@ function addCartLine(selectedVariantId, quantity){
       `;
     const payload = {
         query: query,
-        variables: { cartId: libralCart.id, lines: [{merchandiseId: selectedVariantId, quantity: quantity}]}
+        variables: { cartId: cartId, lines: [{merchandiseId: selectedVariantId, quantity: quantity}]}
     };
     handleCart(payload, 'data.data.cartLinesAdd.cart');
 }
 
 // Updated quantity of item in cart
-function updateCartLine(selectedVariantId, quantity){
+function updateCartLine(selectedVariantId, quantity, cartId, cartLine){
     successMessage = 'Item quantity has been updated';
-      const query = `	mutation cartLinesUpdate($cartId: ID!, $lines: [CartLineUpdateInput!]!) {
-        cartLinesUpdate(cartId: $cartId, lines: $lines) {
+      const query = `mutation cartLinesUpdate($cartId: ID!, $lines: [CartLineUpdateInput!]!) {
+        cartLinesUpdate(cartId: $cartId, lines: $lines){ 
           cart {
-            id
+            id 
             lines(first: 100) {
               edges {
                 node {
@@ -390,13 +382,71 @@ function updateCartLine(selectedVariantId, quantity){
               message
             }
           }
-        }
-      }`;
+}
+`;
       const payload = {
         query: query,
         variables: {
-          cartId: libralCart.id, lines: [{ id: cartRoot.id, merchandiseId: selectedVariantId, quantity: quantity }]
+          cartId: cartId, lines: [{ id: cartLine, merchandiseId: selectedVariantId, quantity: quantity }]
           }
       };
-      handleCart(payload, 'data.data.cartLinesUpdate');
+      console.log(payload)
+      handleCart(payload, 'data.data.cartLinesUpdate.cart');
+}
+
+//Remove line from a cart
+function removeCartLine(cartId, cartLine){
+    successMessage = 'Item quantity has been updated';
+      const query = `mutation cartLinesRemove($cartId: ID!, $lineIds: [ID!]!) {
+        cartLinesRemove(cartId: $cartId, lineIds: $lineIds) {
+          cart {
+            id 
+            lines(first: 100) {
+              edges {
+                node {
+                  id
+                  quantity
+                  merchandise {
+                    ... on ProductVariant {
+                      id
+                    }
+                  }
+                }
+              }
+            }
+            checkoutUrl
+            cost {
+              totalAmount {
+                amount
+                currencyCode
+              }
+              subtotalAmount {
+                amount
+                currencyCode
+              }
+              totalTaxAmount {
+                amount
+                currencyCode
+              }
+              totalDutyAmount {
+                amount
+                currencyCode
+              }
+            }
+          }
+            userErrors {
+              field
+              message
+            }
+          }
+}
+`;
+      const payload = {
+        query: query,
+        variables: {
+          cartId: cartId, lineIds: [cartLine]
+          }
+      };
+      console.log(payload)
+      handleCart(payload, 'data.data.cartLinesRemove.cart');
 }
