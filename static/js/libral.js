@@ -100,44 +100,35 @@ let setProductCard = function(result, destinationId) {
       <a class="blue-button">View Products</a>
       `
     break;
-    default:
-      console.log(result);
-      break;
   }
   destination = document.getElementById(destinationId)
   destination.append(storeCard);
 }
 
 
-// Top Banner Functions
-let topBannerHide = function(){
-  let topBanner = document.getElementById('top-banner');
-  topBanner.remove();
-}
-
-let topBannerStart = function(state, message) {
-  let topBanner = document.createElement('div');
-    topBanner.setAttribute('id', 'top-banner');
-    topBanner.setAttribute('class','shadow')
+function topBannerStart(state, message) {
+    let topBanner = document.createElement('div');
+    let bannerContainer;
+    topBanner.setAttribute('id', `${state}`);
+    topBanner.setAttribute('class','top-banner shadow')
     topBanner.innerHTML = `
         <p>${message}</p>
     `;
     switch(state){
-      case 'productSuccess': 
-        topBanner.setAttribute('style','background-color: var(--lightblue);');
-        topBanner.innerHTML = `
-          <p>${message} | <a href="/cart.html">View cart</a> | <a href="${libralCart.checkoutUrl}">Checkout</a></p>
-        `;
-      break;
-      case 'success': topBanner.setAttribute('style','background-color: var(--lightblue);');
-      break;
-      case 'warning': topBanner.setAttribute('style','background-color: #f2b646;');
-      break;
-      case 'error': topBanner.setAttribute('style','background-color: var(--red);');
-      break;
+        case 'productSuccess': 
+            topBanner.innerHTML = `<p>${message} &nbsp;&nbsp;&nbsp;<a href="/cart.html">View cart</a> | <a href="${libralCart.checkoutUrl}">Checkout</a></p>`;
+        break;
+        default: topBanner.innerHTML = `<p>${message}</p>`
     }
-    main.append(topBanner);
-    setTimeout(topBannerHide, 10000);
+    if(document.getElementById('banner-container')){
+        bannerContainer = document.getElementById('banner-container');
+    } else {
+        bannerContainer = document.createElement('div');
+        bannerContainer.setAttribute('id', 'banner-container')
+    }
+    bannerContainer.append(topBanner);
+    main.append(bannerContainer);
+    setTimeout(() => {topBanner.remove()}, 5000);
 }
 
 // Homepage Card Creation

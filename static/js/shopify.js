@@ -390,7 +390,6 @@ function updateCartLine(selectedVariantId, quantity, cartId, cartLine){
           cartId: cartId, lines: [{ id: cartLine, merchandiseId: selectedVariantId, quantity: quantity }]
           }
       };
-      console.log(payload)
       handleCart(payload, 'data.data.cartLinesUpdate.cart');
 }
 
@@ -447,6 +446,5 @@ function removeCartLine(cartId, cartLine){
           cartId: cartId, lineIds: [cartLine]
           }
       };
-      console.log(payload)
       handleCart(payload, 'data.data.cartLinesRemove.cart');
 }

@@ -376,18 +376,33 @@ a img {
 
 
 /* Top Banner Styles */
-#top-banner {
+#banner-container {
     position: fixed;
     top: 0;
     left: 50%;
+    text-align: center;
+    transform: translateX(-50%);
+}
+.top-banner {
     min-height: 2rem;
     min-width: 30rem;
     text-align: center;
-    transform: translateX(-50%);
     padding: 1rem;
     margin: 2rem;
 }
 
+#success, #productSuccess {
+    background-color: var(--lightblue);
+}
+#warning {
+    background-color: #f2b646;
+}
+#error {
+    background-color: var(--red);
+}
+#error p {
+    color: white
+}
 
 
 @media screen and (max-width: 680px) {
