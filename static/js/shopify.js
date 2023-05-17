@@ -55,8 +55,8 @@ function decrement(e) {
         e.target.parentElement.children[1].value = value;
         updateCartLine(e.target.parentElement.title, value, libralCart.id, e.target.parentElement.parentElement.id);
     } else {
-        let message = "This number can't be lower than zero. Please use the 'Remove' button instead."
-        topBannerStart('error', message)
+        let message = "This number can't be lower than one. <br>Please use the 'Remove' button instead."
+        topBannerStart('warning', message)
     }    
 };
 function increment(e) {
