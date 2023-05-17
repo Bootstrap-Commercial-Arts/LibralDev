@@ -100,7 +100,7 @@ function removeBtnSet(){
 function cartContentsFill() {
     var shopifyIdArray = []; 
     
-    if(libralCart.lines.edges.length > 0){
+    if(cartRoot.length > 0){
         // Query Cart with more data
         let loadCart = function() {
             const query = `{
