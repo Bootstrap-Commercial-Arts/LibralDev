@@ -40,7 +40,8 @@ async function handleCart(payload, saveData) {
         libralCart = JSON.parse(sessionStorage.libralCart)
         topBannerStart('productSuccess', successMessage);
         cartStructureCheck(libralCart);
-        cartIconQty();
+        cartIconQty();;
+        fillSubtotal();
     } catch (error) {
         topBannerStart('error', error);
     }
@@ -77,26 +78,29 @@ function stepperSet(){
 function removeBtnSet(){
     var removeBtns = document.getElementsByClassName("removeBtn")
     for (const remover of removeBtns) {
-        remover.addEventListener('click', (e) => {removeCartLine(libralCart.id, e.target.parentElement.parentElement.id)});
+        remover.addEventListener('click', (e) => {
+          removeCartLine(libralCart.id, e.target.parentElement.parentElement.id);
+          e.target.parentElement.parentElement.remove();
+        });
       }
 }
 
 
-
-
-//Fill in cart items (CART PAGE)
-
-function cartContentsFill() {
-    var cartContents = document.getElementById('cart-contents');
-    var subtotalDisplay = document.getElementById('subtotal');
-    var currencyDisplay = document.getElementById('currency');
-    var shopifyIdArray = []; 
-
-    if(libralCart){
-        // Fill in subtotal amount and currency
+// Fill in subtotal amount and currency
+    function fillSubtotal(){
+      var subtotalDisplay = document.getElementById('subtotal');
+      var currencyDisplay = document.getElementById('currency');
+      if(subtotalDisplay){
         subtotalDisplay.innerHTML = Number(libralCart.cost.subtotalAmount.amount).toFixed(2);
         currencyDisplay.innerHTML = libralCart.cost.subtotalAmount.currencyCode;
+      }
+    }
 
+//Fill in cart items (CART PAGE)
+function cartContentsFill() {
+    var shopifyIdArray = []; 
+    
+    if(libralCart.lines.edges.length > 0){
         // Query Cart with more data
         let loadCart = function() {
             const query = `{
@@ -152,6 +156,7 @@ function cartContentsFill() {
             };
             shopifyApiCall(payload)
             .then(function(){
+              // Fill cart lines
                 for (const line of shopifyPromise.cart.lines.edges){ 
                     let lineDiv = document.createElement('div');
                     let price = Number(line.node.merchandise.price.amount).toFixed(2);
@@ -178,6 +183,9 @@ function cartContentsFill() {
                     // Add shopifyId to array for cartLineUrls()
                     shopifyIdArray.push('shopifyProduct-' + line.node.merchandise.product.id.substring(22));
                 };
+                fillSubtotal()
+
+                // Fill in checkout button URL
                 let checkoutButton = document.getElementById('checkout');
                 checkoutButton.href = shopifyPromise.cart.checkoutUrl;
             })
@@ -191,10 +199,9 @@ function cartContentsFill() {
     } else {
         let message = document.createElement('p');
         message.innerHTML = "Looks like there's nothing here!";
-        message.setAttribute('class', 'default-message')
+        message.setAttribute('class', 'default-message');
         cartContents.append(message);
-        subtotalDisplay.innerHTML = '0.00';
-        currencyDisplay.innerHTML = 'USD';
+        fillSubtotal();
     }
 
     // Adding URLs to product page for each cart item

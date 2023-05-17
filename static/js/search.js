@@ -35,12 +35,13 @@ function listResults(result){
 }
 
 function searchSanity() {
-    let query = encodeURIComponent(`[_type in ["product", "set", "collection", "room", "post"] && [store.title, title] match "${params.s}"] {${searchProjection}}`);
+    let query = encodeURIComponent(`[_type in ["product", "set", "collection", "room", "post"] && [store.title, title] match "${params.s}"] {${searchProjection}} | order(_type desc)`);
     sanityApiCall(query).then(res => {
-        res.result.forEach((line)=>{
+        console.log(sanityPromise)
+        sanityPromise.forEach((line)=>{
             listResults(line)
         });
-        if(res.result.length == 0) {
+        if(sanityPromise.length == 0) {
             let message = document.createElement('p');
             message.innerHTML = "Looks like there's nothing here!";
             message.setAttribute('class', 'default-message')
