@@ -7,6 +7,8 @@
   <link rel="stylesheet" type="text/css" href="https://honest-utilities.netlify.app/honest.css">
   <link rel="stylesheet" type="text/css" href="/css/global.css">
   <link rel="stylesheet" type="text/css" href="/css/set.css">
+  <link rel="stylesheet" type="text/css" href="/carousel/slick.css">
+  <link rel="stylesheet" type="text/css" href="/carousel/slick-theme.css">
   <script type="text/javascript" src="/js/template.js"></script>
   <title>Libral Arts Set</title>
 </head>
@@ -18,11 +20,43 @@
         
     </div>
     <script type="text/javascript" src="https://honest-utilities.netlify.app/honest.js"></script>
+    <script type="text/javascript" src="https://code.jquery.com/jquery-1.11.0.min.js"></script>
+    <script type="text/javascript" src="https://code.jquery.com/jquery-migrate-1.2.1.min.js"></script>
+    <script type="text/javascript" src="/carousel/slick.min.js"></script>
     <script type="text/javascript" src="/js/shopify.js"></script>  
     <script type="text/javascript" src="/js/sanity.js"></script>
     <script type="text/javascript" src="/js/libral.js"></script> 
-    <script type="text/javascript" src="/js/set.js"></script>
     <script>
+      $(document).ready(function(){
+          $('.sub-nav').slick({
+              slidesToShow: 7,
+              slidesToScroll: 2,
+              swipeToSlide: true,
+              dots: false,
+              arrows: true,
+              centerMode: true,
+              focusOnSelect: false,
+              responsive:[
+              {
+                  breakpoint: 1200,
+                  settings: {
+                      arrows: true,
+                      centerMode: true,
+                      centerPadding: '40px',
+                      slidesToShow: 4
+                  }
+              },
+              {
+                  breakpoint: 680,
+                  settings: {
+                      arrows: false,
+                      centerMode: true,
+                      centerPadding: '40px',
+                      slidesToShow: 2
+                  }
+              }]
+          });
+      });
         displayToggle('search-icon', 'search-modal', {funcStyle: 'easyHide'});
     </script>
   </body>

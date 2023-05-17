@@ -53,6 +53,18 @@ function sanityProductPopulate() {
   mainImage.setAttribute('class', 'product-image');
   mainImage.setAttribute('onclick', `lightBox(event)`)
 
+  //Pill
+  if(sanityPromise[0].primary) {
+    var pillBox = document.getElementById('pillbox')
+    var cardPrimary = document.createElement("a");
+    var styledPrimary = sanityPromise[0].primary.title.replace("\"", "<b>\"");
+    styledPrimary = replaceLast("\"", "\"</b>", styledPrimary)
+    cardPrimary.setAttribute("class", "pill")
+    cardPrimary.innerHTML = styledPrimary;
+    cardPrimary.href = `/${sanityPromise[0].primary._type}.html?id=${sanityPromise[0].primary.slug.current}`
+    pillBox.prepend(cardPrimary);
+}
+
   // Product Title
   var title = document.getElementById('p-title');
   title.innerHTML = sanityPromise[0].title;

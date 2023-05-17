@@ -20,6 +20,9 @@
     flex-direction: column;
     justify-content: space-between;
 }
+#p-top {
+    margin-top: -22rem;
+}
 #p-info img {
     width: calc(100% + 2rem);
     margin: -1rem;
@@ -27,8 +30,8 @@
 }
 #p-title {
     text-transform: capitalize;
-    margin-top: -15rem;
     font-size: 3.5rem;
+    margin-top: 1rem;
 }
 #price {
     color: var(--blue);
