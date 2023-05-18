@@ -6,6 +6,7 @@ async function sanityApiCall(query) {
       let response = await fetch(`https://umt44hrc.api.sanity.io/v2022-01-01/data/query/production?query=*${query}`)
       sanityPromise = await response.json()
       sanityPromise = sanityPromise.result
+      return sanityPromise;
     } catch (error) {
       topBannerStart('error', error);
     }
