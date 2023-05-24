@@ -149,3 +149,34 @@ function template(div, placement, contents){
         case 'append': parent.append(contents);
     }
 }
+
+const subnavScript = function(){
+    $('.sub-nav').slick({
+        slidesToShow: 7,
+        slidesToScroll: 2,
+        swipeToSlide: true,
+        dots: false,
+        arrows: true,
+        centerMode: true,
+        focusOnSelect: false,
+        responsive:[
+        {
+            breakpoint: 1200,
+            settings: {
+                arrows: true,
+                centerMode: true,
+                centerPadding: '40px',
+                slidesToShow: 4
+            }
+        },
+        {
+            breakpoint: 680,
+            settings: {
+                arrows: false,
+                centerMode: true,
+                centerPadding: '40px',
+                slidesToShow: 2
+            }
+        }]
+    });
+}

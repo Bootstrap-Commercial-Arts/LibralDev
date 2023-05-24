@@ -124,6 +124,37 @@
   <script type="text/javascript" src="/js/sanity.js"></script>
   <script type="text/javascript" src="/js/libral.js"></script> 
   <script>
+    // Store Page slider function
+    let storeSliders = function(collectionName, targetDiv) {
+        let query = encodeURIComponent(`[_type == 'collection' && [store.title, title] match "${collectionName}"] {'sets': sets[].set->{title, _type, 'slug': slug.current, 'image': image.asset->.url}}`);
+            sanityApiCall(query).then(res => {
+                console.log(res)
+            for (const set of res[0].sets){ 
+                setProductCard(set,targetDiv);
+            }
+            $(document).ready(function(){
+                $(`#${targetDiv}`).slick({
+                    slidesToShow: 2,
+                    slidesToScroll: 2,
+                    swipeToSlide: true,
+                    dots: false,
+                    arrows: true,
+                    centerMode: false,
+                    focusOnSelect: false,
+                    responsive:[
+                        {
+                            breakpoint: 680,
+                            settings: {
+                                arrows: false,
+                                slidesToShow: 1
+                            }
+                        }]
+                });
+            });
+        });
+        
+    }
+    $(document).ready(subnavScript());
     displayToggle('search-icon', 'search-modal', {funcStyle: 'easyHide'});
     storeSliders('Test Collection', 'hbf-slider');
   </script>

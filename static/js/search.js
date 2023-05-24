@@ -57,7 +57,6 @@ function searchSanity() {
             default: query = `[_type == '${type}' && [store.title, title] match "${params.s}"]{_id, _type, 'image': image.asset->url, title, 'slug': slug.current}`
             break;
         }
-        console.log(query)
         // Query sanity api for each type and list the results in landingPad div
         sanityApiCall(encodeURIComponent(query)).then(res => {
             if(res[0]) {

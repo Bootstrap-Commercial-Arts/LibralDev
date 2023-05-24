@@ -62,3 +62,7 @@
     align-items: center;
     margin-bottom: 2rem
 }
+
+.pill {
+    align-self: unset;
+}

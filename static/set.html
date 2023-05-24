@@ -1,18 +1,18 @@
 <!doctype html>
 
 <html lang="en">
-<head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <link rel="stylesheet" type="text/css" href="https://honest-utilities.netlify.app/honest.css">
-  <link rel="stylesheet" type="text/css" href="/css/global.css">
-  <link rel="stylesheet" type="text/css" href="/css/set.css">
-  <link rel="stylesheet" type="text/css" href="/carousel/slick.css">
-  <link rel="stylesheet" type="text/css" href="/carousel/slick-theme.css">
-  <script type="text/javascript" src="/js/template.js"></script>
-  <title>Libral Arts Set</title>
-</head>
-<body>
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" type="text/css" href="https://honest-utilities.netlify.app/honest.css">
+    <link rel="stylesheet" type="text/css" href="/css/global.css">
+    <link rel="stylesheet" type="text/css" href="/css/set.css">
+    <link rel="stylesheet" type="text/css" href="/carousel/slick.css">
+    <link rel="stylesheet" type="text/css" href="/carousel/slick-theme.css">
+    <script type="text/javascript" src="/js/template.js"></script>
+    <title>Libral Arts Set</title>
+  </head>
+  <body>
     <div id="main">
       <script>template('main','prepend',carouselHeader)</script>
 
@@ -27,37 +27,8 @@
     <script type="text/javascript" src="/js/sanity.js"></script>
     <script type="text/javascript" src="/js/libral.js"></script> 
     <script>
-      $(document).ready(function(){
-          $('.sub-nav').slick({
-              slidesToShow: 7,
-              slidesToScroll: 2,
-              swipeToSlide: true,
-              dots: false,
-              arrows: true,
-              centerMode: true,
-              focusOnSelect: false,
-              responsive:[
-              {
-                  breakpoint: 1200,
-                  settings: {
-                      arrows: true,
-                      centerMode: true,
-                      centerPadding: '40px',
-                      slidesToShow: 4
-                  }
-              },
-              {
-                  breakpoint: 680,
-                  settings: {
-                      arrows: false,
-                      centerMode: true,
-                      centerPadding: '40px',
-                      slidesToShow: 2
-                  }
-              }]
-          });
-      });
-        displayToggle('search-icon', 'search-modal', {funcStyle: 'easyHide'});
+      $(document).ready(subnavScript());
+      displayToggle('search-icon', 'search-modal', {funcStyle: 'easyHide'});
     </script>
   </body>
-  </html>
+</html>
