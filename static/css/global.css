@@ -129,10 +129,10 @@ a img {
 .bold {
     font-weight: 400;
 }
-.bolder {
+.bolder, b {
     font-weight: 900;
 }
-.italic {
+.italic, i {
     font-style: italic;
 }
 .bold-italic {

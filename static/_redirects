@@ -1,1 +1,1 @@
-/product/:id     /product.html?id=:id 200
+/product/:id     /product.html?id=:id     200
