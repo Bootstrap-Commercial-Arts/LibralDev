@@ -28,9 +28,17 @@
 #featured-products-row-2 {
     background-image: url(/images/fp-hero-2.png);
     background-repeat: no-repeat;  
-    height: 105rem;
-    margin-top: -20rem;
+    margin-top: -18rem;
     background-size: contain;
+    padding: 68rem 8rem 25rem 6rem;
+    display: flex;
+    align-items: center;
+}
+#featured-products-row-2 .column {
+    margin-left: 2rem;
+}
+#featured-products-row-2 p:not(.bolder.caps) {
+    margin-bottom: 2rem;
 }
 #fp-text {
     width: 37rem;

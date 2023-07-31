@@ -1,13 +1,12 @@
 const carouselHeader = document.createElement('header')
 carouselHeader.innerHTML = `
-    <header>
         <div id="header-icons">
             <a href="cart.html" id="cart-icon" class="shadow">
                 <img src="/images/cart.png" alt="Cart Icon">
             </a>
             <img src="/images/search.png" alt="Search Icon" id="search-icon" class="shadow">
         </div>
-        <div id="search-modal" class="shadow" style="display: none;">
+        <div id="search-modal" class="shadow modal-window" style="display: none;">
             <form id="search-bar" name="searchBar">
                 <h3>Looking for something?</h3>
                 <p>Search for products, sets, collections, or House Geek content here.</p>
@@ -95,18 +94,16 @@ carouselHeader.innerHTML = `
             <img src="/images/carousel/AK-Papercraft.jpg" alt="The AK Papercraft Collection" class="prod-cat-image">
         </a>
     </div>
-    </header>
 `
 const header = document.createElement('header')
 header.innerHTML = `
-    <header>
         <div id="header-icons">
             <a href="cart.html" id="cart-icon" class="shadow">
                 <img src="/images/cart.png" alt="Cart Icon">
             </a>
             <img src="/images/search.png" alt="Search Icon" id="search-icon" class="shadow">
         </div>
-        <div id="search-modal" class="shadow" style="display: none;">
+        <div id="search-modal" class="shadow modal-window" style="display: none;">
             <form id="search-bar" name="searchBar">
                 <h3>Looking for something?</h3>
                 <p>Search for products, sets, collections, or House Geek content here.</p>
@@ -133,12 +130,176 @@ header.innerHTML = `
             </div>
         </a>
     </div>
-    </header>
 `
 
 const footer = document.createElement('footer')
 footer.innerHTML = `
-    <p>I'm a Footer</p>
+<div class="xl-row" id="footer-row-1">
+    <div class="inset-row"> 
+        <div class="column" id="footer-lou">
+            <div class="inset-row" id="lou-header">
+                <div class="column">
+                    <img src="/images/lou-says.png">
+                </div>
+                <div class="column" >
+                <h1>Who's Lou?</h1>
+                <h4>...and what's the liberation of R&A?</h4>
+                </div>
+            </div>
+            
+            <div class="inset-row">
+                <div class="column">
+                    <h4>Meet "Lou", the non-binary neurodivergent digital overlord of LibRAL Arts.</h4>
+                    <p>Lou greets you at "first scoll" to welcome you into their world of possibility, rich with a labyrinth of lands that make up the world of LibRAL Arts.</p>
+                    <p>Co-owners, R. & A. Douglas named the site in honor of their personal journey of "lib"eration from the harmful social constructs, propaganda, and ignorant fears that cause systematic oppression.  </p>
+                    <p> <p>Lou, and their cast of supporting characters–as well as the all original art featured on the functional products and apparel in the LibRAL Arts souvenir shop–tell their story and give validation and language to the inequalities that are often difficult for oppressed communities to express or escape.</p> 
+                    <p>Through the LIbRAL Arts immersive website experience, audiences can follow the cheeky and geeky duo as they navigate their neurodivergent & queer post-gender journeys to embrace their authenticity and imagine into existence a space safe for others to do the same.</p>
+                </div>
+                <div class="column" id="diversity-footer">
+                    <h2>Diversity Liberation</h2>
+                    <h4>Free your authenticity</h4>
+                    <p> <span class="bold">Welcome to the secret inner world of autism, where there is no normal, and most social constructs are missing!</span></p>
+                    <p>When we view neurodivergent traits as the strengths they are, a world of possibility is revealed, and many solutions await our discovery.</p>
+                    <p>The majority of the art featured in the LibRAL Arts Souvenir Shop is created by a dysgraphic artist. With compromised dexterity, an entirely new approach to photo-realistic drawing was developed.</p>
+                    <div id="FWYM-ad">
+                        <div id="FWYM-header">
+                            <img src="/images/FWYM-color-logo.png" alt="Fight With Your Mind logo">
+                        </div>
+                        <p style="font-weight:400">Fight ableism with solutions from the mind</p>
+                        <div id="FWYM-body">
+                            <img src="/images/brainwashing.png" alt="graphic of a brain with arrows pointing into it">
+                            <p>On a journey to overcome internalized shame, fightwithyourmind.org explores the silent code in our experiences and what could be possible in a society that values our differences.</p>
+                        </div>
+                        <a id="FWYM-button" href="#">Read More</a>
+                    </div>
+                </div>
+                </div>
+            </div>
+            <div class="column" id="footer-social">
+                <h5 id="social-header">We are not competing with social media–we are providing an alternative. 
+                Wake up from your thoughtlessness.</h5>
+                <p class="italic">Our thoughtlessness alone isn’t very powerful–but a population acting thoughtlessly on platforms with billions of users predictably sets trends for the behavior of the entire human race.</p>
+                <img src="/images/social-media-brainwash.jpg">
+                <h4>EXPLORE THE ROOMS OF</h4>
+                <h1>HOUSE GEEK</h1>
+                <h5>THE SOCIAL MEDIA ALTERNATIVE</h5>
+                <p class="italic">A familiar space to come in and spend some time</p>
+                <p>The rooms of House Geek await your curious eyes! Allow us to entertain you while challenging you to think.</p> 
+                
+                <p>Inside is media of all shapes and sizes… </p>
+
+                <ul>
+                    <li><b>Laugh</b> until you poop with geeky and cheeky webcomics, and catch the latest from Bootstrap Publications including periodic chapter releases from Lou's sci-fi novel, collections of short stories, and children's books on "uncomfortable subjects".</li>
+                    <li><b>Listen</b> to Blue Marlin Records music or the Nine to Fiveless Podcast with the co-creator spouse duo. </li>
+                    <li><b>Visit</b> our virtual gallery and online performance space, presented by Dark Side of the Lens Photography</li>
+                    <li><b>Stream</b> our music concert series, "Doing the right thing for the right reasons", songs from the community. Coming Soon!</li>
+                    <li><b>Celebrate</b> a whole calendar year of invented holidays and quirky traditions to match. </li>
+                    <li><b>Appreciate</b> your authenticity in our spaces dedicated to supporting the community and arming allies with the truth.</li>
+                    <li><b>Discover</b> what's new since your last visit & enjoy today's digital browsing adventure! </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="xl-row" id="footer-row-2">
+    <div class="inset-row" id="accommodations">
+        <div class="column">
+            <h2>Accommodation services</h3>
+            <h3>This site was designed & coded <br>to be accessible for all.</h3>
+        </div>
+        <div class="column">
+            <p>We provide alt text for all images and use Semantic HTML in order for screen readers and other assistive technologies to work as intended.</p>
+            <p>WCAG 2.0 level AA contrast compliant in all designs throughout the site.</p>
+            <p>If you have accessibility needs beyond what we thought to provide, we apologize, and please <a href="contact.html">contact us</a> so we can correct this oversight.</p>
+        </div>
+    </div>
+    <div class="inset-row" id="win-the-internet">
+        <h4>Win the internet!!!</h4>
+        <p>Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. Ut wisi enim ad minim veniam.</p>
+        <a href="#" class="striped-button">Learn More</a>
+    </div>
+    <div class="inset-row" id="bootstrap-footer-row">
+        <div class="column">
+            <img src="/images/bootstrap-footer-logo.png">
+            <div class="inset-row">
+                <div class="column">
+                    <h5>LibRAL Arts is one of 4 arms of Bootstrap Commercial Arts that together form a machine to fight back against the devaluing of the truth, the ignorance that comes with it, and the resulting oppression and injustice.</h5>
+                    <p>With more creative minds than those we oppose, and our secret weapon–doing the right thing–we have created long-term multi-generation plans to disassemble the systems that perpetually block us from our goals of real equality and acceptance of each other.</p>
+                </div>
+                <div class="column">
+                <p>We reject the baselines that create the illusion that change is too difficult. Things are the way they are because we continue to make them that way.</p>
+                <p class="italic">We refuse to accept the dire fates thrust upon us as oppressed people or as a generation fighting for the possibility of a future. We burn but we are not consumed.</p> 
+                <p>Learn more about the machine for justice, and our experiences that have informed its architecture. </p>
+                <a class="gray-button">Visit Website</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="xl-row" id="footer-row-3">
+    <div class="inset-row">
+        <div class="column">
+            <img src="/images/honest-logo.png">    
+            <p>Honesty to the client, honesty to the publicLorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. Ut wisi enim ad minim veniam, quis nostrud exerci tation ullamcorper suscipit lobortis nisl ut aliquip ex ea commodo consequat. Duis autem vel eum iriure dolor in hendrerit in vulputate velit esse molestie consequat</p>
+            <p>Lorem ipsum dolor sit amet, cons ectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. Ut wisi enim ad minim veniam, quis nostrud exerci tation ullamcorper suscipit lobortis nisl ut aliquip ex ea commodo consequat. Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat </p>
+            <a href="#" class="gray-button" target="_blank">Visit Website</a>
+        </div>
+        <div class="column">
+            <img src="/images/by-the-bootstraps-logo.png">
+            <p>Fighting the injustice and inequality related to the shamefully outstanding number of individuals in this country that endure a life without housing or sufficient income.</p>
+            <p>By providing a community and acknowledging and addressing root causes of extreme poverty, we make it possible for wounds to heal to allow for new bandwidth to navigate housing and employment with others in like circumstances.</p>
+            <p>Our four-step program, resource center, training hub, employment entry program, and support groups work together to provide a path to success in a society that misunderstands the subject enough to continue ignoring it.</p>
+            <p>We are proud to share that Up By The Bootstraps requires no government assistance, capital, or public monetary donation to operate.</p>
+            <a href="#" class="gray-button" target="_blank">Visit Website</a>
+        </div>
+        <div class="column">
+            <img src="/images/fwym-logo.png">
+            <p>The web arm of Bootstrap Commercial Arts dedicated to helping people get comfortable with experiences they are unfamiliar with.</p>
+            <p>Here, we explore the truth, and the longer journey some have to arrive at it.</p>
+            <p>Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. Ut wisi enim ad minim veniam, quis nostrud exerci tation ullamcorper suscipit lobortis nisl ut aliquip ex ea commodo consequat. Duis autem vel eum iriure dolor in hendrerit in vulputate velit esse molestie consequat, vel illum dolore eu </p>
+            <p>lorem ipsum dolor sit amet, cons ectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. Ut wisi enim ad minim veniam, quis </p>
+            <a href="https://fightwithyourmind.org" class="gray-button" target="_blank">Visit Website</a>
+        </div>
+    </div>
+</div>
+<div class="xl-row" id="footer-row-4">
+    <div class="inset-row">
+        <div class="column">
+            <h3>house geek</h3>
+            <ul>
+                <li><a href="#">The Playbook</a></li>
+                <li><a href="#">Might be Something, Might be Nothing</a></li>
+                <li><a href="#">Learning!!!</a></li>
+                <li><a href="#">Chicken Strip</a></li>
+                <li><a href="#">Sunday School</a></li>
+                <li><a href="#">Traditions</a></li>
+            </ul>
+            </div>
+        <div class="column">
+        <h3>Souvenir Shop</h3>
+            <ul>
+                <li><a href="#">shop</a></li>
+                <li><a href="#">collection one</a></li>
+                <li><a href="#">another collection</a></li>
+                <li><a href="#">collection three</a></li>
+                <li><a href="#">yet another collection</a></li>
+                <li><a href="#">collection five</a></li>
+            </ul>
+        </div>
+        <div class="column">
+            <h3>Account Pages</h3>
+            <ul>
+                <li><a href="#">login / register</a></li>
+                <li><a href="#">my account</a></li>
+                <li><a href="#">return policy</a></li>
+                <li><a href="#">privacy policy</a></li>
+                <li><a href="#">terms & conditions</a></li>
+                <li><br><a href="/contact.html" class="ghost-button">Contact Us</a></li>
+            </ul>
+        </div>
+    </div>
+    <p style="text-align:center; padding: 2rem; color: #999999;">©2023 Bootstrap Commercial Arts</p>
+</div>
 `
 
 function template(div, placement, contents){

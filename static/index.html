@@ -9,6 +9,7 @@
   <link rel="stylesheet" type="text/css" href="/css/home.css">
   <link rel="stylesheet" type="text/css" href="/carousel/slick.css">
   <link rel="stylesheet" type="text/css" href="/carousel/slick-theme.css">
+  <script type="text/javascript" src="/js/template.js"></script>
 
   <title>Libral Arts</title>
 </head>
@@ -22,13 +23,14 @@
           </a>
           <img src="/images/search.png" alt="Search Icon" id="search-icon" class="shadow">
         </div>
-        <div id="search-modal" class="shadow" style="display: none;">
+        <div id="search-modal" class="shadow modal-window" style="display: none;">
           <form id="search-bar" name="searchBar">
             <h3>Looking for something?</h3>
             <p>Search for products, sets, collections, or House Geek content here.</p>
             <input id="sb-search-input" placeholder="Enter your search term..." type="search" value="" name="search" id="search">
             <button id="sb-search-submit" type="submit" alt="search">Search</button>
-          </form></div>
+          </form>
+        </div>
         <div id="logo">
           <a href="/" class="shadow">
             <img src="images/logo.png">
@@ -78,10 +80,12 @@
         </picture>
         <div id="featured-products"></div>
         <div class="xl-row" id="featured-products-row-2">
-          <div class="column" id="fp-text">
+          <div class="column">
             <h3>A souvenir to remind you of your visit!</h3>
             <p>Browse our LibRAL Arts Souvenir Shop, a magical and liberal land where we use art and humor to challenge the world to think.</p>   
             <p>Each themed collection we curate uses functional art to multiply public familiarity with the subjects and/or people featured in each custom piece. Our tactic for social and environmental responsibility is to use the familiarity we cultivate to dispel the fear connected to oppression and ignorance connected to harm.</p>
+          </div>
+          <div class="column">
             <h4>Win the Internet!</h4>
             <p>Savings are stashed cleverly around LibRAL Arts, waiting for investigative individuals to discover their locations. Let the hunt for hidden coupon codes begin! The first one to the end of the scavenger hunt wins the Internet!</p>
             <a href="store.html" class="striped-button flex">
@@ -96,16 +100,8 @@
           <img src="/images/house-geek.png">
         </div>
         <div class="column">
-          <h2 style="padding-bottom:1rem;">A familiar space to come in and spend some time</h2>
-          <p>The rooms of House Geek await your curious eyes! Allow us to entertain you while challenging you to think.</p>
-          <h3>Inside is media of all shapes and sizes…</h3>
-          <p><b>Laugh</b> until you poop with geeky and cheeky webcomics, and catch the latest from Bootstrap Publications including periodic chapter releases from Lou's sci-fi novel, collections of short stories, and children's books on "uncomfortable subjects".</p>
-          <p><b>Listen</b> to Blue Marlin Records music or the Nine to Fiveless Podcast with the co-creator spouse duo.</p>
-          <p><b>Visit</b> our virtual gallery and online performance space, presented by Dark Side of the Lens Photography.</p>
-          <p><b>Stream</b> our music concert series, "Doing the right thing for the right reasons", songs from the community. Coming Soon!</p>
-          <p><b>Celebrate</b> a whole calendar year of invented holidays and quirky traditions to match.</p>
-          <p><b>Appreciate</b> your authenticity in our spaces dedicated to supporting the community and arming allies with the truth.</p>
-          <p><b>Discover</b> what's new since your last visit & enjoy today's digital browsing adventure!</p>
+          <h2 style="padding-bottom:1rem;">The rooms of House Geek await your curious eyes! </h2>
+          <p>House Geek is the social media alternative that immerses you in content that entertains you while challenging you to think, The artful labyrinth of scenes below reflects the life, love, and struggles of geeky and cheeky duo creators and their secret inner worlds</p>
           <a href="#" class="striped-button alternates" style="text-align:center">HOUSE GEEK archives</a>
         </div>
       </div>
@@ -266,6 +262,7 @@
       displayToggle('search-icon', 'search-modal', {funcStyle: 'easyHide'});
       homeFeaturedProducts();
       houseGeekImages();
+      template('main','append',footer)
   </script>
 </body>
 </html>

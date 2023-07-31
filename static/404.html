@@ -8,29 +8,24 @@
   <link rel="stylesheet" type="text/css" href="/css/global.css">
   <link rel="stylesheet" type="text/css" href="/css/search.css">
   <script type="text/javascript" src="/js/template.js"></script>
-  <title>Libral Arts | Search</title>
+  <title>Libral Arts | 404</title>
 </head>
 <body>
     <div id="main">
-      <script>template('main','prepend',header)</script>
-      <div id="results" class="shadow">
-        <form id="static-search-bar" name="staticSearchBar">
-          <h2>Search</h2>
-          <input id="search-input" placeholder="Enter your search term..." type="search" value="" name="search">
-          <button id="search-submit" type="submit" alt="search">Search</button>
-        </form>
-        <div id="collection"></div>
-        <div id="set"></div>
-        <div id="product"></div>
-        <div id="room"></div>
-        <div id="post"></div>
-      </div>
+        <script>template('main','prepend',header)</script>
+        <div class="flex-row" style="text-align: center;">
+            <div class="column" style="padding:0;">
+                <picture>
+                    <source media="(min-width: 680px)" srcset="/images/404.png">
+                    <img id="404" src="/images/404-sm.png" alt="Wanted poster reading: missing web page. Below the wanted poster is a desert scene with cacti and a sunset. A goat says: We couldn't find the page you were looking for. A cowboy says: That's a 404 error! Better luck next time, cowboy.">
+                </picture> 
+            </div>
+        </div>
     </div>
     <script type="text/javascript" src="https://honest-utilities.netlify.app/honest.js"></script>
     <script type="text/javascript" src="/js/shopify.js"></script>  
     <script type="text/javascript" src="/js/sanity.js"></script>
     <script type="text/javascript" src="/js/libral.js"></script>
-    <script type="text/javascript" src="/js/search.js"></script>
     <script>
         displayToggle('search-icon', 'search-modal', {funcStyle: 'easyHide'});
         template('main','append',footer)

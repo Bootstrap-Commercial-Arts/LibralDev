@@ -65,7 +65,7 @@
           <p>Ut wisi enim ad minim veniam, quis nostrud exerci tation ullamcorper suscipit lobortis nisl ut aliquip ex ea commodo consequat. Duis autem vel eum iriure dolor in hendrerit in vulputate velit esse molestie consequat, vel illum dolore eu feugiat nulla facilisis at vero eros et accumsan et iusto odio dignissim qui blandit praesent luptatum zzril delenit augue duis dolore te feugait nulla facilisi.
             Lorem ipsum dolor sit amet, cons ectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat.</p>
             <p class="bold-italic">Ut wisi enim ad minim veniam, quis nostrud exerci tation ullamcorper suscipit lobortis nisl ut aliquip ex ea commodo consequat.</p>
-            <a class="striped-button" href="#">View Collection</a>
+            <a class="striped-button" onclick="comingSoon('test')">View Collection</a>
         </div>
         <div class="column">
           <picture>
@@ -135,7 +135,6 @@
     let storeSliders = function(collectionName, targetDiv) {
         let query = encodeURIComponent(`[_type == 'collection' && [store.title, title] match "${collectionName}"] {'sets': sets[].set->{title, _type, 'slug': slug.current, 'image': image.asset->.url}}`);
             sanityApiCall(query).then(res => {
-                console.log(res)
             for (const set of res[0].sets){ 
                 setProductCard(set,targetDiv);
             }
@@ -164,6 +163,7 @@
     $(document).ready(subnavScript());
     displayToggle('search-icon', 'search-modal', {funcStyle: 'easyHide'});
     storeSliders('Test Collection', 'hbf-slider');
+    template('main','append',footer)
   </script>
 </body>
 </html>

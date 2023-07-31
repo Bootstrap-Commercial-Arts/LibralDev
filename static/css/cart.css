@@ -1,6 +1,6 @@
 #cart-wrapper {
     max-width: 680px;
-    margin: auto;
+    margin: 0 auto 6rem auto;
     background-color: white;
     padding: 2rem;
 }

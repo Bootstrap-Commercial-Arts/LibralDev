@@ -130,3 +130,30 @@ function topBannerStart(state, message) {
     main.append(bannerContainer);
     setTimeout(() => {topBanner.remove()}, 5000);
 }
+
+function closeModal(id) {
+  var modal = document.getElementById(id);
+  modal.remove();
+}
+
+function comingSoon(keyword) {
+  const comingSoonModal = document.createElement('div');
+  comingSoonModal.setAttribute("id", "coming-soon");
+  comingSoonModal.setAttribute("class", "shadow modal-window");
+  comingSoonModal.innerHTML = `
+    <div class="shadow modal-window" id="coming-soon">
+      <button id="close" onclick="closeModal('coming-soon')">X</button>
+      <img src="/images/coming-soon.jpg" alt="Graphic of a camp next to a river, with blue tarp roofs covering a tent, kitchen, dressers, and wrapped around an outdoor shower. it reads: Hey, trendsetter! As you can see, we are still setting up camp in this space.">
+      <p>You are a bit early, but if you leave us your email or phone we will alert you to the launch date.</p>
+      <form data="netlify" id="coming-soon-form">
+          <input type="text" name="name" id="cs-name" placeholder="Name">
+          <input type="tel" name="phone" id="cs-phone" placeholder="phone">
+          <input type="email" name="email" id="cs-email" placeholder="email">
+          <input type="hidden" name="keyword" id="cs-keyword" value="${keyword}">   
+      </form>
+      <button class="striped-button" form="coming-soon-form" type="submit">Notify me</button>
+      <p class="fine-print">All contact information is protected by ninjas and only used for this purpose</p>
+    </div>
+  `
+  main.append(comingSoonModal);
+}
