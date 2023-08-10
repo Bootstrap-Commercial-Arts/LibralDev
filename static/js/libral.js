@@ -70,22 +70,22 @@ let setProductCard = function(result, destinationId) {
   switch(result._type){
     case 'product': 
       storeCard.setAttribute('href', `/product.html?id=${result.slug}`)
+      storeCard.setAttribute('class', 'product-card shadow');
+      storeCard.setAttribute('id', result.shopifyId);
       if(result.primary){
       var styledPrimary = result.title.replace("\"", "<b>\"");
       styledPrimary = replaceLast("\"", "\"</b>", styledPrimary)
-      storeCard.setAttribute('class', 'product-card');
-      storeCard.setAttribute('id', result.shopifyId);
       storeCard.innerHTML = `
-          <img class="shadow" src="${result.image}">
+          <img src="${result.image}">
           <a class="pill" href="${result.slug}">${styledPrimary}</a>
           <h3>${result.title}</h3>
-          <p class="price">$${result.price}</p>
+          <p class="price">$${result.price.toFixed(2)}</p>
           <a class="blue-button">Select Options</a>
       `} else {
           storeCard.innerHTML = `
-          <img class="shadow" src="${result.image}">
+          <img src="${result.image}">
           <h3>${result.title}</h3>
-          <p class="price">$${result.price}</p>
+          <p class="price">$${result.price.toFixed(2)}</p>
           <a class="blue-button">Select Options</a>
       `}
     break;
@@ -93,7 +93,7 @@ let setProductCard = function(result, destinationId) {
       storeCard.setAttribute('href', `/set.html?id=${result.slug}`)
       var styledTitle = result.title.replace("\"", "<b>\"");
       styledTitle = replaceLast("\"", "\"</b>", styledTitle)
-      storeCard.setAttribute('class', 'set-card');
+      storeCard.setAttribute('class', 'set-card shadow');
       storeCard.innerHTML = `
       <img src="${result.image}">
       <h3>${styledTitle}</h3>
@@ -146,7 +146,7 @@ function comingSoon(keyword) {
       <img src="/images/coming-soon.jpg" alt="Graphic of a camp next to a river, with blue tarp roofs covering a tent, kitchen, dressers, and wrapped around an outdoor shower. it reads: Hey, trendsetter! As you can see, we are still setting up camp in this space.">
       <p>You are a bit early, but if you leave us your email or phone we will alert you to the launch date.</p>
       <form data="netlify" id="coming-soon-form">
-          <input type="text" name="name" id="cs-name" placeholder="Name">
+          <input type="text" name="name" id="cs-name" placeholder="name">
           <input type="tel" name="phone" id="cs-phone" placeholder="phone">
           <input type="email" name="email" id="cs-email" placeholder="email">
           <input type="hidden" name="keyword" id="cs-keyword" value="${keyword}">   
@@ -156,4 +156,32 @@ function comingSoon(keyword) {
     </div>
   `
   main.append(comingSoonModal);
+}
+
+function contactUs() {
+  const contactModal = document.createElement('div');
+  contactModal.setAttribute("id", "contact-us");
+  contactModal.setAttribute("class", "shadow modal-window");
+  contactModal.innerHTML = `
+      <button id="close" onclick="closeModal('contact-us')">X</button>
+      <div class="inset-row">
+        <div class="column">
+          <img src="/images/contact-us.jpg" alt="graphic of a dog, rabbit, and three baby chicks">
+        </div>
+        <div class="column">
+          <h3 class="red-underline">Contact Us</h3>
+          <p>We are small, so please look at these things before contacting us:</p>
+          <a href="/return-policy">Return Policy</a>
+          <a href="/terms-and-conditions">Terms & Conditions</a>
+          <p>If you really still need to write us, then use the form below. No solicitations, please.</p>
+        </div>
+      </div>
+      <form data="netlify" id="contact-us-form">
+        <input type="text" name="name" id="cs-name" placeholder="name">
+        <input type="email" name="email" id="cs-email" placeholder="email">  
+        <textarea id="message" name="message" placeholder="message" rows="5" cols="33"></textarea>
+      </form>
+      <button class="striped-button padded-button" form="contact-us-form" type="submit">Submit</button>
+  `
+  main.append(contactModal);
 }

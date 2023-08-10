@@ -1,6 +1,6 @@
 const searchProjection = `_type == 'post' => {_id, _type, 'image': image.asset->url, title, 'slug': slug.current},_type == 'room' => {_id, _type, 'image': image.asset->url, title, 'slug': slug.current},_type == 'collection' => {_id, _type, 'image': image.asset->url, title, 'slug': slug.current},_type == 'set' => {_id, _type, 'image': image.asset->url, title, 'slug': slug.current}, _type == 'product' => {_type, primary->, 'shopifyId': store.id, 'image': store.previewImageUrl, 'slug': store.slug.current, 'title': store.title }`;
 
-function listResults(result, divParam){
+function listResults(result, div){
     var searchResult = document.createElement("a");
     searchResult.setAttribute("class", "search-result");
     searchResult.setAttribute('href', `/${result._type}.html?id=${result.slug}`)
@@ -10,24 +10,11 @@ function listResults(result, divParam){
     cardImage.src = result.image;
     searchResult.append(cardImage);
 
-    //Create Primary Set or Collection Label
-    if(result.primary) {
-        var cardPrimary = document.createElement("a");
-        var styledPrimary = result.primary.title.replace("\"", "<b>\"");
-        styledPrimary = replaceLast("\"", "\"</b>", styledPrimary)
-        cardPrimary.setAttribute("class", "pill")
-        cardPrimary.innerHTML = styledPrimary;
-        cardPrimary.href = `/${result.primary._type}.html?id=${result.primary.slug.current}`
-        searchResult.append(cardPrimary);
-    }
-
     //Create Title
     var cardTitle = document.createElement("p");
     cardTitle.setAttribute("class","result-title")
     cardTitle.innerHTML = result.title;
     searchResult.append(cardTitle);
-
-    div = document.getElementById(divParam);
     div.append(searchResult);
 }
 
@@ -52,23 +39,40 @@ function searchSanity() {
     let query
     ['product', 'set', 'collection', 'room', 'post'].forEach(type => {
         switch (type) {
-            case 'product': query = `[_type == 'product' && [store.title, title] match "${params.s}"] {_type, primary->, 'shopifyId': store.id, 'image': store.previewImageUrl, 'slug': store.slug.current, 'title': store.title }`
+            case 'product': query = `[_type == 'product' && [store.title, title] match "${params.s}"] {_type, primary->, 'shopifyId': store.id, 'image': store.previewImageUrl, 'slug': store.slug.current, 'title': store.title, 'price': store.priceRange.minVariantPrice}`
             break;
             default: query = `[_type == '${type}' && [store.title, title] match "${params.s}"]{_id, _type, 'image': image.asset->url, title, 'slug': slug.current}`
             break;
         }
         // Query sanity api for each type and list the results in landingPad div
         sanityApiCall(encodeURIComponent(query)).then(res => {
+            let results = document.getElementById('results');
+            div = document.getElementById(type);
             if(res[0]) {
-                console.log(res)
-                div = document.getElementById(type);
-                div.innerHTML = `<h4>${type}s</h4>`
-                // Display each item of the given type
-                res.forEach((line)=>{
-                    listResults(line,type);
-                });
+                switch(type) {
+                    case 'product':
+                    case 'set': 
+                        let resultGrid = document.createElement('div');
+                        resultGrid.setAttribute('class', 'product-set-row');
+                        resultGrid.setAttribute('id', `${type}-grid`);
+                        div.append(resultGrid);
+                        res.forEach((line)=>{
+                            setProductCard(line, `${type}-grid`);
+                        });
+                    break;
+                    default:
+                        // Display each item of the given type
+                        res.forEach((line)=>{
+                            listResults(line,div);
+                        });
+                }
+                results.append(div);
+            } else {
+                let defaultMessage = document.createElement('p');
+                defaultMessage.setAttribute('class', 'default-message')
+                defaultMessage.innerHTML = `No ${type}s match your search.`
+                div.append(defaultMessage)
             }
-            
         }); 
     });
     
@@ -92,3 +96,26 @@ function staticSearchBarSubmit(event){
 
 }
 staticSearchForm.addEventListener('submit', staticSearchBarSubmit);
+
+
+
+
+// Filter results
+const searchFilter = document.forms.searchFilters;
+
+function filterResults(event){
+    event.preventDefault();
+    const typesArray = ['collection', 'room', 'set', 'product', 'room']
+    const formData = new FormData(searchFilter);
+    const formDataObject = Object.fromEntries(formData.entries());
+    const formDataArray = Object.keys(formDataObject);
+    typesArray.forEach((key) => {
+        let resultDiv = document.getElementById(key);
+        if(formDataArray.includes(key)){
+            resultDiv.setAttribute('style', 'display:block;')
+        } else {
+            resultDiv.setAttribute('style', 'display:none;')
+        }
+    });
+}
+searchFilter.addEventListener('change', filterResults);

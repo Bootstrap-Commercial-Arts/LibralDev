@@ -210,7 +210,7 @@ footer.innerHTML = `
         <div class="column">
             <p>We provide alt text for all images and use Semantic HTML in order for screen readers and other assistive technologies to work as intended.</p>
             <p>WCAG 2.0 level AA contrast compliant in all designs throughout the site.</p>
-            <p>If you have accessibility needs beyond what we thought to provide, we apologize, and please <a href="contact.html">contact us</a> so we can correct this oversight.</p>
+            <p>If you have accessibility needs beyond what we thought to provide, we apologize, and please <a onclick="contactUs()">contact us</a> so we can correct this oversight.</p>
         </div>
     </div>
     <div class="inset-row" id="win-the-internet">
@@ -224,13 +224,13 @@ footer.innerHTML = `
             <div class="inset-row">
                 <div class="column">
                     <h5>LibRAL Arts is one of 4 arms of Bootstrap Commercial Arts that together form a machine to fight back against the devaluing of the truth, the ignorance that comes with it, and the resulting oppression and injustice.</h5>
-                    <p>With more creative minds than those we oppose, and our secret weapon–doing the right thing–we have created long-term multi-generation plans to disassemble the systems that perpetually block us from our goals of real equality and acceptance of each other.</p>
+                    <p>With more creative minds than those we oppose, and our secret weapon–doing the right thing–we have created long-term multi-generation plans to disassemble the systems that perpetually block us from our goals of real equality and acceptance of each other. </p>
                 </div>
                 <div class="column">
-                <p>We reject the baselines that create the illusion that change is too difficult. Things are the way they are because we continue to make them that way.</p>
+                <p>At Bootstrap, we reject the baselines that create the illusion that change is too difficult–things are the way they are because we continue to make them that way.</p>
                 <p class="italic">We refuse to accept the dire fates thrust upon us as oppressed people or as a generation fighting for the possibility of a future. We burn but we are not consumed.</p> 
-                <p>Learn more about the machine for justice, and our experiences that have informed its architecture. </p>
-                <a class="gray-button">Visit Website</a>
+                <p>Learn more about our machine for justice, and the experiences that have informed its architecture.</p>
+                <a class="gray-button" href="https://bythebootstrap.us" target="_blank">Visit Website</a>
                 </div>
             </div>
         </div>
@@ -240,24 +240,31 @@ footer.innerHTML = `
     <div class="inset-row">
         <div class="column">
             <img src="/images/honest-logo.png">    
-            <p>Honesty to the client, honesty to the publicLorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. Ut wisi enim ad minim veniam, quis nostrud exerci tation ullamcorper suscipit lobortis nisl ut aliquip ex ea commodo consequat. Duis autem vel eum iriure dolor in hendrerit in vulputate velit esse molestie consequat</p>
-            <p>Lorem ipsum dolor sit amet, cons ectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. Ut wisi enim ad minim veniam, quis nostrud exerci tation ullamcorper suscipit lobortis nisl ut aliquip ex ea commodo consequat. Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat </p>
-            <a href="#" class="gray-button" target="_blank">Visit Website</a>
+            <p class="italic">A transparent small business economy built on sustainability models and social responsibility, instead of a corrupt corporate economy with power over political leadership and personal data.</p>
+            <p>Honesty to the client, honesty to the public</p>
+            
+            <p>Marketers that have turned on the corporate advertising industry unite to create a small business driven economy, run by the next generation of business minds–those that do the right things for the right reasons.</p>   
+            
+            <p>Honest Marketing and Business Development has been dedicated for decades to building a business model designed to undercut the power of corporations without waiting for congress to change laws slowly. We accomplish what politicians can't by giving the consumer a cheaper option, without sacrificing quality or taking more time to provide it.</p> 
+            
+            <p>Turns out, doing the right thing is also good for business!</p>
+            <a onclick="comingSoon()" class="gray-button" target="_blank">Coming Soon</a>
         </div>
         <div class="column">
             <img src="/images/by-the-bootstraps-logo.png">
-            <p>Fighting the injustice and inequality related to the shamefully outstanding number of individuals in this country that endure a life without housing or sufficient income.</p>
+            <p class="italic">Fighting injustice and inequality on behalf of those struggling to survive without housing or sufficient income.</p>
             <p>By providing a community and acknowledging and addressing root causes of extreme poverty, we make it possible for wounds to heal to allow for new bandwidth to navigate housing and employment with others in like circumstances.</p>
             <p>Our four-step program, resource center, training hub, employment entry program, and support groups work together to provide a path to success in a society that misunderstands the subject enough to continue ignoring it.</p>
             <p>We are proud to share that Up By The Bootstraps requires no government assistance, capital, or public monetary donation to operate.</p>
-            <a href="#" class="gray-button" target="_blank">Visit Website</a>
+            <a onclick="comingSoon()" class="gray-button" target="_blank">Coming Soon</a>
         </div>
         <div class="column">
             <img src="/images/fwym-logo.png">
-            <p>The web arm of Bootstrap Commercial Arts dedicated to helping people get comfortable with experiences they are unfamiliar with.</p>
-            <p>Here, we explore the truth, and the longer journey some have to arrive at it.</p>
-            <p>Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. Ut wisi enim ad minim veniam, quis nostrud exerci tation ullamcorper suscipit lobortis nisl ut aliquip ex ea commodo consequat. Duis autem vel eum iriure dolor in hendrerit in vulputate velit esse molestie consequat, vel illum dolore eu </p>
-            <p>lorem ipsum dolor sit amet, cons ectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. Ut wisi enim ad minim veniam, quis </p>
+            <p class="italic">Fight With Your Mind is dedicated to helping people get comfortable with the things they are unfamiliar with so that discomfort does not become ignorance.</p>
+            <p>By honestly acknowledging the real factors that create and perpetuate extreme poverty in our society, we can address trauma recovery and create long-term systemic solutions instead of blaming the victim or passing the responsibility to good samaritan citizens.</p>
+            <p>Our four-step program, resource center, training hub, employment entry program, and support groups work together to provide a path to success in a society that misunderstands the subject enough to continue ignoring it.</p>
+            <p>We are proud to share that our unique approaches to poverty are carried out without government assistance or public donation, and UBTB was designed to provide help without an operating budget in order to be easily reliable to those that need help.</p>
+            <p>Learn more about using Up by the Bootstraps for self-help or to help others.</p>
             <a href="https://fightwithyourmind.org" class="gray-button" target="_blank">Visit Website</a>
         </div>
     </div>
@@ -289,12 +296,11 @@ footer.innerHTML = `
         <div class="column">
             <h3>Account Pages</h3>
             <ul>
-                <li><a href="#">login / register</a></li>
-                <li><a href="#">my account</a></li>
-                <li><a href="#">return policy</a></li>
-                <li><a href="#">privacy policy</a></li>
-                <li><a href="#">terms & conditions</a></li>
-                <li><br><a href="/contact.html" class="ghost-button">Contact Us</a></li>
+                <li><a href="/shipping-policy.html">shipping policy</a></li>
+                <li><a href="/return-policy.html">return policy</a></li>
+                <li><a href="/privacy-policy.html">privacy policy</a></li>
+                <li><a href="/terms-and-conditions.html">terms & conditions</a></li>
+                <li><button class="ghost-button padded-button" onclick="contactUs()">Contact Us</button>
             </ul>
         </div>
     </div>

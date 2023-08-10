@@ -13,17 +13,52 @@
 <body>
     <div id="main">
       <script>template('main','prepend',header)</script>
-      <div id="results" class="shadow">
-        <form id="static-search-bar" name="staticSearchBar">
+      <div id="results" class="row">
+        <form id="static-search-bar" class="shadow flex" name="staticSearchBar">
           <h2>Search</h2>
+          <a id="show-filter">+ Filter</a>
           <input id="search-input" placeholder="Enter your search term..." type="search" value="" name="search">
           <button id="search-submit" type="submit" alt="search">Search</button>
         </form>
-        <div id="collection"></div>
-        <div id="set"></div>
-        <div id="product"></div>
-        <div id="room"></div>
-        <div id="post"></div>
+        <div id="search-filters" style="display: none;"">
+          <form class="flex" name="searchFilters">
+            <label for="collection">
+              <input type="checkbox" id="collections" name="collection" checked />
+              Collections
+            </label>
+            <label for="room">
+              <input type="checkbox" id="rooms" name="room" checked />
+              Rooms
+            </label>
+            <label for="set">
+              <input type="checkbox" id="sets" name="set"   checked />
+              Sets
+            </label>
+            <label for="product">
+              <input type="checkbox" id="products" name="product" checked />
+              Products
+            </label>
+            <label for="post">
+              <input type="checkbox" id="posts" name="post" checked />
+              Posts
+            </label>
+          </form>
+        </div>
+        <div id="collection">
+          <h4>Collections</h4>
+        </div>
+        <div id="room">
+          <h4>Rooms</h4>
+        </div>
+        <div id="set">
+          <h4>Sets</h4>
+        </div>
+        <div id="product">
+          <h4>Products</h4>
+        </div>
+        <div id="post">
+          <h4>Posts</h4>
+        </div>
       </div>
     </div>
     <script type="text/javascript" src="https://honest-utilities.netlify.app/honest.js"></script>
@@ -33,6 +68,7 @@
     <script type="text/javascript" src="/js/search.js"></script>
     <script>
         displayToggle('search-icon', 'search-modal', {funcStyle: 'easyHide'});
+        displayToggle('show-filter', 'search-filters');
         template('main','append',footer)
     </script>
   </body>
