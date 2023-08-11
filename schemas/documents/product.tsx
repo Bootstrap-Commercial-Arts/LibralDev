@@ -39,89 +39,28 @@ export default {
       type: 'proxyString',
       options: { field: 'store.slug.current' }
     },
-    // Images
+    // Product Type
     {
-      title: 'Images',
-      name: 'images',
-      type: 'array',
-      options: { layout: 'grid' },
-      of: [
-        {
-          name: 'image',
-          title: 'Image',
-          type: 'image',
-          options: { hotspot: true }
-        }
-      ]
-    },
-    // Sections
-    {
-      name: 'sections',
-      title: 'Sections',
-      type: 'array',
-      of: [
-        {
-          name: 'section',
-          title: 'Section',
-          type: 'object',
-          fields: [
-            // Title
-            {
-              name: 'title',
-              title: 'Title',
-              type: 'string',
-              validation: Rule => Rule.required()
-            },
-            // Body
-            {
-              name: 'body',
-              title: 'Body',
-              type: 'array',
-              of: [
-                {
-                  lists: [],
-                  marks: { decorators: [] },
-                  styles: [],
-                  type: 'block'
-                }
-              ]
-            },
-            //Lou Says Text
-            {
-              name: 'louText',
-              title: 'Lou Says Text',
-              type: 'string'
-            },
-            //Lou Says Link
-            {
-              name: 'louLink',
-              title: 'Lou Says Text',
-              type: 'url'
-            }
-            
-          ]
-        }
-      ],
-      validation: Rule => Rule.max(3)
-    },
-    // Body
-    {
-      name: 'body',
-      title: 'Body',
-      type: 'body'
+      title: 'Product Type',
+      name: 'productType',
+      type: 'reference',
+        to: {type: 'productType'},
+        validation: Rule => Rule.required()
     },
     //Common Description
     {
       title: 'Common Description & Size Chart',
       name: 'commonDescription',
       type: 'reference',
-        to: {type: 'commonDescription'}
+        to: {type: 'commonDescription'},
+        validation: Rule => Rule.required()
     },
     //Lou Says Text
     {
       name: 'louText',
       title: 'Lou Says Text',
-      type: 'string'
+      type: 'string',
+      validation: Rule => Rule.required()
     },
     //Lou Says Link
     {
@@ -135,7 +74,8 @@ export default {
       name: 'primary',
       type: 'reference',
         to: [{type: 'set'},
-              {type: 'collection'}]
+              {type: 'collection'}],
+      validation: Rule => Rule.required()
 
     },
     //Related Products

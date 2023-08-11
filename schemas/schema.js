@@ -17,6 +17,7 @@ import set from './documents/set'
 import product from './documents/product'
 import productVariant from './documents/productVariant'
 import commonDescription from './documents/commonDescription'
+import productType from './documents/commonDescription'
 
 // Singleton document types
 import home from './singletons/home'
@@ -43,6 +44,7 @@ import seoSingleton from './objects/seo/singleton'
 import seoStandard from './objects/seo/standard'
 import shopifyProduct from './objects/shopifyProduct'
 import shopifyProductVariant from './objects/shopifyProductVariant'
+import productTypeObject from './objects/productTypeObject'
 
 // Build the schemas and export to the Sanity Studio app
 export default createSchema({
@@ -64,6 +66,7 @@ export default createSchema({
     product,
     productVariant,
     commonDescription,
+    productType,
     // Singleton document types
     home,
     settings,
@@ -86,6 +89,7 @@ export default createSchema({
     shopifyProduct,
     shopifyProductVariant,
     setObject,
-    collectionObject
+    collectionObject,
+    productTypeObject
   ])
 })
