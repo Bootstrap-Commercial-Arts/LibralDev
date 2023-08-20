@@ -18,13 +18,14 @@ export default {
     {
       name: 'description',
       title: 'Description',
-      type: 'string'
+      type: 'text',
+      validation: Rule => Rule.required()
     },
     //Size Chart
     {
         name: 'sizeChart',
         title: 'Size Chart',
-        type: 'string'
+        type: 'text'
       },
 
     

@@ -59,7 +59,7 @@ export default {
     {
       name: 'louText',
       title: 'Lou Says Text',
-      type: 'string',
+      type: 'text',
       validation: Rule => Rule.required()
     },
     //Lou Says Link

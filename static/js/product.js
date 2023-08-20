@@ -1,7 +1,8 @@
 let cartLine;
+var description = document.getElementById('p-description');
 
 let sanityProductData = function() {
-    let query = encodeURIComponent(`[store.slug.current == "${params.id}"] {_id, _type, louLink, louText, primary->, 'shopifyId': store.id, 'image': store.previewImageUrl, 'slug': store.slug.current, 'title': store.title, store, commonDescription->, 'variants': store.variants[]->, 'options': store.options, 'relatedProducts': relatedProducts[]->{_id, _type, primary->, 'shopifyId': store.id, 'image': store.previewImageUrl, 'slug': store.slug.current, 'title': store.title, 'price': store.priceRange.minVariantPrice }}`);
+    let query = encodeURIComponent(`[store.slug.current == "${params.id}"] {_id, _type, louLink, louText, primary->, productType->, 'shopifyId': store.id, 'image': store.previewImageUrl, 'slug': store.slug.current, 'title': store.title, store, commonDescription->, 'variants': store.variants[]->, 'options': store.options, 'relatedProducts': relatedProducts[]->{_id, _type, primary->, 'shopifyId': store.id, 'image': store.previewImageUrl, 'slug': store.slug.current, 'title': store.title, 'price': store.priceRange.minVariantPrice }}`);
     sanityApiCall(query).then(() => {
         shopifyProductData();
         sanityProductPopulate();
@@ -39,9 +40,11 @@ let shopifyProductData = function() {
         addlImg.append(img)
     });
     // Product Description
-    var description = document.getElementById('p-description');
-    description.innerHTML = shopifyPromise.product.descriptionHtml;
+    let productDescription = document.createElement('div')
+    productDescription.innerHTML = shopifyPromise.product.descriptionHtml
+    description.prepend(productDescription);
     addModalImages(imgArr);
+
   });
 }
 
@@ -73,8 +76,30 @@ function sanityProductPopulate() {
   var price = document.getElementById('price');
   price.innerHTML = `$${sanityPromise[0].store.priceRange.minVariantPrice.toFixed(2)}`;
 
+  //Common Description
+  var commonDescription = document.createElement('p')
+  commonDescription.innerHTML = sanityPromise[0].commonDescription.description;
+  description.append(commonDescription);
+
+  //Size Chart
+  if(sanityPromise[0].commonDescription.sizeChart){
+    let sizeChartButton = document.createElement('a');
+    sizeChartButton.setAttribute('id', 'size-chart');
+    sizeChartButton.innerHTML = 'View Size Chart';
+    description.append(sizeChartButton);
+
+    let sizeChartModal = document.createElement('div');
+    sizeChartModal.setAttribute('id', 'size-chart-modal')
+    sizeChartModal.setAttribute('class', 'modal-window')
+    sizeChartModal.setAttribute('style', 'display: none')
+    sizeChartModal.innerHTML = sanityPromise[0].commonDescription.sizeChart;
+    main.append(sizeChartModal)
+    displayToggle('size-chart', 'size-chart-modal', {funcStyle: 'easyHide'});
+  }
+  console.log(description)
+
   // Product Options
-  let productOptions = document.getElementById('product-options')
+  let productOptions = document.getElementById('product-options');
   
   sanityPromise[0].options.forEach(option => {
     if(option.values.length > 1) {
@@ -146,7 +171,7 @@ function lightBox(event) {
   modalOverlay.setAttribute('style', 'display:block');
 }
 
-function closeModal() {
+function closeProductModal() {
   var modalWrap = document.getElementById('modal-wrap');
   var modalOverlay = document.getElementById('modal-overlay')
   modalWrap.setAttribute('style', 'display:none');

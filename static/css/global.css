@@ -263,6 +263,19 @@ a img {
     font-weight: 400;
 }
 
+.pill::before {
+    content: '<';
+    color: white;
+    background-color: var(--darkgray);
+    padding: 0 0.5rem;
+    margin-left: -0.5rem;
+    margin-right: 0.5rem;
+    vertical-align: middle;
+    font-size: 1.3rem;
+}
+.product-card .pill::before, .set-card .pill::before {
+    display: none;
+}
 /* Component Styles */
 .product-set-row {
     display: grid;
@@ -332,6 +345,10 @@ a img {
     transform: translate(-50%, -50%);
     padding: 5rem;
     overflow-y: scroll;
+}
+.modal-window::-webkit-scrollbar {
+    width: 0;  /* Remove scrollbar space */
+    background: transparent;  /* Optional: just make scrollbar invisible */
 }
 #search-bar {
     text-align: center;

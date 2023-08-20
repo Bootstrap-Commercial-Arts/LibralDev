@@ -17,7 +17,7 @@ import set from './documents/set'
 import product from './documents/product'
 import productVariant from './documents/productVariant'
 import commonDescription from './documents/commonDescription'
-import productType from './documents/commonDescription'
+import productType from './documents/productType'
 
 // Singleton document types
 import home from './singletons/home'

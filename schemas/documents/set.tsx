@@ -34,8 +34,42 @@ export default {
       name: 'image',
       title: 'Image',
       type: 'image',
-      options: { hotspot: true },
+      options: {accept: 'image/jpg'},
+      fields: [
+        {
+          name: 'imageAlt',
+          type: 'string',
+          title: 'Alt Text',
+        }
+      ],
       validation: Rule => Rule.required()
+    },
+    // Image
+    {
+      name: 'transparentImage',
+      title: 'Transparent Image',
+      type: 'image',
+      options: {accept: 'image/png'},
+      fields: [
+        {
+          name: 'imageAlt',
+          type: 'string',
+          title: 'Alt Text',
+        }
+      ],
+      validation: Rule => Rule.required()
+    },
+    // Theme
+    {
+      title: 'Theme',
+      name: 'theme',
+      type: 'string',
+      options: {
+        list: [
+          { title: 'Dark', value: 'darkgray' },
+          { title: 'Light', value: 'lightgray' },
+        ],
+      },
     },
     // Products
     {

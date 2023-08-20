@@ -2,7 +2,7 @@ let libralCart;
 let cartRoot;
 let main = document.getElementById('main');
 
-const setAndProductProjection = `_type == 'set' => {_id, _type, 'image': image.asset->url, title, 'slug': slug.current}, _type == 'product' => {_id, _type, louLink, louText, primary->, 'shopifyId': store.id, 'image': store.previewImageUrl, 'slug': store.slug.current, 'title': store.title, store }`;
+const setAndProductProjection = `_type == 'set' => {_id, _type, 'image': image.asset->url, 'imageAlt': image.imageAlt, title, 'slug': slug.current}, _type == 'product' => {_id, _type, louLink, louText, primary->, 'shopifyId': store.id, 'image': store.previewImageUrl, 'slug': store.slug.current, 'title': store.title, store }`;
 
 
 // Cart structure check
@@ -73,17 +73,17 @@ let setProductCard = function(result, destinationId) {
       storeCard.setAttribute('class', 'product-card shadow');
       storeCard.setAttribute('id', result.shopifyId);
       if(result.primary){
-      var styledPrimary = result.title.replace("\"", "<b>\"");
+      var styledPrimary = result.primary.title.replace("\"", "<b>\"");
       styledPrimary = replaceLast("\"", "\"</b>", styledPrimary)
       storeCard.innerHTML = `
-          <img src="${result.image}">
+          <img src="${result.image}" alt="product image for ${result.title}">
           <a class="pill" href="${result.slug}">${styledPrimary}</a>
           <h3>${result.title}</h3>
           <p class="price">$${result.price.toFixed(2)}</p>
           <a class="blue-button">Select Options</a>
       `} else {
           storeCard.innerHTML = `
-          <img src="${result.image}">
+          <img src="${result.image}" alt="product image for ${result.title}">
           <h3>${result.title}</h3>
           <p class="price">$${result.price.toFixed(2)}</p>
           <a class="blue-button">Select Options</a>
@@ -95,7 +95,7 @@ let setProductCard = function(result, destinationId) {
       styledTitle = replaceLast("\"", "\"</b>", styledTitle)
       storeCard.setAttribute('class', 'set-card shadow');
       storeCard.innerHTML = `
-      <img src="${result.image}">
+      <img src="${result.image}" alt="${result.image.imageAlt}">
       <h3>${styledTitle}</h3>
       <a class="blue-button">View Products</a>
       `

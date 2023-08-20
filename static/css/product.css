@@ -20,12 +20,10 @@
     flex-direction: column;
     justify-content: space-between;
 }
-#p-top {
-    margin-top: -22rem;
-}
+
 #p-info img {
     width: calc(100% + 2rem);
-    margin: -1rem;
+    margin: -1rem -1rem -50% -1rem;
     max-width: none;
 }
 #p-title {

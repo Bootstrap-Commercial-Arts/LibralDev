@@ -44,6 +44,7 @@ export default {
       type: 'setObject',
       validation: Rule => Rule.required()
     },
+    // Theme
     {
       title: 'Theme',
       name: 'theme',

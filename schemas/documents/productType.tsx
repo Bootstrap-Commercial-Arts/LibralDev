@@ -2,8 +2,8 @@ import { PackageIcon } from '@sanity/icons'
 import pluralize from 'pluralize'
 
 export default {
-  name: 'commonDescription',
-  title: 'Common Description',
+  name: 'productType',
+  title: 'Product Type',
   type: 'document',
   icon: PackageIcon,
   fields: [
