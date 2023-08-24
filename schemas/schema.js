@@ -37,6 +37,7 @@ import placeholderString from './objects/placeholderString'
 import productOption from './objects/productOption'
 import productWithVariant from './objects/productWithVariant'
 import setObject from './objects/setObject'
+import productObject from './objects/productObject'
 import collectionObject from './objects/collectionObject'
 import proxyString from './objects/proxyString'
 import seoProduct from './objects/seo/product'
@@ -89,6 +90,7 @@ export default createSchema({
     shopifyProduct,
     shopifyProductVariant,
     setObject,
+    productObject,
     collectionObject,
     productTypeObject
   ])

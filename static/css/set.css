@@ -1,0 +1,155 @@
+#set-feature {
+    background-image: url('/images/featured-set-back.png');
+    height: 40rem;
+    width: 100vw;
+    background-size: contain;
+    background-repeat: no-repeat;
+    overflow: hidden;
+}
+
+#posters {
+    width: 50rem;
+    display: flex;
+    margin: 6.5rem 4rem 3rem 18rem;
+}
+
+#posters .poster {
+    width: 14.1rem;
+    margin: 1rem;
+    text-align: center;
+}
+
+#posters img {
+    width: 100%;
+}
+
+#posters h3 {
+    font-family: montserrat;
+    font-weight: 900;
+    text-transform: uppercase;
+    font-size: 1.75rem;
+}
+#set-feature .striped-button {
+    display: block;
+    text-align: center;
+    margin-top: 1rem
+}
+#set-feature-front {
+    margin-top: -30.5rem;
+}
+
+#set-feature .column {
+    position: relative;
+    width: 30rem;
+    margin-left:68rem;
+    margin-top:-40rem;
+}
+
+#set-feature .column p {
+    font-size: 1.5rem;
+    padding-bottom: 2rem;
+}
+
+#set-feature .column h2 {
+    font-weight: 400;
+    font-size: 1.75rem;
+}
+
+img {
+    max-width: 100%;
+}
+#price {
+    color: var(--blue);
+    margin: 1rem 0;
+}
+#p-description {
+    font-size: 1.25rem;
+}
+#product-options {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1rem;
+}
+select {
+    width: 100%;
+}
+label {
+    text-transform: uppercase;
+    font-weight: bolder;
+    font-size: 1rem;
+}
+#add-to-cart {
+    padding: 1.5rem;
+}
+#set-row {
+    padding: 4rem;
+    background-blend-mode: multiply;
+    background-size: cover;
+    background-position: top center;
+}
+#set-row .darkgray {
+    background-blend-mode: lighten;
+}
+.darkgray p, .darkgray h3 {
+    color:#ffffff;
+}
+#set-row .inset-row {
+    align-items: center;
+}
+#set-row p {
+    padding-top:2rem;
+}
+#set-row img {
+    width: 30rem;
+}
+.darkgray .pill {
+    border-color: #ffffff;
+    background-color: #555555;
+    color: #ffffff
+}
+.darkgray .pill::before {
+    background-color: #ffffff;
+    color: var(--darkgray);
+}
+#products {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr;
+    grid-auto-rows: auto;
+    grid-gap: 2rem;
+}
+
+@media screen and (max-width: 680px) {
+    #set-feature {
+        background-image: url('/images/featured-set-back-sm.png');
+        height: 65rem;
+    }
+
+    #posters .poster {
+        width: 19.3rem;
+        margin: 1rem;
+        text-align: center;
+    }
+    
+    #posters {
+        width: 100rem;
+        display: flex;
+        margin: 8rem 4rem 3rem -5.5rem;
+    }
+
+    #set-feature-front {
+        margin-top: -35rem;
+        margin-left: 0.5rem;
+    }
+
+    #set-feature .column {
+    width: unset;
+    margin: 2rem 0 0 0;
+    }
+
+    #set-feature .column p {
+        font-size: 2.25rem;
+    }
+    #products{
+        grid-template-columns: 1fr 1fr;
+    }
+}

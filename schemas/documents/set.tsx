@@ -71,6 +71,13 @@ export default {
         ],
       },
     },
+    // Featured Product
+    {
+      title: 'Featured Product',
+      name: 'featuredProduct',
+      type: 'productObject',
+      validation: Rule => Rule.required()
+    },
     // Products
     {
       name: 'products',
