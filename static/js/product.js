@@ -2,7 +2,7 @@ let cartLine;
 var description = document.getElementById('p-description');
 
 let sanityProductData = function() {
-    let query = encodeURIComponent(`[store.slug.current == "${params.id}"] {_id, _type, louLink, louText, primary->, productType->, 'shopifyId': store.id, 'image': store.previewImageUrl, 'slug': store.slug.current, 'title': store.title, store, commonDescription->, 'variants': store.variants[]->, 'options': store.options, 'relatedProducts': relatedProducts[]->{_id, _type, primary->, 'shopifyId': store.id, 'image': store.previewImageUrl, 'slug': store.slug.current, 'title': store.title, 'price': store.priceRange.minVariantPrice }}`);
+    let query = encodeURIComponent(`[store.slug.current == "${urlSlug}"] {_id, _type, louLink, louText, primary->, productType->, 'shopifyId': store.id, 'image': store.previewImageUrl, 'slug': store.slug.current, 'title': store.title, store, commonDescription->, 'variants': store.variants[]->, 'options': store.options, 'relatedProducts': relatedProducts[]->{_id, _type, primary->, 'shopifyId': store.id, 'image': store.previewImageUrl, 'slug': store.slug.current, 'title': store.title, 'price': store.priceRange.minVariantPrice }}`);
     sanityApiCall(query).then(() => {
         shopifyProductData();
         sanityProductPopulate();
@@ -64,7 +64,7 @@ function sanityProductPopulate() {
     styledPrimary = replaceLast("\"", "\"</b>", styledPrimary)
     cardPrimary.setAttribute("class", "pill")
     cardPrimary.innerHTML = styledPrimary;
-    cardPrimary.href = `/${sanityPromise[0].primary._type}.html?id=${sanityPromise[0].primary.slug.current}`
+    cardPrimary.href = `/${sanityPromise[0].primary._type}/${sanityPromise[0].primary.slug.current}`
     pillBox.prepend(cardPrimary);
 }
 

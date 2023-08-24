@@ -63,7 +63,7 @@
     <script>
         // Load Collection Page data
         let collectionData = function() {
-            let query = encodeURIComponent(`[_type == 'collection' && slug.current == '${params.id}'] {title, description, 'image': image.asset->.url, 'featuredSet': featuredSet.set->{title, 'image': image.asset->.url, description, 'slug': slug.current}, theme, 'slug': slug.current, 'products': products[].product->{'price': store.priceRange.minVariantPrice, 'slug': store.slug.current, 'tags': store.tags, 'title': store.title, _type, 'image': store.previewImageUrl}, 'sets': sets[].set->{title, _type, 'slug': slug.current, 'image': image.asset->.url}}
+            let query = encodeURIComponent(`[_type == 'collection' && slug.current == '${urlSlug}'] {title, description, 'image': image.asset->.url, 'featuredSet': featuredSet.set->{title, 'image': image.asset->.url, description, 'slug': slug.current}, theme, 'slug': slug.current, 'products': products[].product->{'price': store.priceRange.minVariantPrice, 'slug': store.slug.current, 'tags': store.tags, 'title': store.title, _type, 'image': store.previewImageUrl}, 'sets': sets[].set->{title, _type, 'slug': slug.current, 'image': image.asset->.url}}
             `);
             sanityApiCall(query)
             .then(() => {
@@ -76,7 +76,7 @@
                 featuredSetInfo.innerHTML = `<h2>Featured Set</h2>
                     <h1 id="featured-title">${sanityPromise[0].featuredSet.title}</h1>
                     <p id="featured-description">${sanityPromise[0].featuredSet.description}</p>
-                    <a class="striped-button" href="/set.html?id=${sanityPromise[0].featuredSet.slug}">View Set</a>`;
+                    <a class="striped-button" href="/set/${sanityPromise[0].featuredSet.slug}">View Set</a>`;
                 
                 // Collection info
                 let collectionRow = document.getElementById('collection-row');

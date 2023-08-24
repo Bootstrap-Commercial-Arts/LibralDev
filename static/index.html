@@ -204,7 +204,7 @@
               styledPrimary = replaceLast("\"", "\"</b>", styledPrimary)
               cardPrimary.setAttribute("class", "pill")
               cardPrimary.innerHTML = styledPrimary;
-              cardPrimary.href = `/${result.primary._type}.html?id=${result.primary.slug.current}`
+              cardPrimary.href = `/${result.primary._type}/${result.primary.slug.current}`
               cardDiv.append(cardPrimary);
           }
 
@@ -221,7 +221,7 @@
           }
 
           //Create link
-          card.href = `/${result._type}.html?id=${result.slug}`;
+          card.href = `/${result._type}/${result.slug}`;
 
           destination.append(card);
       }

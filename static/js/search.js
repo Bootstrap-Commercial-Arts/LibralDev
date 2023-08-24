@@ -3,7 +3,7 @@ const searchProjection = `_type == 'post' => {_id, _type, 'image': image.asset->
 function listResults(result, div){
     var searchResult = document.createElement("a");
     searchResult.setAttribute("class", "search-result");
-    searchResult.setAttribute('href', `/${result._type}.html?id=${result.slug}`)
+    searchResult.setAttribute('href', `/${result._type}/${result.slug}`)
 
     //Create Image
     var cardImage = document.createElement("img");

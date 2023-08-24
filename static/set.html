@@ -53,7 +53,7 @@
     <script>
       // Load Set Data
       let setData = function() {
-        let query = encodeURIComponent(`[_type == 'set' && slug.current == '${params.id}'] {_id, title, description, 'image': transparentImage.asset->, 'imageAlt': transparentImage.imageAlt, 'featuredProduct': featuredProduct.product->{'title': store.title, 'price': store.priceRange.minVariantPrice, 'image': store.previewImageUrl, 'description': store.descriptionHtml, 'slug': store.slug.current}, theme, 'slug': slug.current, 'products': products[].product->{'price': store.priceRange.minVariantPrice, 'slug': store.slug.current, 'tags': store.tags, 'title': store.title, _type, 'image': store.previewImageUrl}}
+        let query = encodeURIComponent(`[_type == 'set' && slug.current == '${urlSlug}'] {_id, title, description, 'image': transparentImage.asset->, 'imageAlt': transparentImage.imageAlt, 'featuredProduct': featuredProduct.product->{'title': store.title, 'price': store.priceRange.minVariantPrice, 'image': store.previewImageUrl, 'description': store.descriptionHtml, 'slug': store.slug.current}, theme, 'slug': slug.current, 'products': products[].product->{'price': store.priceRange.minVariantPrice, 'slug': store.slug.current, 'tags': store.tags, 'title': store.title, _type, 'image': store.previewImageUrl}}
         `);
         sanityApiCall(query)
         .then(() => {
@@ -75,7 +75,7 @@
               </div>
             </form>
             <button class="red-button" id="add-to-cart" form="product-options" type="submit">Add to Cart</button>
-            <a class="striped-button" href="/product.html?id=${sanityPromise[0].featuredProduct.slug}">View Product</a>`;
+            <a class="striped-button" href="/product/${sanityPromise[0].featuredProduct.slug}">View Product</a>`;
           let productOptions = document.getElementById('product-options');
           productOptions.addEventListener('submit', addToCart);
           

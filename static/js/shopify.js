@@ -212,7 +212,7 @@ function cartContentsFill() {
             var lines = document.getElementsByClassName('cart-line');
             shopifyIdArray.forEach(function(id, i){
                 let match = sanityPromise.filter(item => 'shopifyProduct-' + item.shopifyId == id)
-                lines[i].childNodes[1].href = `/product.html?id=${match[0].slug}`;
+                lines[i].childNodes[1].href = `/product/${match[0].slug}`;
             });
         })
     }

@@ -1,6 +1,7 @@
 let libralCart;
 let cartRoot;
 let main = document.getElementById('main');
+let urlSlug = location.pathname.split('/').slice(1);
 
 const setAndProductProjection = `_type == 'set' => {_id, _type, 'image': image.asset->url, 'imageAlt': image.imageAlt, title, 'slug': slug.current}, _type == 'product' => {_id, _type, louLink, louText, primary->, 'shopifyId': store.id, 'image': store.previewImageUrl, 'slug': store.slug.current, 'title': store.title, store }`;
 
@@ -69,7 +70,7 @@ let setProductCard = function(result, destinationId) {
   let storeCard = document.createElement('a');
   switch(result._type){
     case 'product': 
-      storeCard.setAttribute('href', `/product.html?id=${result.slug}`)
+      storeCard.setAttribute('href', `/product/${result.slug}`)
       storeCard.setAttribute('class', 'product-card shadow');
       storeCard.setAttribute('id', result.shopifyId);
       if(result.primary){
@@ -90,7 +91,7 @@ let setProductCard = function(result, destinationId) {
       `}
     break;
     case 'set':
-      storeCard.setAttribute('href', `/set.html?id=${result.slug}`)
+      storeCard.setAttribute('href', `/set/${result.slug}`)
       var styledTitle = result.title.replace("\"", "<b>\"");
       styledTitle = replaceLast("\"", "\"</b>", styledTitle)
       storeCard.setAttribute('class', 'set-card shadow');

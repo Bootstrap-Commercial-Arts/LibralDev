@@ -34,63 +34,63 @@ carouselHeader.innerHTML = `
         </a>
     </div>
     <div class="xl-row sub-nav">
-        <a href="/collection.html?id=cookie-clouds" class="sub-nav-item shop-nav-item">
+        <a href="/collection/cookie-clouds" class="sub-nav-item shop-nav-item">
             <img src="/images/carousel/CookieClouds.jpg" alt="The Cookie Clouds Collection" class="prod-cat-image">
         </a>
 
-        <a href="/collection.html?id=house-geek" class="sub-nav-item shop-nav-item">
+        <a href="/collection/house-geek" class="sub-nav-item shop-nav-item">
             <img src="/images/carousel/HouseGeek.jpg" alt="The House Geek Collection" class="prod-cat-image">
         </a>
 
-        <a href="/collection.html?id=tshit-blog" class="sub-nav-item shop-nav-item">
+        <a href="/collection/tshit-blog" class="sub-nav-item shop-nav-item">
             <img src="/images/carousel/t-SHITBlog.jpg" alt="The t-SHIT Blog Collection" class="prod-cat-image">
         </a>
 
-        <a href="/collection.html?id=black-lives-matter" class="sub-nav-item shop-nav-item">
+        <a href="/collection/black-lives-matter" class="sub-nav-item shop-nav-item">
             <img src="/images/carousel/BlackLivesMatter.jpg" alt="The Black Lives Matters Collection" class="prod-cat-image">
         </a>
 
-        <a href="/collection.html?id=chicken-strip" class="sub-nav-item shop-nav-item">
+        <a href="/collection/chicken-strip" class="sub-nav-item shop-nav-item">
             <img src="/images/carousel/ChickenStrip.jpg" alt="The Chicken Strip Collection" class="prod-cat-image">
         </a>
 
-        <a href="/collection.html?id=magic-sack" class="sub-nav-item shop-nav-item">
+        <a href="/collection/magic-sack" class="sub-nav-item shop-nav-item">
             <img src="/images/carousel/MagicSack.jpg" alt="The Magic Sack Collection" class="prod-cat-image">
         </a>
 
-        <a href="/collection.html?id=colorful-individuals" class="sub-nav-item shop-nav-item">
+        <a href="/collection/colorful-individuals" class="sub-nav-item shop-nav-item">
             <img src="/images/carousel/ColorfulIndividuals.jpg" alt="The Colorful Individuals Collection" class="prod-cat-image">
         </a>
 
-        <a href="/collection.html?id=blood-on-the-ice-hockey-fan" class="sub-nav-item shop-nav-item">
+        <a href="/collection/blood-on-the-ice-hockey-fan" class="sub-nav-item shop-nav-item">
             <img src="/images/carousel/BloodOnTheIce.jpg" alt="The Blood on the Ice Collection" class="prod-cat-image">
         </a>
 
-        <a href="/collection.html?id=draw-hot-dog" class="sub-nav-item shop-nav-item">
+        <a href="/collection/draw-hot-dog" class="sub-nav-item shop-nav-item">
             <img src="/images/carousel/DrawHotDog.jpg" alt="The Draw Hot Dog Collection" class="prod-cat-image">
         </a>
 
-        <a href="/collection.html?id=collections" class="sub-nav-item shop-nav-item">
+        <a href="/collection/collections" class="sub-nav-item shop-nav-item">
             <img src="/images/carousel/TheCollectionCollection.jpg" alt="The Collection Collection" class="prod-cat-image">
         </a>
 
-        <a href="/collection.html?id=psa" class="sub-nav-item shop-nav-item">
+        <a href="/collection/psa" class="sub-nav-item shop-nav-item">
             <img src="/images/carousel/PSAs.jpg" alt="The PSA Collection" class="prod-cat-image">
         </a>
 
-        <a href="/collection.html?id=honest" class="sub-nav-item shop-nav-item">
+        <a href="/collection/honest" class="sub-nav-item shop-nav-item">
             <img src="/images/carousel/Honest.jpg" alt="The Honest Collection" class="prod-cat-image">
         </a>
 
-        <a href="/collection.html?id=fight-with-your-mind" class="sub-nav-item shop-nav-item">
+        <a href="/collection/fight-with-your-mind" class="sub-nav-item shop-nav-item">
             <img src="/images/carousel/FWYM.jpg" alt="The Fight With Your Mind Collection" class="prod-cat-image">
         </a>
 
-        <a href="/collection.html?id=up-by-the-bootstraps" class="sub-nav-item shop-nav-item">
+        <a href="/collection/up-by-the-bootstraps" class="sub-nav-item shop-nav-item">
             <img src="/images/carousel/UpByTheBootstraps.jpg" alt="The Up By The Bootstraps Collection" class="prod-cat-image">
         </a>
 
-        <a href="/collection.html?id=ak-papercraft" class="sub-nav-item shop-nav-item">
+        <a href="/collection/ak-papercraft" class="sub-nav-item shop-nav-item">
             <img src="/images/carousel/AK-Papercraft.jpg" alt="The AK Papercraft Collection" class="prod-cat-image">
         </a>
     </div>
