@@ -1,7 +1,7 @@
 let libralCart;
 let cartRoot;
 let main = document.getElementById('main');
-let urlSlug = location.pathname.split('/').slice(1);
+let urlSlug = location.pathname.split('/')[2];
 
 const setAndProductProjection = `_type == 'set' => {_id, _type, 'image': image.asset->url, 'imageAlt': image.imageAlt, title, 'slug': slug.current}, _type == 'product' => {_id, _type, louLink, louText, primary->, 'shopifyId': store.id, 'image': store.previewImageUrl, 'slug': store.slug.current, 'title': store.title, store }`;
 
