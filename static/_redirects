@@ -1,5 +1,1 @@
-/product/*          /product.html/:splat        200
-/set/*              /set.html/:splat            200
-/collection/*       /collection.html/:splat     200
-/room/*             /room.html/:splat           200
-/post/*             /post.html/:splat           200
+#none
