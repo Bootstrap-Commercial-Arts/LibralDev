@@ -1,1 +1,1 @@
-/product/*     /product.html id=:splat     200
+/product/*     /product.html/:splat     200
