@@ -1,1 +1,4 @@
-/product/*          /product.html?id=:splat 200!
+/product/*              /product.html?id=:splat 200!
+/set/*                  /set.html?id=:splat 200!
+/collection/*           /collection.html?id=:splat 200!
+/search/*               /search.html?s=:splat 200!

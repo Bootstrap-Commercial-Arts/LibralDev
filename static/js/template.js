@@ -113,7 +113,7 @@ header.innerHTML = `
         </div>
     <div id="logo">
         <a href="/" class="shadow">
-            <img src="images/logo.png">
+            <img src="/images/logo.png">
         </a>
     </div>
     <div id="global-nav">
