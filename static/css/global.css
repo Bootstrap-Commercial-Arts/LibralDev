@@ -100,8 +100,8 @@ textarea {
        -moz-box-sizing: border-box;
             box-sizing: border-box;
 }
-p, a, input, select, label, button, ::placeholder, span {
-    font-family: montserrat;
+p, a, input, select, label, button, ::placeholder {
+    font-family: 'montserrat';
     font-size: 1.5rem;
     color: var(--darkgray);
     font-weight: 100;
