@@ -15,11 +15,11 @@ async function shopifyApiCall(payload) {
         }
       )
       shopifyPromise = await response.json()
-      if(shopifyPromise.data.length > 0) {
+      if(shopifyPromise.data.length === 0) {
+        window.location.href = '/404'
+      } else {
         shopifyPromise = shopifyPromise.data
         return sanityPromise;
-      } else {
-        window.location.href = '/404'
       }
     } catch (error) {
       topBannerStart('error', error);
