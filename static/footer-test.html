@@ -1,139 +1,31 @@
-const carouselHeader = document.createElement('header')
-carouselHeader.innerHTML = `
-        <div id="header-icons">
-            <a href="cart.html" id="cart-icon" class="shadow">
-                <img src="/images/cart.png" alt="Cart Icon">
-            </a>
-            <img src="/images/search.png" alt="Search Icon" id="search-icon" class="shadow">
-        </div>
-        <div id="search-modal" class="shadow modal-window" style="display: none;">
-            <form id="search-bar" name="searchBar">
-                <h3>Looking for something?</h3>
-                <p>Search for products, sets, collections, or House Geek content here.</p>
-                <input id="sb-search-input" placeholder="Enter your search term..." type="search" value="" name="search" id="search">
-                <button id="sb-search-submit" type="submit" alt="search">Search</button>
-            </form>
-        </div>
-    <div id="logo">
-        <a href="/" class="shadow">
-            <img src="/images/logo.png">
-        </a>
-    </div>
-    <div id="global-nav">
-        <a href="/index.html#house-geek" id="house-geek-button" class="striped-button flex">
-            <img src="/images/cart-dark.png">
-            <div class="right-text">
-            <p class="bolder caps">Explore the rotating</p><p class="alternates">rooms of HOUSE GEEK</p>
-            </div>
-        </a>
-        <a href="store.html" id="store-button" class="striped-button flex">
-            <img src="/images/home-dark.png">
-            <div class="right-text">
-            <p class="bolder caps">Browse our souvenirs</p><p class="alternates">fun shirts and swag</p>
-            </div>
-        </a>
-    </div>
-    <div class="xl-row sub-nav">
-        <a href="/collection/cookie-clouds" class="sub-nav-item shop-nav-item">
-            <img src="/images/carousel/CookieClouds.jpg" alt="The Cookie Clouds Collection" class="prod-cat-image">
-        </a>
+<!doctype html>
 
-        <a href="/collection/house-geek" class="sub-nav-item shop-nav-item">
-            <img src="/images/carousel/HouseGeek.jpg" alt="The House Geek Collection" class="prod-cat-image">
-        </a>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+<link rel="manifest" href="/site.webmanifest">
+<link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5">
+<meta name="msapplication-TileColor" content="#da532c">
+<meta name="theme-color" content="#ffffff">
+  <link rel="stylesheet" type="text/css" href="https://honest-utilities.netlify.app/honest.css">
+  <link rel="stylesheet" type="text/css" href="/css/global.css">
+  <link rel="stylesheet" type="text/css" href="/css/search.css">
+  <script type="text/javascript" src="/js/template.js"></script>
+  <title>Libral Arts | 404 Error</title>
+</head>
+<body>
+    <div id="main">
+        <script>template('main','prepend',header)</script>
 
-        <a href="/collection/tshit-blog" class="sub-nav-item shop-nav-item">
-            <img src="/images/carousel/t-SHITBlog.jpg" alt="The t-SHIT Blog Collection" class="prod-cat-image">
-        </a>
 
-        <a href="/collection/black-lives-matter" class="sub-nav-item shop-nav-item">
-            <img src="/images/carousel/BlackLivesMatter.jpg" alt="The Black Lives Matters Collection" class="prod-cat-image">
-        </a>
 
-        <a href="/collection/chicken-strip" class="sub-nav-item shop-nav-item">
-            <img src="/images/carousel/ChickenStrip.jpg" alt="The Chicken Strip Collection" class="prod-cat-image">
-        </a>
 
-        <a href="/collection/magic-sack" class="sub-nav-item shop-nav-item">
-            <img src="/images/carousel/MagicSack.jpg" alt="The Magic Sack Collection" class="prod-cat-image">
-        </a>
 
-        <a href="/collection/colorful-individuals" class="sub-nav-item shop-nav-item">
-            <img src="/images/carousel/ColorfulIndividuals.jpg" alt="The Colorful Individuals Collection" class="prod-cat-image">
-        </a>
-
-        <a href="/collection/blood-on-the-ice-hockey-fan" class="sub-nav-item shop-nav-item">
-            <img src="/images/carousel/BloodOnTheIce.jpg" alt="The Blood on the Ice Collection" class="prod-cat-image">
-        </a>
-
-        <a href="/collection/draw-hot-dog" class="sub-nav-item shop-nav-item">
-            <img src="/images/carousel/DrawHotDog.jpg" alt="The Draw Hot Dog Collection" class="prod-cat-image">
-        </a>
-
-        <a href="/collection/collections" class="sub-nav-item shop-nav-item">
-            <img src="/images/carousel/TheCollectionCollection.jpg" alt="The Collection Collection" class="prod-cat-image">
-        </a>
-
-        <a href="/collection/psa" class="sub-nav-item shop-nav-item">
-            <img src="/images/carousel/PSAs.jpg" alt="The PSA Collection" class="prod-cat-image">
-        </a>
-
-        <a href="/collection/honest" class="sub-nav-item shop-nav-item">
-            <img src="/images/carousel/Honest.jpg" alt="The Honest Collection" class="prod-cat-image">
-        </a>
-
-        <a href="/collection/fight-with-your-mind" class="sub-nav-item shop-nav-item">
-            <img src="/images/carousel/FWYM.jpg" alt="The Fight With Your Mind Collection" class="prod-cat-image">
-        </a>
-
-        <a href="/collection/up-by-the-bootstraps" class="sub-nav-item shop-nav-item">
-            <img src="/images/carousel/UpByTheBootstraps.jpg" alt="The Up By The Bootstraps Collection" class="prod-cat-image">
-        </a>
-
-        <a href="/collection/ak-papercraft" class="sub-nav-item shop-nav-item">
-            <img src="/images/carousel/AK-Papercraft.jpg" alt="The AK Papercraft Collection" class="prod-cat-image">
-        </a>
-    </div>
-`
-const header = document.createElement('header')
-header.innerHTML = `
-        <div id="header-icons">
-            <a href="cart.html" id="cart-icon" class="shadow">
-                <img src="/images/cart.png" alt="Cart Icon">
-            </a>
-            <img src="/images/search.png" alt="Search Icon" id="search-icon" class="shadow">
-        </div>
-        <div id="search-modal" class="shadow modal-window" style="display: none;">
-            <form id="search-bar" name="searchBar">
-                <h3>Looking for something?</h3>
-                <p>Search for products, sets, collections, or House Geek content here.</p>
-                <input id="sb-search-input" placeholder="Enter your search term..." type="search" value="" name="search" id="search">
-                <button id="sb-search-submit" type="submit" alt="search">Search</button>
-            </form>
-        </div>
-    <div id="logo">
-        <a href="/" class="shadow">
-            <img src="/images/logo.png">
-        </a>
-    </div>
-    <div id="global-nav">
-        <a href="/index.html#house-geek" id="house-geek-button" class="striped-button flex">
-            <img src="/images/cart-dark.png">
-            <div class="right-text">
-            <p class="bolder caps">Explore the rotating</p><p class="alternates">rooms of HOUSE GEEK</p>
-            </div>
-        </a>
-        <a href="store.html" id="store-button" class="striped-button flex">
-            <img src="/images/home-dark.png">
-            <div class="right-text">
-            <p class="bolder caps">Browse our souvenirs</p><p class="alternates">fun shirts and swag</p>
-            </div>
-        </a>
-    </div>
-`
-const footer = document.createElement('footer')
-footer.innerHTML = `
-<div class="grid-row" id="footer-row-1">
+        <div class="grid-row" id="footer-row-1">
             <div class="column" id="footer-lou">
                 <div id="lou-header">
                     <div class="column">
@@ -145,13 +37,15 @@ footer.innerHTML = `
                         <h5>Meet, "Lou", the non-binary neurodivergent digital overlord of LibRAL Arts.</h5>
                     </div>
                 </div>
-                <p>Co-owners, R. & A. Douglas named the site in honor of their personal journey of "lib"eration from the harmful social constructs, propaganda, and ignorant fears that cause systematic oppression.</p>
-                <img src="/images/cast-of-characters.png" alt="Graphic of Lou, a robot, evil scientist, construction worker, theif, femme viking, French artist, vampire, and grandma">
-                <p>Lou & their cast of supporting characters <span class="bold italic">–as well as the all original art featured on the functional products and apparel in the LibRAL Arts souvenir shop–</span> tell their story and give validation and language to the inequalities that are often difficult for oppressed communities to express or escape.</p> 
-                <p>Through the LIbRAL Arts immersive website experience, audiences can follow the cheeky and geeky duo as they navigate their</p>
-                <img src="/images/our-journey.png" alt="Graphic of R. & A. Douglas in front of a computer designing a chicken graphic, while a small chick stands on the monitor & an octopus waiving a pride flag rests in the potted plant nearby on the desk">
-                <p>neurodivergent & queer post-gender journey to embrace their authenticity and imagine into existence a space safe for others to do the same.
-                </p>
+                <div>
+                    <p>Co-owners, R. & A. Douglas named the site in honor of their personal journey of "lib"eration from the harmful social constructs, propaganda, and ignorant fears that cause systematic oppression.</p>
+                    <img src="/images/cast-of-characters.png" alt="Graphic of Lou, a robot, evil scientist, construction worker, theif, femme viking, French artist, vampire, and grandma">
+                    <p>Lou & their cast of supporting characters <span class="bold italic">–as well as the all original art featured on the functional products and apparel in the LibRAL Arts souvenir shop–</span> tell their story and give validation and language to the inequalities that are often difficult for oppressed communities to express or escape.</p> 
+                    <p>Through the LIbRAL Arts immersive website experience, audiences can follow the cheeky and geeky duo as they navigate their</p>
+                    <img src="/images/our-journey.png" alt="Graphic of R. & A. Douglas in front of a computer designing a chicken graphic, while a small chick stands on the monitor & an octopus waiving a pride flag rests in the potted plant nearby on the desk">
+                    <p>neurodivergent & queer post-gender journey to embrace their authenticity and imagine into existence a space safe for others to do the same.
+                    </p>
+                </div>
             </div>
             <div class="inset-row" id="footer-social">
                 <div class="column">
@@ -342,45 +236,18 @@ footer.innerHTML = `
             </div>
             <p class="center small-text" style="padding: 1rem; color: #999999;">©2023 Bootstrap Commercial Arts</p>
         </div>
-`
 
 
-function template(div, placement, contents){
-    let  parent= document.getElementById(div);
-    switch(placement){
-        case 'prepend': parent.prepend(contents);
-        break;
-        case 'append': parent.append(contents);
-    }
-}
 
-const subnavScript = function(){
-    $('.sub-nav').slick({
-        slidesToShow: 7,
-        slidesToScroll: 2,
-        swipeToSlide: true,
-        dots: false,
-        arrows: true,
-        centerMode: true,
-        focusOnSelect: false,
-        responsive:[
-        {
-            breakpoint: 1200,
-            settings: {
-                arrows: true,
-                centerMode: true,
-                centerPadding: '40px',
-                slidesToShow: 4
-            }
-        },
-        {
-            breakpoint: 680,
-            settings: {
-                arrows: false,
-                centerMode: true,
-                centerPadding: '40px',
-                slidesToShow: 2
-            }
-        }]
-    });
-}
+
+
+    </div>
+    <script type="text/javascript" src="https://honest-utilities.netlify.app/honest.js"></script>
+    <script type="text/javascript" src="/js/shopify.js"></script>  
+    <script type="text/javascript" src="/js/sanity.js"></script>
+    <script type="text/javascript" src="/js/libral.js"></script>
+    <script>
+        displayToggle('search-icon', 'search-modal', {funcStyle: 'easyHide'});
+    </script>
+  </body>
+  </html>
