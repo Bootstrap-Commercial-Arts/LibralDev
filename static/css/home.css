@@ -1,14 +1,43 @@
+.home-flex {
+    margin-top:1rem;
+}
+.home-flex img{
+    max-width:100%;
+}
+.home-flex div:first-child{
+    text-align:right;
+}
+.vert-line{
+    background: linear-gradient(#000, #000) no-repeat center/.25rem 100%;
+    height: 7rem;
+}
+#home-lou-quote {
+    background-image: url(/images/home-hero-lou.png);
+    background-repeat: no-repeat;
+    background-position: right;
+    background-size: contain;
+    height: 9rem;
+    border-bottom: 0.25rem solid #cccccc;
+    margin-bottom:1rem;
+}
+#home-lou-quote p {
+    width: 75%;
+    text-align: center;
+    font-size: 1.25rem;
+    padding-top:1rem;
+}
 #home-feature-row {
     background-image: url(/images/home-hero.png);
     background-repeat: no-repeat;
     background-position: bottom center;
     background-attachment: fixed;
+    background-size: contain;
+    background-size: 100%;
     padding: 0 0 20rem 0;
 }
 #home-feature-row .card {
     border-right: 1rem solid var(--red);
-}
-#home-feature-row .card {
+    margin-top:15rem;
     margin-left: 0;
     width: 42rem;
 }
@@ -131,7 +160,6 @@
         background-image: url(/images/home-hero-sm.png);
         width: 100vw;
         min-height: 100vh;
-        background-size: cover;
     }
     #featured-products {
         margin-top: -10rem;
@@ -171,6 +199,7 @@
     #home-feature-row {
         background-image: url(/images/home-hero-xl.png);
         width: 100vw;
+        background-size: unset;
     }
     #featured-products {
         margin-top: -13rem;

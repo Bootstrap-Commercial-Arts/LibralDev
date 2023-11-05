@@ -16,7 +16,8 @@ async function shopifyApiCall(payload) {
       )
       shopifyPromise = await response.json()
       if(shopifyPromise.data.length === 0) {
-        window.location.href = '/404'
+        //window.location.href = '/404'
+        console.log(shopifyPromise.data)
       } else {
         shopifyPromise = shopifyPromise.data
         return sanityPromise;
