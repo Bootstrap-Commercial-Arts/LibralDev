@@ -27,17 +27,24 @@
     padding-top:1rem;
 }
 #home-feature-row {
-    background-image: url(/images/home-hero.png);
-    background-repeat: no-repeat;
-    background-position: bottom center;
-    background-attachment: fixed;
-    background-size: contain;
-    background-size: 100%;
-    padding: 0 0 20rem 0;
+    position: relative;
+    padding-bottom:10rem;
+    clip-path: inset(0 0 0 0);
+    z-index: -1;
+    background: linear-gradient(rgba(255,255,255,0), 50%, var(--paleblue))
+}
+#home-hero-image {
+    bottom: 0;
+    position: fixed;
+
+    margin: -1rem;
+}
+#home-hero-image img {
+    max-width: 100vw;
 }
 #home-feature-row .card {
     border-right: 1rem solid var(--red);
-    margin-top:15rem;
+    margin-bottom:5rem;
     margin-left: 0;
     width: 42rem;
 }
@@ -154,10 +161,12 @@
 .product-card a {
     font-size: 1.25rem;
 }
+footer {
+    background-color: white;
+}
 
 @media  screen and (max-width: 680px) {
     #home-feature-row {
-        background-image: url(/images/home-hero-sm.png);
         width: 100vw;
         min-height: 100vh;
     }
@@ -196,11 +205,6 @@
 }
 
 @media  screen and (min-width: 1200px) {
-    #home-feature-row {
-        background-image: url(/images/home-hero-xl.png);
-        width: 100vw;
-        background-size: unset;
-    }
     #featured-products {
         margin-top: -13rem;
         margin-left: 32vw;
