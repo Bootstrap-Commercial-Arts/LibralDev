@@ -50,7 +50,7 @@
 }
 #fp-wrapper {
     background-color: var(--paleblue);
-    background:linear-gradient(var(--paleblue), var(--paleblue) 93%, #ffffff)
+    background:linear-gradient(var(--paleblue), var(--paleblue) 70%, #ffffff)
 }
 #fp-header {
     margin-top: -10rem;
@@ -61,20 +61,24 @@
     width: 72rem;
     margin-top: -18rem;
 }
+#fp-hero {
+    width: 100%;
+    margin-top:-100%
+}
 #featured-products-row-2 {
-    background-image: url(/images/fp-hero-2.png);
-    background-repeat: no-repeat;  
+    background: linear-gradient(180deg, rgba(185,215,237,0) 0%, rgba(143,203,223,1) 35%, rgba(0,176,224,0) 80%);  
     margin-top: -18rem;
-    background-size: contain;
-    padding: 68rem 8rem 25rem 6rem;
-    display: flex;
-    align-items: center;
+    padding-top: 68rem;
+    margin-bottom:5rem;
 }
-#featured-products-row-2 .column {
-    margin-left: 2rem;
+#featured-products-row-2 .inset-row {
+    align-items: flex-end;
 }
-#featured-products-row-2 p:not(.bolder.caps) {
+#featured-products-text-col > p:not(.bolder, .caps) {
     margin-bottom: 2rem;
+}
+#featured-products-row-2 .striped-button.flex {
+    width: fit-content;
 }
 #fp-text {
     width: 37rem;
@@ -85,14 +89,25 @@
     background-image: url(/images/hg-ground.png);
     background-repeat: no-repeat;
     background-position: bottom;
-    padding-bottom: 9rem;
-    margin-top: -25rem;
+    padding-bottom: 12rem;
     background-size: 100%;
 }
-#house-geek p{
-    margin-bottom: 3rem;
+#house-geek-2 {
+    align-items: flex-start;
+    margin-top: -3rem;
 }
-#house-rows :nth-child(2n) {
+#red-box {
+    margin: 1rem 3rem;
+    border: .25rem solid var(--lightblue);
+    padding: .5rem 2rem;
+}
+#red-box p {
+    color: var(--lightblue);
+}
+#house-geek p{
+    margin-bottom: 1rem;
+}
+#house-rows :nth-child(2n +1) {
     flex-direction: row-reverse;
 }
 .house-row {
@@ -175,10 +190,6 @@ footer {
         margin-left: 13rem;
         width: 35rem;
     }
-    #featured-products-row-2 {
-        background-image: url(/images/fp-hero-2-sm.png);
-        background-size: 50rem;
-    }
     #cards {
         grid-template-rows: auto auto auto;
         grid-template-columns: auto;
@@ -210,11 +221,7 @@ footer {
         margin-left: 32vw;
         max-width: 51vw;
         margin-bottom: 3rem;
-    }
-    #featured-products-row-2 {
-        background-image: url(/images/fp-hero-2-xl.png);
-        background-size: contain;
-    }    
+    } 
     #fp-text {
         width: 37rem;
         padding: 44vw 0 0 22vw;

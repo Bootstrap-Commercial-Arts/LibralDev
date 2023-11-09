@@ -160,6 +160,9 @@ a img {
 .small-text {
     font-size: 1rem;
 }
+.justify {
+    text-align-last: justify;
+}
 .fine-print {font-size:1rem;}
 .caps {
     text-transform: uppercase;
