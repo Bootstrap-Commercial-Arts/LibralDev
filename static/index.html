@@ -107,11 +107,22 @@
         </picture>
         <div id="featured-products"></div>
         <div class="xl-row" id="featured-products-row-2">
-          <picture>
-            <source media="(min-width: 1200px)" srcset="/images/fp-hero-2-xl.png">
-            <source media="(min-width: 680px)" srcset="/images/fp-hero-2.png">
-            <img id="fp-hero" src="/images/fp-hero-2-sm.png" alt="Featured Products">
-          </picture>
+          <div class="row">
+            <div style="position: relative;">
+              <picture>
+                <source media="(min-width: 1200px)" srcset="/images/fp-hero-2-xl.png">
+                <source media="(min-width: 680px)" srcset="/images/fp-hero-2.png">
+                <img id="fp-hero" src="/images/fp-hero-2-sm.png" alt="Featured Products">
+              </picture>
+              <img src="/images/grey-speech.png" alt="speech bubble that reads: ...mine!?!" class="speech-bubble" id="grey-speech">
+              <img src="/images/thief-speech.png" alt="speech bubble that reads: This is a hold-up! Hand over all of your content!!!" class="speech-bubble" id="thief-speech">
+              <img src="/images/construction-speech.png" alt="speech bubble that reads: We will share this content with you and create more when we are all in need again. Your guns are unnecessary..." class="speech-bubble" id="construction-speech">
+              <img src="/images/evil-doc-speech.png" alt="speech bubble that reads: ...BUT, scrolling further will blow your mind!" class="speech-bubble" id="evil-doc-speech">
+              <img src="/images/artist-speech.png" alt="speech bubble that reads: ...I think I've painted this scene before..." class="speech-bubble" id="artist-speech">
+              <img src="/images/lou-speech.png" alt="speech bubble that reads: Prepare thyself for adventure awaits! Locked in the rooms of House Geek are playgrounds of content for your curious eyes." class="speech-bubble" id="lou-speech">
+            </div>
+          </div>
+          
           <div class="inset-row">
             <div class="column" id="featured-products-text-col" style="flex: 1.5;">
               <h4>A souvenir to remind you of your visit</h4>
@@ -331,6 +342,23 @@
       homeFeaturedProducts();
       houseGeekImages();
       template('main','append',footer)
+
+    const observer = new IntersectionObserver(entries => {
+      // Loop over the entries
+      entries.forEach(entry => {
+        // If the element is visible
+        if (entry.isIntersecting) {
+          console.log('intersected')
+          // Add the animation class
+          entry.target.classList.add('speech-animation');
+        }
+      });
+    });
+    // Get multiple elements instead of a single one using "querySelectorAll"
+    const bubbles = document.querySelectorAll('.speech-bubble');
+
+    // Loop over the elements and add each one to the observer
+    bubbles.forEach((element) => observer.observe(element));
   </script>
 </body>
 </html>

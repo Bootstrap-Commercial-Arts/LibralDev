@@ -62,8 +62,9 @@
     margin-top: -18rem;
 }
 #fp-hero {
-    width: 100%;
-    margin-top:-100%
+    width: 100vw;
+    margin: -100% -2rem 0 -2rem;
+    max-width: 100rem;
 }
 #featured-products-row-2 {
     background: linear-gradient(180deg, rgba(185,215,237,0) 0%, rgba(143,203,223,1) 35%, rgba(0,176,224,0) 80%);  
@@ -180,6 +181,61 @@ footer {
     background-color: white;
 }
 
+/* SPEECH BUBBLE SCROLL STYLING */
+
+.speech-bubble {
+    position: absolute;
+    opacity: 0;
+}
+#grey-speech {
+    top: -72rem;
+    left: 5rem;
+    width: 10rem;
+}
+#artist-speech {
+    top: -53rem;
+    left: 5rem;
+    width: 13rem;
+}
+#construction-speech {
+    top: -48rem;
+    left: 19rem;
+    width: 20rem;
+}
+#thief-speech {
+    top: -25rem;
+    left: 35rem;
+    width: 17rem;
+}
+#evil-doc-speech {
+    top: -42rem;
+    left: 39rem;
+    width: 12rem;
+}
+#lou-speech {
+    top: -50rem;
+    right: 13rem;
+    width: 31rem;
+}
+
+@keyframes speech-animation {
+	0% {opacity: 0;}
+    80% {opacity: 0;}
+	100% {opacity: 1;}
+}
+
+.speech-animation {
+    opacity: 1;
+}
+@media (prefers-reduced-motion: no-preference) {
+    .speech-animation {
+      animation-name: speech-animation;
+      animation-duration: 3s;
+    }
+  }
+
+
+
 @media  screen and (max-width: 680px) {
     #home-feature-row {
         width: 100vw;
@@ -216,6 +272,9 @@ footer {
 }
 
 @media  screen and (min-width: 1200px) {
+    #grey-speech {
+        display: unset;
+    }
     #featured-products {
         margin-top: -13rem;
         margin-left: 32vw;
@@ -226,4 +285,9 @@ footer {
         width: 37rem;
         padding: 44vw 0 0 22vw;
     }  
+    #fp-hero {
+        transform: scale(1.48) translate(-7.5rem, -10rem);
+        margin-left: auto;
+        margin-right: auto;
+    }
 }
